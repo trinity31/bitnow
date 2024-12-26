@@ -6,7 +6,7 @@ part of 'price_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$priceViewModelHash() => r'e59c4a859f6c07d5ff2424285bc11b8e3db2c2de';
+String _$priceViewModelHash() => r'f2b8a7f70f34e4c7a214a609910c02fb61f6f33b';
 
 /// See also [PriceViewModel].
 @ProviderFor(PriceViewModel)

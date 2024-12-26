@@ -40,6 +40,16 @@ class HomePage extends ConsumerWidget {
                 '원화: ${krwFormat.format(prices.$1.btcKrw ?? 0)}원',
                 style: const TextStyle(fontSize: 30),
               ),
+              if (prices.$1.kimchiPremium != null)
+                Text(
+                  '김치 프리미엄: ${prices.$1.kimchiPremium?.toStringAsFixed(2)}%',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: (prices.$1.kimchiPremium ?? 0) >= 0
+                        ? Colors.red
+                        : Colors.blue,
+                  ),
+                ),
               Text(
                 '24시간 변동률: ${prices.$1.percentChange24h?.toStringAsFixed(2)}%',
                 style: TextStyle(

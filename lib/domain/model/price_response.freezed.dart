@@ -26,6 +26,8 @@ mixin _$PriceResponse {
   double? get btcUsd => throw _privateConstructorUsedError;
   @JsonKey(name: 'percent_change_24h')
   double? get percentChange24h => throw _privateConstructorUsedError;
+  @JsonKey(name: 'kimchi_premium')
+  double? get kimchiPremium => throw _privateConstructorUsedError;
   int? get timestamp => throw _privateConstructorUsedError;
 
   /// Serializes this PriceResponse to a JSON map.
@@ -48,6 +50,7 @@ abstract class $PriceResponseCopyWith<$Res> {
       {@JsonKey(name: 'btc_krw') double? btcKrw,
       @JsonKey(name: 'btc_usd') double? btcUsd,
       @JsonKey(name: 'percent_change_24h') double? percentChange24h,
+      @JsonKey(name: 'kimchi_premium') double? kimchiPremium,
       int? timestamp});
 }
 
@@ -69,6 +72,7 @@ class _$PriceResponseCopyWithImpl<$Res, $Val extends PriceResponse>
     Object? btcKrw = freezed,
     Object? btcUsd = freezed,
     Object? percentChange24h = freezed,
+    Object? kimchiPremium = freezed,
     Object? timestamp = freezed,
   }) {
     return _then(_value.copyWith(
@@ -83,6 +87,10 @@ class _$PriceResponseCopyWithImpl<$Res, $Val extends PriceResponse>
       percentChange24h: freezed == percentChange24h
           ? _value.percentChange24h
           : percentChange24h // ignore: cast_nullable_to_non_nullable
+              as double?,
+      kimchiPremium: freezed == kimchiPremium
+          ? _value.kimchiPremium
+          : kimchiPremium // ignore: cast_nullable_to_non_nullable
               as double?,
       timestamp: freezed == timestamp
           ? _value.timestamp
@@ -104,6 +112,7 @@ abstract class _$$PriceResponseImplCopyWith<$Res>
       {@JsonKey(name: 'btc_krw') double? btcKrw,
       @JsonKey(name: 'btc_usd') double? btcUsd,
       @JsonKey(name: 'percent_change_24h') double? percentChange24h,
+      @JsonKey(name: 'kimchi_premium') double? kimchiPremium,
       int? timestamp});
 }
 
@@ -123,6 +132,7 @@ class __$$PriceResponseImplCopyWithImpl<$Res>
     Object? btcKrw = freezed,
     Object? btcUsd = freezed,
     Object? percentChange24h = freezed,
+    Object? kimchiPremium = freezed,
     Object? timestamp = freezed,
   }) {
     return _then(_$PriceResponseImpl(
@@ -137,6 +147,10 @@ class __$$PriceResponseImplCopyWithImpl<$Res>
       percentChange24h: freezed == percentChange24h
           ? _value.percentChange24h
           : percentChange24h // ignore: cast_nullable_to_non_nullable
+              as double?,
+      kimchiPremium: freezed == kimchiPremium
+          ? _value.kimchiPremium
+          : kimchiPremium // ignore: cast_nullable_to_non_nullable
               as double?,
       timestamp: freezed == timestamp
           ? _value.timestamp
@@ -153,6 +167,7 @@ class _$PriceResponseImpl implements _PriceResponse {
       {@JsonKey(name: 'btc_krw') this.btcKrw,
       @JsonKey(name: 'btc_usd') this.btcUsd,
       @JsonKey(name: 'percent_change_24h') this.percentChange24h,
+      @JsonKey(name: 'kimchi_premium') this.kimchiPremium,
       this.timestamp});
 
   factory _$PriceResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -168,11 +183,14 @@ class _$PriceResponseImpl implements _PriceResponse {
   @JsonKey(name: 'percent_change_24h')
   final double? percentChange24h;
   @override
+  @JsonKey(name: 'kimchi_premium')
+  final double? kimchiPremium;
+  @override
   final int? timestamp;
 
   @override
   String toString() {
-    return 'PriceResponse(btcKrw: $btcKrw, btcUsd: $btcUsd, percentChange24h: $percentChange24h, timestamp: $timestamp)';
+    return 'PriceResponse(btcKrw: $btcKrw, btcUsd: $btcUsd, percentChange24h: $percentChange24h, kimchiPremium: $kimchiPremium, timestamp: $timestamp)';
   }
 
   @override
@@ -184,14 +202,16 @@ class _$PriceResponseImpl implements _PriceResponse {
             (identical(other.btcUsd, btcUsd) || other.btcUsd == btcUsd) &&
             (identical(other.percentChange24h, percentChange24h) ||
                 other.percentChange24h == percentChange24h) &&
+            (identical(other.kimchiPremium, kimchiPremium) ||
+                other.kimchiPremium == kimchiPremium) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, btcKrw, btcUsd, percentChange24h, timestamp);
+  int get hashCode => Object.hash(
+      runtimeType, btcKrw, btcUsd, percentChange24h, kimchiPremium, timestamp);
 
   /// Create a copy of PriceResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -214,6 +234,7 @@ abstract class _PriceResponse implements PriceResponse {
       {@JsonKey(name: 'btc_krw') final double? btcKrw,
       @JsonKey(name: 'btc_usd') final double? btcUsd,
       @JsonKey(name: 'percent_change_24h') final double? percentChange24h,
+      @JsonKey(name: 'kimchi_premium') final double? kimchiPremium,
       final int? timestamp}) = _$PriceResponseImpl;
 
   factory _PriceResponse.fromJson(Map<String, dynamic> json) =
@@ -228,6 +249,9 @@ abstract class _PriceResponse implements PriceResponse {
   @override
   @JsonKey(name: 'percent_change_24h')
   double? get percentChange24h;
+  @override
+  @JsonKey(name: 'kimchi_premium')
+  double? get kimchiPremium;
   @override
   int? get timestamp;
 

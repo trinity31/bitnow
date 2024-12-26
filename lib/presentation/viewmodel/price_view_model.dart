@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:btc_price_app/data/remote/price_api_client.dart';
 import 'package:btc_price_app/domain/model/price_response.dart';
 import 'package:btc_price_app/core/constants.dart';
+import 'package:flutter/foundation.dart';
 
 part 'price_view_model.g.dart';
 
@@ -25,6 +26,7 @@ class PriceViewModel extends _$PriceViewModel {
     try {
       final krwPrice = await client.getKrwPrice();
       final usdPrice = await client.getUsdPrice();
+      debugPrint('krwPrice: ${krwPrice.btcKrw}');
       return (krwPrice, usdPrice);
     } catch (e) {
       throw Exception('가격 정보를 가져오는데 실패했습니다: $e');

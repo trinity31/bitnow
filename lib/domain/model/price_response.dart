@@ -9,6 +9,7 @@ class PriceResponse with _$PriceResponse {
     @JsonKey(name: 'btc_krw') double? btcKrw,
     @JsonKey(name: 'btc_usd') double? btcUsd,
     @JsonKey(name: 'percent_change_24h') double? percentChange24h,
+    @JsonKey(name: 'kimchi_premium') double? kimchiPremium,
     int? timestamp,
   }) = _PriceResponse;
 
