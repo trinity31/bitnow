@@ -1,0 +1,19 @@
+# 규칙
+## 서버 API 호출
+- 서버와의 통신을 위해 dio와 retrofit 라이브러리를 사용합니다.
+
+## URL
+- 서버 주소는 변수로 추출하여 관리해주세요(예: BASE_URL = "http://127.0.0.1:8000").
+
+## MVVM
+- 프로젝트는 MVVM 패턴을 사용합니다.
+- data, domain, presentation 계층을 구분하지만, 최대한 간단한 구조로 작성해주세요.
+
+## 상태 관리
+- 상태 관리를 위해 riverpod generator를 사용해 주세요.
+- NotifierProvider, AsyncNotifierProvider, StreamNotifierProvider 중 적절한 것을 사용해 주세요.
+
+## 디자인
+- 디자인은 기본 Material UI를 사용해 주세요.
+- **UI/UX**: 시인성(큰 글자, 고대비)
+
