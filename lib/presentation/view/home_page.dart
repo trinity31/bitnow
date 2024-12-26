@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:btc_price_app/presentation/viewmodel/price_view_model.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:btc_price_app/presentation/widget/price_display.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -36,42 +38,21 @@ class HomePage extends ConsumerWidget {
           data: (prices) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '원화: ${krwFormat.format(prices.$1.btcKrw ?? 0)}원',
-                style: const TextStyle(fontSize: 30),
-              ),
-              if (prices.$1.kimchiPremium != null)
-                Text(
-                  '김치 프리미엄: ${prices.$1.kimchiPremium?.toStringAsFixed(2)}%',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: (prices.$1.kimchiPremium ?? 0) >= 0
-                        ? Colors.red
-                        : Colors.blue,
-                  ),
-                ),
-              Text(
-                '24시간 변동률: ${prices.$1.percentChange24h?.toStringAsFixed(2)}%',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: (prices.$1.percentChange24h ?? 0) >= 0
-                      ? Colors.red
-                      : Colors.blue,
-                ),
+              PriceDisplay(
+                label: '원화',
+                suffix: '원',
+                price: prices.$1.btcKrw,
+                percentChange: prices.$1.percentChange24h,
+                premium: prices.$1.kimchiPremium,
+                formatter: krwFormat,
               ),
               const SizedBox(height: 20),
-              Text(
-                '달러: \$${usdFormat.format(prices.$2.btcUsd ?? 0)}',
-                style: const TextStyle(fontSize: 30),
-              ),
-              Text(
-                '24시간 변동률: ${prices.$2.percentChange24h?.toStringAsFixed(2)}%',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: (prices.$2.percentChange24h ?? 0) >= 0
-                      ? Colors.red
-                      : Colors.blue,
-                ),
+              PriceDisplay(
+                label: '달러',
+                prefix: '\$',
+                price: prices.$2.btcUsd,
+                percentChange: prices.$2.percentChange24h,
+                formatter: usdFormat,
               ),
             ],
           ),
