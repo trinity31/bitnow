@@ -9,6 +9,8 @@ import 'package:btc_price_app/presentation/widget/price_display.dart';
 import 'package:btc_price_app/presentation/viewmodel/indicator_view_model.dart';
 import 'package:btc_price_app/presentation/widget/indicator_display.dart';
 import 'package:btc_price_app/presentation/widget/error_display.dart';
+import 'package:btc_price_app/presentation/view/notification_page.dart';
+import 'package:btc_price_app/presentation/view/settings_page.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -25,6 +27,28 @@ class HomePage extends ConsumerWidget {
         backgroundColor: AppTheme.appBarColor,
         title: const Text('비트나우'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationPage(),
+                ),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings_outlined),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsPage(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
