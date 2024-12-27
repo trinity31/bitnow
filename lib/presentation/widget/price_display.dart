@@ -27,70 +27,88 @@ class PriceDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(
-          color: Theme.of(context).primaryColor.withOpacity(0.2),
-          width: 1,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
+    return Stack(
+      children: [
+        Card(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: BorderSide(
+              color: Theme.of(context).primaryColor.withOpacity(0.2),
+              width: 1,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
               children: [
-                if (prefix != null)
-                  Text(
-                    prefix!,
-                    style: GoogleFonts.robotoMono(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w800,
-                      color: AppTheme.primaryColor,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    if (prefix != null)
+                      Text(
+                        prefix!,
+                        style: GoogleFonts.robotoMono(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w800,
+                          color: AppTheme.primaryColor,
+                        ),
+                      ),
+                    Text(
+                      formatter.format(price ?? 0),
+                      style: GoogleFonts.robotoMono(
+                        fontSize: 36,
+                        fontWeight: FontWeight.w800,
+                        color: AppTheme.primaryColor,
+                      ),
                     ),
-                  ),
-                Text(
-                  formatter.format(price ?? 0),
-                  style: GoogleFonts.robotoMono(
-                    fontSize: 36,
-                    fontWeight: FontWeight.w800,
-                    color: AppTheme.primaryColor,
-                  ),
+                    if (suffix != null)
+                      Text(suffix!,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            color: AppTheme.secondaryTextColor,
+                          )),
+                  ],
                 ),
-                if (suffix != null)
-                  Text(suffix!,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        color: AppTheme.secondaryTextColor,
-                      )),
+                if (premium != null)
+                  _buildIndicator(
+                    '김치 프리미엄',
+                    premium!,
+                    suffix: '%',
+                  ),
+                _buildIndicator(
+                  '24시간 변동률',
+                  percentChange ?? 0,
+                  suffix: '%',
+                ),
               ],
             ),
-            Text(
-              '($source)',
+          ),
+        ),
+        Positioned(
+          bottom: 16,
+          left: 24,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: AppTheme.cardColor,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: AppTheme.primaryColor.withOpacity(0.3),
+              ),
+            ),
+            child: Text(
+              source,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 color: AppTheme.secondaryTextColor,
               ),
             ),
-            if (premium != null)
-              _buildIndicator(
-                '김치 프리미엄',
-                premium!,
-                suffix: '%',
-              ),
-            _buildIndicator(
-              '24시간 변동률',
-              percentChange ?? 0,
-              suffix: '%',
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 

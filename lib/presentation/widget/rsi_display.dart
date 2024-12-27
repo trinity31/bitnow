@@ -15,9 +15,9 @@ class RsiDisplay extends StatelessWidget {
     if (data == null) return const SizedBox.shrink();
 
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 1, vertical: 4),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
         child: Column(
           children: [
             Row(
@@ -35,7 +35,7 @@ class RsiDisplay extends StatelessWidget {
                   style: GoogleFonts.robotoMono(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: AppTheme.primaryColor,
+                    color: AppTheme.accentColor,
                   ),
                 ),
               ],
@@ -52,16 +52,16 @@ class RsiDisplay extends StatelessWidget {
                         ? Colors.red
                         : data.rsi! <= 30
                             ? Colors.blue
-                            : AppTheme.primaryColor,
+                            : AppTheme.accentColor,
                   ),
                   minHeight: 8,
                 ),
               ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             Text(
               data.signal ?? '',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 color: data.signal == 'overbought'
                     ? Colors.red
                     : data.signal == 'oversold'
@@ -79,16 +79,32 @@ class RsiDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          'RSI',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        const Padding(
+          padding: EdgeInsets.only(left: 24),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'RSI',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(width: 8),
+              Text(
+                '(Binance)',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppTheme.secondaryTextColor,
+                ),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 10),
         GridView.count(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           crossAxisCount: 2,
-          childAspectRatio: 1.5,
+          childAspectRatio: 1.6,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           padding: const EdgeInsets.symmetric(horizontal: 16),

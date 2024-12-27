@@ -1,3 +1,4 @@
+import 'package:btc_price_app/core/theme.dart';
 import 'package:btc_price_app/presentation/widget/rsi_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +22,7 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppTheme.appBarColor,
         title: const Text('비트나우'),
         actions: [
           IconButton(
@@ -45,6 +47,20 @@ class HomePage extends ConsumerWidget {
                 ),
                 data: (prices) => Column(
                   children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 24, top: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            '비트코인 현재 가격',
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
                     PriceDisplay(
                       label: '원화',
                       prefix: '₩',
@@ -54,7 +70,7 @@ class HomePage extends ConsumerWidget {
                       formatter: krwFormat,
                       source: '업비트',
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 8),
                     PriceDisplay(
                       label: '달러',
                       prefix: '\$',
@@ -66,14 +82,14 @@ class HomePage extends ConsumerWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 16),
               indicatorAsync.when(
                 loading: () => const CircularProgressIndicator(),
                 error: (error, stack) => Text('지표 로딩 오류: $error'),
                 data: (indicators) => Column(
                   children: [
                     RsiDisplay(rsiResponse: indicators.$1),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
                     GridView.count(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
