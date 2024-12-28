@@ -170,6 +170,24 @@
 }
 ```
 
+## FCM 토큰 업데이트
+
+### 요청
+
+- Method: `PUT`
+- URL: `/auth/fcm-token`
+- Headers:
+  - Authorization: `Bearer {access_token}`
+- Content-Type: `application/json`
+
+### 요청 본문
+
+```json
+{
+  "fcm_token": "new_fcm_token_here"
+}
+```
+
 ## 인증 헤더 사용 방법
 
 로그인 후 받은 access_token을 모든 보호된 API 요청의 헤더에 포함해야 합니다:

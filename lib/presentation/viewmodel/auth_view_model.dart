@@ -11,6 +11,7 @@ part 'auth_view_model.g.dart';
 @Riverpod(keepAlive: true)
 class AuthViewModel extends _$AuthViewModel {
   static const _tokenKey = 'auth_token';
+  static const _emailKey = 'user_email';
   AuthApiClient? _client;
 
   AuthViewModel() {
@@ -60,6 +61,7 @@ class AuthViewModel extends _$AuthViewModel {
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_tokenKey, response.accessToken);
+      await prefs.setString(_emailKey, email);
 
       state = AsyncValue.data(response.accessToken);
     } catch (e, st) {
@@ -74,6 +76,7 @@ class AuthViewModel extends _$AuthViewModel {
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(_tokenKey);
+      await prefs.remove(_emailKey);
 
       state = const AsyncValue.data(null);
     } catch (e, st) {
@@ -91,5 +94,22 @@ class AuthViewModel extends _$AuthViewModel {
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     }
+  }
+
+  Future<void> updateFcmToken(String fcmToken) async {
+    try {
+      final token = await build();
+      if (token != null) {
+        await client.updateFcmToken({'fcm_token': fcmToken});
+        safePrint('FCM 토큰 업데이트 성공');
+      }
+    } catch (e) {
+      safePrint('FCM 토큰 업데이트 실패: $e');
+    }
+  }
+
+  Future<String?> getUserEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_emailKey);
   }
 }

@@ -36,6 +36,15 @@ class AccountScreen extends ConsumerWidget {
                   ),
                 ),
               ),
+              FutureBuilder<String?>(
+                future: ref.read(authViewModelProvider.notifier).getUserEmail(),
+                builder: (context, snapshot) {
+                  return ListTile(
+                    leading: const Icon(Icons.email),
+                    title: Text(snapshot.data ?? '이메일 정보 없음'),
+                  );
+                },
+              ),
               ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('로그아웃'),

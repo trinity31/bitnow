@@ -19,4 +19,4 @@
 
 ## DRY
 - 중복되는 코드는 공통 위젯으로 추출해 주세요.
-- riverpod provider 가 중복 생성하지 않도록 주의해 주세요.
+- riverpod provider 가 중복 생성하지 않도록 주의해 주세요. (ex. keepAlive: true)

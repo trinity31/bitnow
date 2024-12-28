@@ -19,4 +19,7 @@ abstract class AuthApiClient {
 
   @DELETE('/auth/me')
   Future<MessageResponse> deleteAccount();
+
+  @PUT('/auth/fcm-token')
+  Future<MessageResponse> updateFcmToken(@Body() Map<String, String> body);
 }
