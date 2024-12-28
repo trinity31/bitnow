@@ -4,6 +4,8 @@ class ApiConstants {
   static String get baseUrl =>
       dotenv.env['BASE_URL'] ?? 'http://127.0.0.1:8000';
 
+  static String get wsUrl => baseUrl.replaceFirst('http', 'ws');
+
   // API 엔드포인트
   static const String krwPriceEndpoint = '/prices/krw';
   static const String usdPriceEndpoint = '/prices/usd';
