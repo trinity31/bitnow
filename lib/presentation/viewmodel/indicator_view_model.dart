@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 
 part 'indicator_view_model.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class IndicatorViewModel extends _$IndicatorViewModel {
   @override
   Future<(RsiResponse, DominanceResponse, MvrvResponse)> build() async {

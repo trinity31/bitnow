@@ -10,8 +10,8 @@ import 'package:btc_price_app/presentation/widget/price_display.dart';
 import 'package:btc_price_app/presentation/viewmodel/indicator_view_model.dart';
 import 'package:btc_price_app/presentation/widget/indicator_display.dart';
 import 'package:btc_price_app/presentation/widget/error_display.dart';
-import 'package:btc_price_app/presentation/view/notification_page.dart';
-import 'package:btc_price_app/presentation/view/settings_page.dart';
+import 'notification/notification_settings_screen.dart';
+import 'settings/settings_screen.dart';
 import 'package:btc_price_app/presentation/viewmodel/websocket_view_model.dart';
 
 class HomePage extends ConsumerWidget {
@@ -34,18 +34,18 @@ class HomePage extends ConsumerWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const NotificationPage(),
+                  builder: (context) => const NotificationSettingsScreen(),
                 ),
               );
             },
           ),
           IconButton(
-            icon: const Icon(Icons.settings_outlined),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SettingsPage(),
+                  builder: (context) => const SettingsScreen(),
                 ),
               );
             },

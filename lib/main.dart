@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:btc_price_app/presentation/view/home_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:btc_price_app/core/theme.dart';
+import 'presentation/view/settings/settings_screen.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");

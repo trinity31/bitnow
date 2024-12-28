@@ -7,12 +7,12 @@ part of 'websocket_view_model.dart';
 // **************************************************************************
 
 String _$webSocketViewModelHash() =>
-    r'2a25d41dce64c49cafa0a864cc87877bf727d734';
+    r'e8f3b1fd809254e6537e7cfafda681035fb903ee';
 
 /// See also [WebSocketViewModel].
 @ProviderFor(WebSocketViewModel)
-final webSocketViewModelProvider = AutoDisposeStreamNotifierProvider<
-    WebSocketViewModel, WebSocketResponse>.internal(
+final webSocketViewModelProvider =
+    StreamNotifierProvider<WebSocketViewModel, WebSocketResponse>.internal(
   WebSocketViewModel.new,
   name: r'webSocketViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final webSocketViewModelProvider = AutoDisposeStreamNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$WebSocketViewModel = AutoDisposeStreamNotifier<WebSocketResponse>;
+typedef _$WebSocketViewModel = StreamNotifier<WebSocketResponse>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

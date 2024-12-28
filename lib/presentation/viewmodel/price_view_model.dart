@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 
 part 'price_view_model.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class PriceViewModel extends _$PriceViewModel {
   static const int maxRetries = 3; // 최대 재시도 횟수
   static const Duration retryDelay = Duration(seconds: 2); // 재시도 간격

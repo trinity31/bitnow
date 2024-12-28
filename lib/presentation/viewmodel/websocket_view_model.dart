@@ -5,7 +5,7 @@ import 'package:btc_price_app/core/constants.dart';
 
 part 'websocket_view_model.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class WebSocketViewModel extends _$WebSocketViewModel {
   WebSocketClient? _client;
 
