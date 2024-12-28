@@ -2,11 +2,9 @@ import 'package:btc_price_app/data/remote/auth_api_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/model/auth/auth_model.dart';
-import 'package:dio/dio.dart';
-import '../../core/network/auth_interceptor.dart';
 import '../../core/constants.dart';
 import '../../core/network/dio_client.dart';
-import 'package:flutter/foundation.dart';
+import '../../utils/print.dart';
 
 part 'auth_view_model.g.dart';
 
@@ -16,15 +14,15 @@ class AuthViewModel extends _$AuthViewModel {
   AuthApiClient? _client;
 
   AuthViewModel() {
-    debugPrint('🔵 AuthViewModel created');
+    safePrint('🔵 AuthViewModel created');
   }
 
   void dispose() {
-    debugPrint('🔴 AuthViewModel disposed');
+    safePrint('🔴 AuthViewModel disposed');
   }
 
   AuthApiClient get client {
-    debugPrint('🔑 AuthApiClient accessed');
+    safePrint('🔑 AuthApiClient accessed');
     _client ??= AuthApiClient(
       DioClient.getInstance(withAuth: true),
       baseUrl: ApiConstants.baseUrl,
@@ -34,7 +32,7 @@ class AuthViewModel extends _$AuthViewModel {
 
   @override
   Future<String?> build() async {
-    debugPrint('🏗️ AuthViewModel build called');
+    safePrint('🏗️ AuthViewModel build called');
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(_tokenKey);
   }

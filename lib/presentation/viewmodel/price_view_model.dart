@@ -4,17 +4,18 @@ import 'package:btc_price_app/data/remote/price_api_client.dart';
 import 'package:btc_price_app/domain/model/price_response.dart';
 import 'package:btc_price_app/core/constants.dart';
 import 'package:flutter/foundation.dart';
+import '../../utils/print.dart';
 
 part 'price_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
 class PriceViewModel extends _$PriceViewModel {
   PriceViewModel() {
-    debugPrint('🔵 PriceViewModel created');
+    safePrint('🔵 PriceViewModel created');
   }
 
   void dispose() {
-    debugPrint('🔴 PriceViewModel disposed');
+    safePrint('🔴 PriceViewModel disposed');
   }
 
   static const int maxRetries = 3; // 최대 재시도 횟수
@@ -22,7 +23,7 @@ class PriceViewModel extends _$PriceViewModel {
 
   @override
   Future<(PriceResponse, PriceResponse)> build() async {
-    debugPrint('🏗️ PriceViewModel build called');
+    safePrint('🏗️ PriceViewModel build called');
     return _fetchPrices();
   }
 
@@ -42,7 +43,7 @@ class PriceViewModel extends _$PriceViewModel {
       return (krwPrice, usdPrice);
     } on DioException catch (e) {
       if (retryCount < maxRetries) {
-        debugPrint('API 호출 실패, ${retryCount + 1}번째 재시도...');
+        safePrint('API 호출 실패, ${retryCount + 1}번째 재시도...');
         await Future.delayed(retryDelay);
         return _fetchPrices(retryCount + 1);
       }

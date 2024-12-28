@@ -3,6 +3,7 @@ import 'package:btc_price_app/data/remote/websocket_client.dart';
 import 'package:btc_price_app/domain/model/websocket_response.dart';
 import 'package:btc_price_app/core/constants.dart';
 import 'package:flutter/foundation.dart';
+import '../../utils/print.dart';
 
 part 'websocket_view_model.g.dart';
 
@@ -11,16 +12,16 @@ class WebSocketViewModel extends _$WebSocketViewModel {
   WebSocketClient? _client;
 
   WebSocketViewModel() {
-    debugPrint('🔵 WebSocketViewModel created');
+    safePrint('🔵 WebSocketViewModel created');
   }
 
   void dispose() {
-    debugPrint('🔴 WebSocketViewModel disposed');
+    safePrint('🔴 WebSocketViewModel disposed');
   }
 
   @override
   Stream<WebSocketResponse> build() {
-    debugPrint('🏗️ WebSocketViewModel build called');
+    safePrint('🏗️ WebSocketViewModel build called');
     _client = WebSocketClient(
       baseUrl: ApiConstants.baseUrl.replaceFirst('http', 'ws'),
     );

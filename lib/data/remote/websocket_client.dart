@@ -1,7 +1,7 @@
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:btc_price_app/domain/model/websocket_response.dart';
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
+import '../../utils/print.dart';
 
 class WebSocketClient {
   WebSocketChannel? _channel;
@@ -14,9 +14,9 @@ class WebSocketClient {
       _channel = WebSocketChannel.connect(
         Uri.parse('$baseUrl/ws/price'),
       );
-      debugPrint('WebSocket 연결 성공');
+      safePrint('WebSocket 연결 성공');
     } catch (e) {
-      debugPrint('WebSocket 연결 실패: $e');
+      safePrint('WebSocket 연결 실패: $e');
       rethrow;
     }
   }

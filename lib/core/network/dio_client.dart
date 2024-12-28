@@ -1,7 +1,7 @@
+import 'package:btc_price_app/utils/print.dart';
 import 'package:dio/dio.dart';
 import 'auth_interceptor.dart';
 import '../constants.dart';
-import 'package:flutter/foundation.dart';
 
 class DioClient {
   static Dio getInstance({bool withAuth = false}) {
@@ -18,7 +18,7 @@ class DioClient {
       LogInterceptor(
         requestBody: false,
         responseBody: false,
-        logPrint: (object) => debugPrint(object.toString()),
+        logPrint: (object) => safePrint(object.toString()),
       ),
     );
 
