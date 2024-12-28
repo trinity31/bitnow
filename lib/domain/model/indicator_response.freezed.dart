@@ -477,7 +477,7 @@ DominanceResponse _$DominanceResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DominanceResponse {
   double? get dominance => throw _privateConstructorUsedError;
-  int? get timestamp => throw _privateConstructorUsedError;
+  String? get timestamp => throw _privateConstructorUsedError;
 
   /// Serializes this DominanceResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -495,7 +495,7 @@ abstract class $DominanceResponseCopyWith<$Res> {
           DominanceResponse value, $Res Function(DominanceResponse) then) =
       _$DominanceResponseCopyWithImpl<$Res, DominanceResponse>;
   @useResult
-  $Res call({double? dominance, int? timestamp});
+  $Res call({double? dominance, String? timestamp});
 }
 
 /// @nodoc
@@ -524,7 +524,7 @@ class _$DominanceResponseCopyWithImpl<$Res, $Val extends DominanceResponse>
       timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ) as $Val);
   }
 }
@@ -537,7 +537,7 @@ abstract class _$$DominanceResponseImplCopyWith<$Res>
       __$$DominanceResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double? dominance, int? timestamp});
+  $Res call({double? dominance, String? timestamp});
 }
 
 /// @nodoc
@@ -564,7 +564,7 @@ class __$$DominanceResponseImplCopyWithImpl<$Res>
       timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -580,7 +580,7 @@ class _$DominanceResponseImpl implements _DominanceResponse {
   @override
   final double? dominance;
   @override
-  final int? timestamp;
+  final String? timestamp;
 
   @override
   String toString() {
@@ -620,8 +620,9 @@ class _$DominanceResponseImpl implements _DominanceResponse {
 }
 
 abstract class _DominanceResponse implements DominanceResponse {
-  factory _DominanceResponse({final double? dominance, final int? timestamp}) =
-      _$DominanceResponseImpl;
+  factory _DominanceResponse(
+      {final double? dominance,
+      final String? timestamp}) = _$DominanceResponseImpl;
 
   factory _DominanceResponse.fromJson(Map<String, dynamic> json) =
       _$DominanceResponseImpl.fromJson;
@@ -629,7 +630,7 @@ abstract class _DominanceResponse implements DominanceResponse {
   @override
   double? get dominance;
   @override
-  int? get timestamp;
+  String? get timestamp;
 
   /// Create a copy of DominanceResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -646,7 +647,7 @@ MvrvResponse _$MvrvResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MvrvResponse {
   double? get mvrv => throw _privateConstructorUsedError;
-  int? get timestamp => throw _privateConstructorUsedError;
+  String? get timestamp => throw _privateConstructorUsedError;
 
   /// Serializes this MvrvResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -664,7 +665,7 @@ abstract class $MvrvResponseCopyWith<$Res> {
           MvrvResponse value, $Res Function(MvrvResponse) then) =
       _$MvrvResponseCopyWithImpl<$Res, MvrvResponse>;
   @useResult
-  $Res call({double? mvrv, int? timestamp});
+  $Res call({double? mvrv, String? timestamp});
 }
 
 /// @nodoc
@@ -693,7 +694,7 @@ class _$MvrvResponseCopyWithImpl<$Res, $Val extends MvrvResponse>
       timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ) as $Val);
   }
 }
@@ -706,7 +707,7 @@ abstract class _$$MvrvResponseImplCopyWith<$Res>
       __$$MvrvResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double? mvrv, int? timestamp});
+  $Res call({double? mvrv, String? timestamp});
 }
 
 /// @nodoc
@@ -733,7 +734,7 @@ class __$$MvrvResponseImplCopyWithImpl<$Res>
       timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -749,7 +750,7 @@ class _$MvrvResponseImpl implements _MvrvResponse {
   @override
   final double? mvrv;
   @override
-  final int? timestamp;
+  final String? timestamp;
 
   @override
   String toString() {
@@ -787,7 +788,7 @@ class _$MvrvResponseImpl implements _MvrvResponse {
 }
 
 abstract class _MvrvResponse implements MvrvResponse {
-  factory _MvrvResponse({final double? mvrv, final int? timestamp}) =
+  factory _MvrvResponse({final double? mvrv, final String? timestamp}) =
       _$MvrvResponseImpl;
 
   factory _MvrvResponse.fromJson(Map<String, dynamic> json) =
@@ -796,7 +797,7 @@ abstract class _MvrvResponse implements MvrvResponse {
   @override
   double? get mvrv;
   @override
-  int? get timestamp;
+  String? get timestamp;
 
   /// Create a copy of MvrvResponse
   /// with the given fields replaced by the non-null parameter values.

@@ -46,7 +46,7 @@ _$DominanceResponseImpl _$$DominanceResponseImplFromJson(
         Map<String, dynamic> json) =>
     _$DominanceResponseImpl(
       dominance: (json['dominance'] as num?)?.toDouble(),
-      timestamp: (json['timestamp'] as num?)?.toInt(),
+      timestamp: json['timestamp'] as String?,
     );
 
 Map<String, dynamic> _$$DominanceResponseImplToJson(
@@ -59,7 +59,7 @@ Map<String, dynamic> _$$DominanceResponseImplToJson(
 _$MvrvResponseImpl _$$MvrvResponseImplFromJson(Map<String, dynamic> json) =>
     _$MvrvResponseImpl(
       mvrv: (json['mvrv'] as num?)?.toDouble(),
-      timestamp: (json['timestamp'] as num?)?.toInt(),
+      timestamp: json['timestamp'] as String?,
     );
 
 Map<String, dynamic> _$$MvrvResponseImplToJson(_$MvrvResponseImpl instance) =>

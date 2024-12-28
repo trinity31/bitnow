@@ -31,7 +31,7 @@ class RsiResponse with _$RsiResponse {
 class DominanceResponse with _$DominanceResponse {
   factory DominanceResponse({
     double? dominance,
-    int? timestamp,
+    String? timestamp,
   }) = _DominanceResponse;
 
   factory DominanceResponse.fromJson(Map<String, dynamic> json) =>
@@ -42,7 +42,7 @@ class DominanceResponse with _$DominanceResponse {
 class MvrvResponse with _$MvrvResponse {
   factory MvrvResponse({
     double? mvrv,
-    int? timestamp,
+    String? timestamp,
   }) = _MvrvResponse;
 
   factory MvrvResponse.fromJson(Map<String, dynamic> json) =>

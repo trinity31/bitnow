@@ -31,7 +31,8 @@ class IndicatorViewModel extends _$IndicatorViewModel {
       // debugPrint('RSI Signal: ${rsi.signal}');
       return (rsi, dominance, mvrv);
     } catch (e) {
-      throw Exception('지표 정보를 가져오는데 실패했습니다: $e');
+      debugPrint('[IndicatorViewModel] 지표 정보를 가져오는데 실패했습니다: $e');
+      throw Exception('[IndicatorViewModel] 지표 정보를 가져오는데 실패했습니다: $e');
     }
   }
 

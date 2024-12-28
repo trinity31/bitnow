@@ -7,7 +7,7 @@ part of 'indicator_view_model.dart';
 // **************************************************************************
 
 String _$indicatorViewModelHash() =>
-    r'96c430da8cf2573a0595f45cbbff19bbf6737643';
+    r'0fd9682e672f11cc39fdf34d9e39498f4ec9dfd2';
 
 /// See also [IndicatorViewModel].
 @ProviderFor(IndicatorViewModel)
