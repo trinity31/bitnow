@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import '../../core/network/auth_interceptor.dart';
 import '../../core/constants.dart';
 import '../../core/network/dio_client.dart';
+import 'package:flutter/foundation.dart';
 
 part 'auth_view_model.g.dart';
 
@@ -14,7 +15,16 @@ class AuthViewModel extends _$AuthViewModel {
   static const _tokenKey = 'auth_token';
   AuthApiClient? _client;
 
+  AuthViewModel() {
+    debugPrint('🔵 AuthViewModel created');
+  }
+
+  void dispose() {
+    debugPrint('🔴 AuthViewModel disposed');
+  }
+
   AuthApiClient get client {
+    debugPrint('🔑 AuthApiClient accessed');
     _client ??= AuthApiClient(
       DioClient.getInstance(withAuth: true),
       baseUrl: ApiConstants.baseUrl,
@@ -24,6 +34,7 @@ class AuthViewModel extends _$AuthViewModel {
 
   @override
   Future<String?> build() async {
+    debugPrint('🏗️ AuthViewModel build called');
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(_tokenKey);
   }

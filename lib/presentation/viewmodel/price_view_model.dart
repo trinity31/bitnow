@@ -9,11 +9,20 @@ part 'price_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
 class PriceViewModel extends _$PriceViewModel {
+  PriceViewModel() {
+    debugPrint('🔵 PriceViewModel created');
+  }
+
+  void dispose() {
+    debugPrint('🔴 PriceViewModel disposed');
+  }
+
   static const int maxRetries = 3; // 최대 재시도 횟수
   static const Duration retryDelay = Duration(seconds: 2); // 재시도 간격
 
   @override
   Future<(PriceResponse, PriceResponse)> build() async {
+    debugPrint('🏗️ PriceViewModel build called');
     return _fetchPrices();
   }
 

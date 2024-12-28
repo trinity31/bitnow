@@ -16,8 +16,8 @@ class DioClient {
     // 로깅 인터셉터 추가
     dio.interceptors.add(
       LogInterceptor(
-        requestBody: true,
-        responseBody: true,
+        requestBody: false,
+        responseBody: false,
         logPrint: (object) => debugPrint(object.toString()),
       ),
     );

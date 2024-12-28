@@ -11,8 +11,8 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authViewModelProvider);
 
-    debugPrint('Auth State: ${authState.value}');
-    debugPrint('Has Token: ${authState.value?.isNotEmpty ?? false}');
+    // debugPrint('Auth State: ${authState.value}');
+    // debugPrint('Has Token: ${authState.value?.isNotEmpty ?? false}');
 
     return Scaffold(
       appBar: AppBar(

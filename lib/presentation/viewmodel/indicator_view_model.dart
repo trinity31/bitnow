@@ -9,8 +9,17 @@ part 'indicator_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
 class IndicatorViewModel extends _$IndicatorViewModel {
+  IndicatorViewModel() {
+    debugPrint('🔵 IndicatorViewModel created');
+  }
+
+  void dispose() {
+    debugPrint('🔴 IndicatorViewModel disposed');
+  }
+
   @override
   Future<(RsiResponse, DominanceResponse, MvrvResponse)> build() async {
+    debugPrint('🏗️ IndicatorViewModel build called');
     return _fetchIndicators();
   }
 
