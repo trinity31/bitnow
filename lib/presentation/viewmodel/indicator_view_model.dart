@@ -48,4 +48,38 @@ class IndicatorViewModel extends _$IndicatorViewModel {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => _fetchIndicators());
   }
+
+  Future<void> createMvrv(double value) async {
+    final dio = Dio(BaseOptions(
+      baseUrl: ApiConstants.baseUrl,
+      connectTimeout: const Duration(seconds: 5),
+      receiveTimeout: const Duration(seconds: 3),
+    ));
+
+    final client = IndicatorApiClient(dio);
+
+    try {
+      await client.createMvrv({'value': value});
+      refresh();
+    } catch (e) {
+      throw Exception('MVRV 생성 실패: $e');
+    }
+  }
+
+  Future<void> updateMvrv(double value) async {
+    final dio = Dio(BaseOptions(
+      baseUrl: ApiConstants.baseUrl,
+      connectTimeout: const Duration(seconds: 5),
+      receiveTimeout: const Duration(seconds: 3),
+    ));
+
+    final client = IndicatorApiClient(dio);
+
+    try {
+      await client.updateMvrv({'value': value});
+      refresh();
+    } catch (e) {
+      throw Exception('MVRV 업데이트 실패: $e');
+    }
+  }
 }

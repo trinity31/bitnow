@@ -20,6 +20,9 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final wsStream = ref.watch(webSocketViewModelProvider);
+    final mvrvAsync = ref.watch(indicatorViewModelProvider.select(
+      (value) => value.whenData((data) => data.$3),
+    ));
     final krwFormat = NumberFormat('#,###');
     final usdFormat = NumberFormat('#,###');
 
@@ -128,9 +131,13 @@ class HomePage extends ConsumerWidget {
                       value: data.dominance,
                       suffix: '%',
                     ),
-                    IndicatorDisplay(
-                      label: 'MVRV',
-                      value: data.mvrv,
+                    mvrvAsync.when(
+                      loading: () => const CircularProgressIndicator(),
+                      error: (error, stack) => const Text('MVRV 로딩 오류'),
+                      data: (mvrv) => IndicatorDisplay(
+                        label: 'MVRV',
+                        value: mvrv.mvrv,
+                      ),
                     ),
                   ],
                 ),

@@ -2,6 +2,7 @@ import 'package:btc_price_app/data/remote/auth_api_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/model/auth/auth_model.dart';
+import '../../domain/model/user.dart';
 import '../../core/constants.dart';
 import '../../core/network/dio_client.dart';
 import '../../utils/print.dart';
@@ -32,10 +33,12 @@ class AuthViewModel extends _$AuthViewModel {
   }
 
   @override
-  Future<String?> build() async {
+  Future<User?> build() async {
     safePrint('🏗️ AuthViewModel build called');
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_tokenKey);
+    final token = prefs.getString(_tokenKey);
+    if (token == null) return null;
+    return User(fcmToken: token, isAdmin: false);
   }
 
   Future<void> register(String email, String password, String? fcmToken) async {
@@ -60,10 +63,13 @@ class AuthViewModel extends _$AuthViewModel {
       final response = await client.login(request);
 
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_tokenKey, response.accessToken);
+      await prefs.setString(_tokenKey, response.accessToken ?? '');
       await prefs.setString(_emailKey, email);
 
-      state = AsyncValue.data(response.accessToken);
+      state = AsyncValue.data(User(
+        fcmToken: response.accessToken ?? '',
+        isAdmin: response.user?.isAdmin ?? false,
+      ));
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     }
@@ -112,4 +118,6 @@ class AuthViewModel extends _$AuthViewModel {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(_emailKey);
   }
+
+  bool get isAdmin => state.value?.isAdmin ?? false;
 }

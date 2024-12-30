@@ -36,7 +36,6 @@ class WebSocketResponse with _$WebSocketResponse {
     @JsonKey(name: 'kimchi_premium') double? kimchiPremium,
     @JsonKey(name: 'change_24h') Change24h? change24h,
     WebSocketRsi? rsi,
-    double? mvrv,
     double? dominance,
   }) = _WebSocketResponse;
 

@@ -20,4 +20,10 @@ abstract class IndicatorApiClient {
 
   @GET(ApiConstants.mvrvEndpoint)
   Future<MvrvResponse> getMvrv();
+
+  @POST(ApiConstants.mvrvEndpoint)
+  Future<MvrvResponse> createMvrv(@Body() Map<String, dynamic> body);
+
+  @PUT(ApiConstants.mvrvEndpoint)
+  Future<MvrvResponse> updateMvrv(@Body() Map<String, dynamic> body);
 }

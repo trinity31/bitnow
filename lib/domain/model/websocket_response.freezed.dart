@@ -417,7 +417,6 @@ mixin _$WebSocketResponse {
   @JsonKey(name: 'change_24h')
   Change24h? get change24h => throw _privateConstructorUsedError;
   WebSocketRsi? get rsi => throw _privateConstructorUsedError;
-  double? get mvrv => throw _privateConstructorUsedError;
   double? get dominance => throw _privateConstructorUsedError;
 
   /// Serializes this WebSocketResponse to a JSON map.
@@ -443,7 +442,6 @@ abstract class $WebSocketResponseCopyWith<$Res> {
       @JsonKey(name: 'kimchi_premium') double? kimchiPremium,
       @JsonKey(name: 'change_24h') Change24h? change24h,
       WebSocketRsi? rsi,
-      double? mvrv,
       double? dominance});
 
   $Change24hCopyWith<$Res>? get change24h;
@@ -471,7 +469,6 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
     Object? kimchiPremium = freezed,
     Object? change24h = freezed,
     Object? rsi = freezed,
-    Object? mvrv = freezed,
     Object? dominance = freezed,
   }) {
     return _then(_value.copyWith(
@@ -499,10 +496,6 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
           ? _value.rsi
           : rsi // ignore: cast_nullable_to_non_nullable
               as WebSocketRsi?,
-      mvrv: freezed == mvrv
-          ? _value.mvrv
-          : mvrv // ignore: cast_nullable_to_non_nullable
-              as double?,
       dominance: freezed == dominance
           ? _value.dominance
           : dominance // ignore: cast_nullable_to_non_nullable
@@ -554,7 +547,6 @@ abstract class _$$WebSocketResponseImplCopyWith<$Res>
       @JsonKey(name: 'kimchi_premium') double? kimchiPremium,
       @JsonKey(name: 'change_24h') Change24h? change24h,
       WebSocketRsi? rsi,
-      double? mvrv,
       double? dominance});
 
   @override
@@ -582,7 +574,6 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
     Object? kimchiPremium = freezed,
     Object? change24h = freezed,
     Object? rsi = freezed,
-    Object? mvrv = freezed,
     Object? dominance = freezed,
   }) {
     return _then(_$WebSocketResponseImpl(
@@ -610,10 +601,6 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
           ? _value.rsi
           : rsi // ignore: cast_nullable_to_non_nullable
               as WebSocketRsi?,
-      mvrv: freezed == mvrv
-          ? _value.mvrv
-          : mvrv // ignore: cast_nullable_to_non_nullable
-              as double?,
       dominance: freezed == dominance
           ? _value.dominance
           : dominance // ignore: cast_nullable_to_non_nullable
@@ -632,7 +619,6 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
       @JsonKey(name: 'kimchi_premium') this.kimchiPremium,
       @JsonKey(name: 'change_24h') this.change24h,
       this.rsi,
-      this.mvrv,
       this.dominance});
 
   factory _$WebSocketResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -653,13 +639,11 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
   @override
   final WebSocketRsi? rsi;
   @override
-  final double? mvrv;
-  @override
   final double? dominance;
 
   @override
   String toString() {
-    return 'WebSocketResponse(krw: $krw, usd: $usd, timestamp: $timestamp, kimchiPremium: $kimchiPremium, change24h: $change24h, rsi: $rsi, mvrv: $mvrv, dominance: $dominance)';
+    return 'WebSocketResponse(krw: $krw, usd: $usd, timestamp: $timestamp, kimchiPremium: $kimchiPremium, change24h: $change24h, rsi: $rsi, dominance: $dominance)';
   }
 
   @override
@@ -676,7 +660,6 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
             (identical(other.change24h, change24h) ||
                 other.change24h == change24h) &&
             (identical(other.rsi, rsi) || other.rsi == rsi) &&
-            (identical(other.mvrv, mvrv) || other.mvrv == mvrv) &&
             (identical(other.dominance, dominance) ||
                 other.dominance == dominance));
   }
@@ -684,7 +667,7 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, krw, usd, timestamp,
-      kimchiPremium, change24h, rsi, mvrv, dominance);
+      kimchiPremium, change24h, rsi, dominance);
 
   /// Create a copy of WebSocketResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -711,7 +694,6 @@ abstract class _WebSocketResponse implements WebSocketResponse {
       @JsonKey(name: 'kimchi_premium') final double? kimchiPremium,
       @JsonKey(name: 'change_24h') final Change24h? change24h,
       final WebSocketRsi? rsi,
-      final double? mvrv,
       final double? dominance}) = _$WebSocketResponseImpl;
 
   factory _WebSocketResponse.fromJson(Map<String, dynamic> json) =
@@ -731,8 +713,6 @@ abstract class _WebSocketResponse implements WebSocketResponse {
   Change24h? get change24h;
   @override
   WebSocketRsi? get rsi;
-  @override
-  double? get mvrv;
   @override
   double? get dominance;
 

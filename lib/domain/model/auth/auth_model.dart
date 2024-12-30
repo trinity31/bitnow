@@ -1,3 +1,8 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'auth_model.freezed.dart';
+part 'auth_model.g.dart';
+
 class AuthRequest {
   final String email;
   final String password;
@@ -16,21 +21,29 @@ class AuthRequest {
       };
 }
 
-class AuthResponse {
-  final String accessToken;
-  final String tokenType;
+@freezed
+class UserResponse with _$UserResponse {
+  factory UserResponse({
+    int? id,
+    String? email,
+    @JsonKey(name: 'fcm_token') String? fcmToken,
+    @JsonKey(name: 'is_admin') bool? isAdmin,
+  }) = _UserResponse;
 
-  AuthResponse({
-    required this.accessToken,
-    required this.tokenType,
-  });
+  factory UserResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserResponseFromJson(json);
+}
 
-  factory AuthResponse.fromJson(Map<String, dynamic> json) {
-    return AuthResponse(
-      accessToken: json['access_token'],
-      tokenType: json['token_type'],
-    );
-  }
+@freezed
+class AuthResponse with _$AuthResponse {
+  factory AuthResponse({
+    @JsonKey(name: 'access_token') String? accessToken,
+    @JsonKey(name: 'token_type') String? tokenType,
+    UserResponse? user,
+  }) = _AuthResponse;
+
+  factory AuthResponse.fromJson(Map<String, dynamic> json) =>
+      _$AuthResponseFromJson(json);
 }
 
 class MessageResponse {

@@ -47,7 +47,6 @@ _$WebSocketResponseImpl _$$WebSocketResponseImplFromJson(
       rsi: json['rsi'] == null
           ? null
           : WebSocketRsi.fromJson(json['rsi'] as Map<String, dynamic>),
-      mvrv: (json['mvrv'] as num?)?.toDouble(),
       dominance: (json['dominance'] as num?)?.toDouble(),
     );
 
@@ -60,6 +59,5 @@ Map<String, dynamic> _$$WebSocketResponseImplToJson(
       'kimchi_premium': instance.kimchiPremium,
       'change_24h': instance.change24h,
       'rsi': instance.rsi,
-      'mvrv': instance.mvrv,
       'dominance': instance.dominance,
     };
