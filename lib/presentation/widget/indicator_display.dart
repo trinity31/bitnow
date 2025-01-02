@@ -5,6 +5,7 @@ class IndicatorDisplay extends StatelessWidget {
   final double? value;
   final String? suffix;
   final bool showProgress;
+  final int decimalPlaces;
 
   const IndicatorDisplay({
     super.key,
@@ -12,6 +13,7 @@ class IndicatorDisplay extends StatelessWidget {
     required this.value,
     this.suffix,
     this.showProgress = false,
+    this.decimalPlaces = 1,
   });
 
   @override
@@ -19,7 +21,7 @@ class IndicatorDisplay extends StatelessWidget {
     return Column(
       children: [
         Text(
-          '$label: ${value?.toStringAsFixed(1)}${suffix ?? ''}',
+          '$label: ${value?.toStringAsFixed(decimalPlaces)}${suffix ?? ''}',
           style: const TextStyle(fontSize: 24),
         ),
       ],

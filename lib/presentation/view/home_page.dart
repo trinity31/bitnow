@@ -137,6 +137,7 @@ class HomePage extends ConsumerWidget {
                       data: (mvrv) => IndicatorDisplay(
                         label: 'MVRV',
                         value: mvrv.mvrv,
+                        decimalPlaces: 2,
                       ),
                     ),
                   ],
