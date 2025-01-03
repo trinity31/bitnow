@@ -5,54 +5,57 @@ import 'package:btc_price_app/domain/model/price_response.dart';
 import 'package:btc_price_app/core/constants.dart';
 import 'package:flutter/foundation.dart';
 import '../../utils/print.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 part 'price_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
-class PriceViewModel extends _$PriceViewModel {
-  PriceViewModel() {
-    safePrint('🔵 PriceViewModel created');
-  }
-
-  void dispose() {
-    safePrint('🔴 PriceViewModel disposed');
-  }
-
-  static const int maxRetries = 3; // 최대 재시도 횟수
-  static const Duration retryDelay = Duration(seconds: 2); // 재시도 간격
+class PriceViewModel extends AsyncNotifier<double?> {
+  WebSocketChannel? _channel;
 
   @override
-  Future<(PriceResponse, PriceResponse)> build() async {
-    safePrint('🏗️ PriceViewModel build called');
-    return _fetchPrices();
+  Future<double?> build() async {
+    _initWebSocket();
+    return null;
   }
 
-  Future<(PriceResponse, PriceResponse)> _fetchPrices(
-      [int retryCount = 0]) async {
+  void _initWebSocket() {
     try {
-      final dio = Dio(BaseOptions(
-        baseUrl: ApiConstants.baseUrl,
-        connectTimeout: const Duration(seconds: 5),
-        receiveTimeout: const Duration(seconds: 3),
-      ));
+      _channel?.sink.close();
+      _channel = WebSocketChannel.connect(
+        Uri.parse(ApiConstants.wsUrl),
+      );
 
-      final client = PriceApiClient(dio);
-
-      final krwPrice = await client.getKrwPrice();
-      final usdPrice = await client.getUsdPrice();
-      return (krwPrice, usdPrice);
-    } on DioException catch (e) {
-      if (retryCount < maxRetries) {
-        safePrint('API 호출 실패, ${retryCount + 1}번째 재시도...');
-        await Future.delayed(retryDelay);
-        return _fetchPrices(retryCount + 1);
-      }
-      throw Exception('가격 정보를 가져오는데 실패했습니다: $e');
+      _channel?.stream.listen(
+        (data) {
+          final price = double.tryParse(data.toString());
+          if (price != null) {
+            state = AsyncData(price);
+          }
+        },
+        onError: (error) {
+          print('WebSocket 오류: $error');
+          state = AsyncError(error, StackTrace.current);
+          // 재연결 시도
+          Future.delayed(const Duration(seconds: 5), _initWebSocket);
+        },
+        onDone: () {
+          print('WebSocket 연결 종료');
+          // 연결이 종료되면 재연결 시도
+          Future.delayed(const Duration(seconds: 5), _initWebSocket);
+        },
+      );
+    } catch (e) {
+      print('WebSocket 연결 실패: $e');
+      state = AsyncError(e, StackTrace.current);
+      // 연결 실패시 재연결 시도
+      Future.delayed(const Duration(seconds: 5), _initWebSocket);
     }
   }
 
-  Future<void> refresh() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() => _fetchPrices());
+  @override
+  void dispose() {
+    _channel?.sink.close();
+    super.dispose();
   }
 }
