@@ -57,18 +57,18 @@ class RsiDisplay extends StatelessWidget {
                   minHeight: 8,
                 ),
               ),
-            const SizedBox(height: 8),
-            Text(
-              data.signal ?? '',
-              style: TextStyle(
-                fontSize: 16,
-                color: data.signal == 'overbought'
-                    ? Colors.red
-                    : data.signal == 'oversold'
-                        ? Colors.blue
-                        : AppTheme.secondaryTextColor,
-              ),
-            ),
+            // const SizedBox(height: 8),
+            // Text(
+            //   data.signal ?? '',
+            //   style: TextStyle(
+            //     fontSize: 16,
+            //     color: data.signal == 'overbought'
+            //         ? Colors.red
+            //         : data.signal == 'oversold'
+            //             ? Colors.blue
+            //             : AppTheme.secondaryTextColor,
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -104,7 +104,7 @@ class RsiDisplay extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           crossAxisCount: 2,
-          childAspectRatio: 1.6,
+          childAspectRatio: 1.8,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           padding: const EdgeInsets.symmetric(horizontal: 16),
