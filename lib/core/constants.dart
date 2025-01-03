@@ -1,9 +1,10 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiConstants {
-  static const String baseUrl = 'http://192.168.0.37:8000';
-  // WebSocket URL에서 'ws://'로 시작하도록 수정
-  static const String wsUrl = 'ws://192.168.0.37:8000/ws/price';
+  static String get baseUrl =>
+      dotenv.env['BASE_URL'] ?? 'http://127.0.0.1:8000';
+
+  static String get wsUrl => baseUrl.replaceFirst('http', 'ws');
 
   // API 엔드포인트
   static const String krwPriceEndpoint = '/prices/krw';
