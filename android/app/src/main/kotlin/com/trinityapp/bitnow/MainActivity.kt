@@ -1,4 +1,4 @@
-package com.example.bitnow
+package com.trinityapp.bitnow
 
 import io.flutter.embedding.android.FlutterActivity
 
