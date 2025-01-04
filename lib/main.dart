@@ -95,7 +95,9 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // FCM 토큰이 있으면 저장 및 업데이트 시도
     if (initialFcmToken != null) {
+      // updateFcmToken 메서드가 이제 저장과 업데이트를 모두 처리합니다
       ref.read(authViewModelProvider.notifier).updateFcmToken(initialFcmToken!);
     }
 
