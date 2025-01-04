@@ -43,6 +43,7 @@ class AlertResponse {
   final bool isActive;
   final DateTime createdAt;
   final DateTime? triggeredAt;
+  final Currency? currency;
 
   AlertResponse({
     required this.id,
@@ -54,6 +55,7 @@ class AlertResponse {
     required this.isActive,
     required this.createdAt,
     this.triggeredAt,
+    this.currency,
   });
 
   factory AlertResponse.fromJson(Map<String, dynamic> json) {
@@ -71,6 +73,29 @@ class AlertResponse {
       triggeredAt: json['triggered_at'] != null
           ? DateTime.parse(json['triggered_at'])
           : null,
+      currency: json['currency'] != null
+          ? Currency.values.byName(json['currency'])
+          : null,
+    );
+  }
+}
+
+class AlertToggleResponse {
+  final int id;
+  final bool isActive;
+  final String message;
+
+  AlertToggleResponse({
+    required this.id,
+    required this.isActive,
+    required this.message,
+  });
+
+  factory AlertToggleResponse.fromJson(Map<String, dynamic> json) {
+    return AlertToggleResponse(
+      id: json['id'],
+      isActive: json['is_active'],
+      message: json['message'],
     );
   }
 }

@@ -52,4 +52,14 @@ class AlertViewModel extends _$AlertViewModel {
       rethrow;
     }
   }
+
+  Future<void> reactivateAlert(int id) async {
+    try {
+      final response = await client.toggleAlert(id);
+      ref.invalidateSelf();
+    } catch (e) {
+      safePrint('알림 상태 변경 실패: $e');
+      rethrow;
+    }
+  }
 }

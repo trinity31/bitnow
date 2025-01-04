@@ -17,4 +17,10 @@ abstract class AlertApiClient {
 
   @DELETE('/alerts/{alertId}')
   Future<MessageResponse> deleteAlert(@Path('alertId') int alertId);
+
+  // @PUT('/alerts/{id}/reactivate')
+  // Future<AlertResponse> reactivateAlert(@Path('id') int id);
+
+  @PATCH('/alerts/{id}/toggle')
+  Future<AlertToggleResponse> toggleAlert(@Path('id') int id);
 }

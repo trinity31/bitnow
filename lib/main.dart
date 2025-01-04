@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:btc_price_app/presentation/viewmodel/alert_view_model.dart';
 import 'package:btc_price_app/utils/print.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'firebase_options.dart';
 import 'presentation/viewmodel/auth_view_model.dart';
+import 'package:flutter/services.dart';
 
 // 백그라운드 메시지 핸들러
 @pragma('vm:entry-point')
@@ -97,9 +99,21 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // FCM 토큰이 있으면 저장 및 업데이트 시도
     if (initialFcmToken != null) {
-      // updateFcmToken 메서드가 이제 저장과 업데이트를 모두 처리합니다
       ref.read(authViewModelProvider.notifier).updateFcmToken(initialFcmToken!);
     }
+
+    // 앱이 포그라운드로 돌아올 때 알림 목록 새로고침
+    FirebaseMessaging.onMessage.listen((message) {
+      ref.invalidate(alertViewModelProvider);
+    });
+
+    // 앱이 백그라운드에서 포그라운드로 전환될 때 알림 목록 새로고침
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
+      if (msg == AppLifecycleState.resumed.toString()) {
+        ref.invalidate(alertViewModelProvider);
+      }
+      return null;
+    });
 
     return MaterialApp(
       title: 'BTC Price App',

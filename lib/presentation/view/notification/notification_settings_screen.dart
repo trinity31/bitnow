@@ -236,6 +236,8 @@ class _NotificationSettingsScreenState
                                     const EdgeInsets.symmetric(vertical: 16),
                               ),
                               onPressed: () async {
+                                FocusScope.of(context).unfocus();
+
                                 try {
                                   final threshold = double.tryParse(
                                       _thresholdController.text);
@@ -317,12 +319,38 @@ class _NotificationSettingsScreenState
                           _selectedType == AlertType.price ? _currency : null,
                         );
                         return ListTile(
-                          title: Text(
-                            _getAlertTypeText(alert.type),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                            ),
+                          title: Row(
+                            children: [
+                              Text(
+                                _getAlertTypeText(alert.type),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: alert.isActive
+                                      ? Colors.green.withOpacity(0.2)
+                                      : Colors.orange.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  alert.isActive ? '활성' : '알림 완료',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: alert.isActive
+                                        ? Colors.green
+                                        : Colors.orange,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           subtitle: Padding(
                             padding: const EdgeInsets.only(top: 4),
@@ -331,10 +359,12 @@ class _NotificationSettingsScreenState
                               children: [
                                 Text(
                                   formattedValue,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                    color: alert.isActive
+                                        ? Colors.white
+                                        : Colors.white.withOpacity(0.5),
                                   ),
                                 ),
                                 const SizedBox(width: 8),
@@ -344,36 +374,87 @@ class _NotificationSettingsScreenState
                                     alert.direction == AlertDirection.above
                                         ? '이상'
                                         : '이하',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 16,
-                                      color: Colors.white70,
+                                      color: alert.isActive
+                                          ? Colors.white70
+                                          : Colors.white30,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.grey),
-                            onPressed: () async {
-                              try {
-                                await ref
-                                    .read(alertViewModelProvider.notifier)
-                                    .deleteAlert(alert.id);
-                                if (mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('알림이 삭제되었습니다')),
-                                  );
-                                }
-                              } catch (e) {
-                                if (mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('알림 삭제 실패: $e')),
-                                  );
-                                }
-                              }
-                            },
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (!alert.isActive)
+                                OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                    foregroundColor: Colors.orange,
+                                    side:
+                                        const BorderSide(color: Colors.orange),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 4,
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    try {
+                                      await ref
+                                          .read(alertViewModelProvider.notifier)
+                                          .reactivateAlert(alert.id);
+                                      if (mounted) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text('알림이 다시 활성화되었습니다'),
+                                          ),
+                                        );
+                                      }
+                                    } catch (e) {
+                                      if (mounted) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              e.toString().replaceAll(
+                                                  'Exception: ', ''),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  },
+                                  child: const Text('다시 켜기'),
+                                ),
+                              const SizedBox(width: 8),
+                              IconButton(
+                                icon: const Icon(Icons.delete,
+                                    color: Colors.grey),
+                                onPressed: () async {
+                                  try {
+                                    await ref
+                                        .read(alertViewModelProvider.notifier)
+                                        .deleteAlert(alert.id);
+                                    if (mounted) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text('알림이 삭제되었습니다')),
+                                      );
+                                    }
+                                  } catch (e) {
+                                    if (mounted) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(content: Text('알림 삭제 실패: $e')),
+                                      );
+                                    }
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         );
                       },
