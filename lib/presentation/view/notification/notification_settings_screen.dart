@@ -352,43 +352,50 @@ class _NotificationSettingsScreenState
                               ),
                             ],
                           ),
-                          subtitle: Padding(
-                            padding: const EdgeInsets.only(top: 4),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  formattedValue,
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: alert.isActive
-                                        ? Colors.white
-                                        : Colors.white.withOpacity(0.5),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 4),
-                                  child: Text(
-                                    alert.direction == AlertDirection.above
-                                        ? '이상'
-                                        : '이하',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: alert.isActive
-                                          ? Colors.white70
-                                          : Colors.white30,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
+                          subtitle: Row(
                             children: [
-                              if (!alert.isActive)
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 4),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          formattedValue,
+                                          style: TextStyle(
+                                            fontSize: 21.6,
+                                            fontWeight: FontWeight.bold,
+                                            color: alert.isActive
+                                                ? Colors.white
+                                                : Colors.white.withOpacity(0.5),
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          alert.direction ==
+                                                  AlertDirection.above
+                                              ? '이상'
+                                              : '이하',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: alert.isActive
+                                                ? Colors.white70
+                                                : Colors.white30,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              if (!alert.isActive) ...[
+                                const SizedBox(width: 8),
                                 OutlinedButton(
                                   style: OutlinedButton.styleFrom(
                                     foregroundColor: Colors.orange,
@@ -428,6 +435,7 @@ class _NotificationSettingsScreenState
                                   },
                                   child: const Text('다시 켜기'),
                                 ),
+                              ],
                               const SizedBox(width: 8),
                               IconButton(
                                 icon: const Icon(Icons.delete,
