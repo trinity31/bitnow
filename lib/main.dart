@@ -16,8 +16,12 @@ import 'package:flutter/services.dart';
 // 백그라운드 메시지 핸들러
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
+  //();
   safePrint('백그라운드 메시지 수신: ${message.messageId}');
+  safePrint('백그라운드 메시지 수신: ${message.messageId}');
+  safePrint('알림 제목: ${message.notification?.title}');
+  safePrint('알림 내용: ${message.notification?.body}');
+  safePrint('알림 데이터: ${message.data}');
 }
 
 void main() async {
@@ -38,6 +42,22 @@ void main() async {
   // FCM 백그라운드 핸들러 설정
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
+  NotificationSettings settings =
+      await FirebaseMessaging.instance.requestPermission(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    safePrint('User granted permission');
+    // String? apnsToken = await messaging.getAPNSToken();
+    // String? fcmToken = await messaging.getToken();
+    // safePrint("FCM Token: $fcmToken");
+  } else {
+    safePrint('User declined or has not accepted permission');
+  }
+
   String? fcmToken;
   if (Platform.isIOS) {
     // iOS: APNs 토큰 먼저 가져오기
@@ -47,11 +67,6 @@ void main() async {
 
       // APNs 토큰을 얻은 후 FCM 토큰 요청
       if (apnsToken != null) {
-        await FirebaseMessaging.instance.requestPermission(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
         fcmToken = await FirebaseMessaging.instance.getToken();
         safePrint('FCM Token: $fcmToken');
       }
@@ -70,8 +85,16 @@ void main() async {
 
   // 로컬 노티피케이션 초기화
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'default_channel_id', // 동일한 ID를 AndroidManifest.xml에 설정
+    'Default Channel', // 사용자에게 표시될 채널 이름
+    importance: Importance.high,
+  );
+
   const initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
+
   const initializationSettingsIOS = DarwinInitializationSettings(
     requestAlertPermission: true,
     requestBadgePermission: true,
@@ -82,6 +105,13 @@ void main() async {
     iOS: initializationSettingsIOS,
   );
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+  if (Platform.isAndroid) {
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+  }
 
   runApp(
     ProviderScope(
