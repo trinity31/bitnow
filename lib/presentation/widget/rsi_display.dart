@@ -51,7 +51,7 @@ class RsiDisplay extends StatelessWidget {
                     data.rsi! >= 70
                         ? Colors.red
                         : data.rsi! <= 30
-                            ? Colors.blue
+                            ? Colors.red
                             : AppTheme.accentColor,
                   ),
                   minHeight: 8,
