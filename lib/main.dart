@@ -99,6 +99,14 @@ void main() async {
     requestAlertPermission: true,
     requestBadgePermission: true,
     requestSoundPermission: true,
+    notificationCategories: [
+      DarwinNotificationCategory(
+        'bitnow_alert',
+        options: {
+          DarwinNotificationCategoryOption.allowAnnouncement,
+        },
+      ),
+    ],
   );
   const initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
