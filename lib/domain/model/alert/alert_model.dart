@@ -1,8 +1,25 @@
-enum AlertType { price, rsi, kimchiPremium, dominance, mvrv }
+import 'package:json_annotation/json_annotation.dart';
+
+enum AlertType {
+  price,
+  rsi,
+  @JsonValue('kimchi_premium')
+  kimchiPremium,
+  dominance,
+  mvrv
+}
 
 enum AlertDirection { above, below }
 
-enum RsiInterval { min15, hour1, hour4, day1 }
+enum RsiInterval {
+  min15('15m'),
+  hour1('1h'),
+  hour4('4h'),
+  day1('1d');
+
+  final String value;
+  const RsiInterval(this.value);
+}
 
 enum Currency { KRW, USD }
 
@@ -24,13 +41,26 @@ class AlertRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        'type': type.name,
+        'type': type == AlertType.kimchiPremium ? 'kimchi_premium' : type.name,
         'symbol': symbol,
         'threshold': threshold,
         'direction': direction.name,
-        if (interval != null) 'interval': interval!.name,
+        if (interval != null) 'interval': interval!.value,
         if (currency != null) 'currency': currency!.name,
       };
+
+  String _getRsiIntervalText(RsiInterval interval) {
+    switch (interval) {
+      case RsiInterval.min15:
+        return '15분';
+      case RsiInterval.hour1:
+        return '1시간';
+      case RsiInterval.hour4:
+        return '4시간';
+      case RsiInterval.day1:
+        return '1일';
+    }
+  }
 }
 
 class AlertResponse {
@@ -61,13 +91,12 @@ class AlertResponse {
   factory AlertResponse.fromJson(Map<String, dynamic> json) {
     return AlertResponse(
       id: json['id'],
-      type: AlertType.values.byName(json['type']),
+      type: _parseAlertType(json['type']),
       symbol: json['symbol'],
       threshold: json['threshold'].toDouble(),
       direction: AlertDirection.values.byName(json['direction']),
-      interval: json['interval'] != null
-          ? RsiInterval.values.byName(json['interval'])
-          : null,
+      interval:
+          json['interval'] != null ? _parseInterval(json['interval']) : null,
       isActive: json['is_active'],
       createdAt: DateTime.parse(json['created_at']),
       triggeredAt: json['triggered_at'] != null
@@ -77,6 +106,20 @@ class AlertResponse {
           ? Currency.values.byName(json['currency'])
           : null,
     );
+  }
+
+  static RsiInterval _parseInterval(String interval) {
+    return RsiInterval.values.firstWhere(
+      (e) => e.value == interval,
+      orElse: () => throw FormatException('Unknown interval format: $interval'),
+    );
+  }
+
+  static AlertType _parseAlertType(String type) {
+    if (type == 'kimchi_premium') {
+      return AlertType.kimchiPremium;
+    }
+    return AlertType.values.byName(type);
   }
 }
 

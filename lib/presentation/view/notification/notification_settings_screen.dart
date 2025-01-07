@@ -141,7 +141,9 @@ class _NotificationSettingsScreenState
                             onChanged: (value) {
                               setState(() {
                                 _selectedType = value!;
-                                if (value != AlertType.rsi) {
+                                if (value == AlertType.rsi) {
+                                  _interval = RsiInterval.min15;
+                                } else {
                                   _interval = null;
                                 }
                               });
@@ -243,6 +245,11 @@ class _NotificationSettingsScreenState
                                       _thresholdController.text);
                                   if (threshold == null) {
                                     throw AlertException('올바른 임계값을 입력해주세요');
+                                  }
+
+                                  if (_selectedType == AlertType.rsi &&
+                                      _interval == null) {
+                                    throw AlertException('RSI 주기를 선택해주세요');
                                   }
 
                                   await ref
@@ -543,6 +550,7 @@ class _NotificationSettingsScreenState
       case AlertType.rsi:
         return value.toStringAsFixed(0);
       case AlertType.kimchiPremium:
+        return '${value.toStringAsFixed(2)}%';
       case AlertType.dominance:
         return '${value.toStringAsFixed(1)}%';
       case AlertType.mvrv:
