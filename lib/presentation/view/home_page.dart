@@ -120,7 +120,7 @@ class HomePage extends ConsumerWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
-                  childAspectRatio: 1.5,
+                  childAspectRatio: 2.0,
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -139,8 +139,29 @@ class HomePage extends ConsumerWidget {
                         decimalPlaces: 2,
                       ),
                     ),
+                    IndicatorDisplay(
+                      label: '3주 최고가 (\$)',
+                      value: data.high3w?.usd ?? 0,
+                      formatter: usdFormat,
+                      prefix: '\$',
+                      dateText: data.high3w?.usdTimestamp != null
+                          ? DateFormat('yyyy-MM-dd').format(
+                              DateTime.parse(data.high3w!.usdTimestamp!))
+                          : null,
+                    ),
+                    IndicatorDisplay(
+                      label: '3주 최고가 (₩)',
+                      value: data.high3w?.krw ?? 0,
+                      formatter: krwFormat,
+                      prefix: '₩',
+                      dateText: data.high3w?.krwTimestamp != null
+                          ? DateFormat('yyyy-MM-dd').format(
+                              DateTime.parse(data.high3w!.krwTimestamp!))
+                          : null,
+                    ),
                   ],
                 ),
+                const SizedBox(height: 32),
               ],
             ),
           ),

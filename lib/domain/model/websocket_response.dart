@@ -37,8 +37,21 @@ class WebSocketResponse with _$WebSocketResponse {
     @JsonKey(name: 'change_24h') Change24h? change24h,
     WebSocketRsi? rsi,
     double? dominance,
+    @JsonKey(name: 'high_3w') High3w? high3w,
   }) = _WebSocketResponse;
 
   factory WebSocketResponse.fromJson(Map<String, dynamic> json) =>
       _$WebSocketResponseFromJson(json);
+}
+
+@freezed
+class High3w with _$High3w {
+  factory High3w({
+    double? krw,
+    double? usd,
+    @JsonKey(name: 'krw_timestamp') String? krwTimestamp,
+    @JsonKey(name: 'usd_timestamp') String? usdTimestamp,
+  }) = _High3w;
+
+  factory High3w.fromJson(Map<String, dynamic> json) => _$High3wFromJson(json);
 }

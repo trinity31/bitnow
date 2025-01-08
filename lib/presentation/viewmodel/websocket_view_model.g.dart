@@ -7,7 +7,7 @@ part of 'websocket_view_model.dart';
 // **************************************************************************
 
 String _$webSocketViewModelHash() =>
-    r'8c6e1a3ae60270547c382270157bb7551138c73f';
+    r'c120e1dbb01ec7539821fa05925e7b5a5a54ddc5';
 
 /// See also [WebSocketViewModel].
 @ProviderFor(WebSocketViewModel)

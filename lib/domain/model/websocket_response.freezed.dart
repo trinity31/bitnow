@@ -418,6 +418,8 @@ mixin _$WebSocketResponse {
   Change24h? get change24h => throw _privateConstructorUsedError;
   WebSocketRsi? get rsi => throw _privateConstructorUsedError;
   double? get dominance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'high_3w')
+  High3w? get high3w => throw _privateConstructorUsedError;
 
   /// Serializes this WebSocketResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -442,10 +444,12 @@ abstract class $WebSocketResponseCopyWith<$Res> {
       @JsonKey(name: 'kimchi_premium') double? kimchiPremium,
       @JsonKey(name: 'change_24h') Change24h? change24h,
       WebSocketRsi? rsi,
-      double? dominance});
+      double? dominance,
+      @JsonKey(name: 'high_3w') High3w? high3w});
 
   $Change24hCopyWith<$Res>? get change24h;
   $WebSocketRsiCopyWith<$Res>? get rsi;
+  $High3wCopyWith<$Res>? get high3w;
 }
 
 /// @nodoc
@@ -470,6 +474,7 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
     Object? change24h = freezed,
     Object? rsi = freezed,
     Object? dominance = freezed,
+    Object? high3w = freezed,
   }) {
     return _then(_value.copyWith(
       krw: freezed == krw
@@ -500,6 +505,10 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
           ? _value.dominance
           : dominance // ignore: cast_nullable_to_non_nullable
               as double?,
+      high3w: freezed == high3w
+          ? _value.high3w
+          : high3w // ignore: cast_nullable_to_non_nullable
+              as High3w?,
     ) as $Val);
   }
 
@@ -530,6 +539,20 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
       return _then(_value.copyWith(rsi: value) as $Val);
     });
   }
+
+  /// Create a copy of WebSocketResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $High3wCopyWith<$Res>? get high3w {
+    if (_value.high3w == null) {
+      return null;
+    }
+
+    return $High3wCopyWith<$Res>(_value.high3w!, (value) {
+      return _then(_value.copyWith(high3w: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -547,12 +570,15 @@ abstract class _$$WebSocketResponseImplCopyWith<$Res>
       @JsonKey(name: 'kimchi_premium') double? kimchiPremium,
       @JsonKey(name: 'change_24h') Change24h? change24h,
       WebSocketRsi? rsi,
-      double? dominance});
+      double? dominance,
+      @JsonKey(name: 'high_3w') High3w? high3w});
 
   @override
   $Change24hCopyWith<$Res>? get change24h;
   @override
   $WebSocketRsiCopyWith<$Res>? get rsi;
+  @override
+  $High3wCopyWith<$Res>? get high3w;
 }
 
 /// @nodoc
@@ -575,6 +601,7 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
     Object? change24h = freezed,
     Object? rsi = freezed,
     Object? dominance = freezed,
+    Object? high3w = freezed,
   }) {
     return _then(_$WebSocketResponseImpl(
       krw: freezed == krw
@@ -605,6 +632,10 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
           ? _value.dominance
           : dominance // ignore: cast_nullable_to_non_nullable
               as double?,
+      high3w: freezed == high3w
+          ? _value.high3w
+          : high3w // ignore: cast_nullable_to_non_nullable
+              as High3w?,
     ));
   }
 }
@@ -619,7 +650,8 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
       @JsonKey(name: 'kimchi_premium') this.kimchiPremium,
       @JsonKey(name: 'change_24h') this.change24h,
       this.rsi,
-      this.dominance});
+      this.dominance,
+      @JsonKey(name: 'high_3w') this.high3w});
 
   factory _$WebSocketResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$WebSocketResponseImplFromJson(json);
@@ -640,10 +672,13 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
   final WebSocketRsi? rsi;
   @override
   final double? dominance;
+  @override
+  @JsonKey(name: 'high_3w')
+  final High3w? high3w;
 
   @override
   String toString() {
-    return 'WebSocketResponse(krw: $krw, usd: $usd, timestamp: $timestamp, kimchiPremium: $kimchiPremium, change24h: $change24h, rsi: $rsi, dominance: $dominance)';
+    return 'WebSocketResponse(krw: $krw, usd: $usd, timestamp: $timestamp, kimchiPremium: $kimchiPremium, change24h: $change24h, rsi: $rsi, dominance: $dominance, high3w: $high3w)';
   }
 
   @override
@@ -661,13 +696,14 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
                 other.change24h == change24h) &&
             (identical(other.rsi, rsi) || other.rsi == rsi) &&
             (identical(other.dominance, dominance) ||
-                other.dominance == dominance));
+                other.dominance == dominance) &&
+            (identical(other.high3w, high3w) || other.high3w == high3w));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, krw, usd, timestamp,
-      kimchiPremium, change24h, rsi, dominance);
+      kimchiPremium, change24h, rsi, dominance, high3w);
 
   /// Create a copy of WebSocketResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -688,13 +724,15 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
 
 abstract class _WebSocketResponse implements WebSocketResponse {
   factory _WebSocketResponse(
-      {final double? krw,
-      final double? usd,
-      final String? timestamp,
-      @JsonKey(name: 'kimchi_premium') final double? kimchiPremium,
-      @JsonKey(name: 'change_24h') final Change24h? change24h,
-      final WebSocketRsi? rsi,
-      final double? dominance}) = _$WebSocketResponseImpl;
+          {final double? krw,
+          final double? usd,
+          final String? timestamp,
+          @JsonKey(name: 'kimchi_premium') final double? kimchiPremium,
+          @JsonKey(name: 'change_24h') final Change24h? change24h,
+          final WebSocketRsi? rsi,
+          final double? dominance,
+          @JsonKey(name: 'high_3w') final High3w? high3w}) =
+      _$WebSocketResponseImpl;
 
   factory _WebSocketResponse.fromJson(Map<String, dynamic> json) =
       _$WebSocketResponseImpl.fromJson;
@@ -715,11 +753,233 @@ abstract class _WebSocketResponse implements WebSocketResponse {
   WebSocketRsi? get rsi;
   @override
   double? get dominance;
+  @override
+  @JsonKey(name: 'high_3w')
+  High3w? get high3w;
 
   /// Create a copy of WebSocketResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WebSocketResponseImplCopyWith<_$WebSocketResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+High3w _$High3wFromJson(Map<String, dynamic> json) {
+  return _High3w.fromJson(json);
+}
+
+/// @nodoc
+mixin _$High3w {
+  double? get krw => throw _privateConstructorUsedError;
+  double? get usd => throw _privateConstructorUsedError;
+  @JsonKey(name: 'krw_timestamp')
+  String? get krwTimestamp => throw _privateConstructorUsedError;
+  @JsonKey(name: 'usd_timestamp')
+  String? get usdTimestamp => throw _privateConstructorUsedError;
+
+  /// Serializes this High3w to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of High3w
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $High3wCopyWith<High3w> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $High3wCopyWith<$Res> {
+  factory $High3wCopyWith(High3w value, $Res Function(High3w) then) =
+      _$High3wCopyWithImpl<$Res, High3w>;
+  @useResult
+  $Res call(
+      {double? krw,
+      double? usd,
+      @JsonKey(name: 'krw_timestamp') String? krwTimestamp,
+      @JsonKey(name: 'usd_timestamp') String? usdTimestamp});
+}
+
+/// @nodoc
+class _$High3wCopyWithImpl<$Res, $Val extends High3w>
+    implements $High3wCopyWith<$Res> {
+  _$High3wCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of High3w
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? krw = freezed,
+    Object? usd = freezed,
+    Object? krwTimestamp = freezed,
+    Object? usdTimestamp = freezed,
+  }) {
+    return _then(_value.copyWith(
+      krw: freezed == krw
+          ? _value.krw
+          : krw // ignore: cast_nullable_to_non_nullable
+              as double?,
+      usd: freezed == usd
+          ? _value.usd
+          : usd // ignore: cast_nullable_to_non_nullable
+              as double?,
+      krwTimestamp: freezed == krwTimestamp
+          ? _value.krwTimestamp
+          : krwTimestamp // ignore: cast_nullable_to_non_nullable
+              as String?,
+      usdTimestamp: freezed == usdTimestamp
+          ? _value.usdTimestamp
+          : usdTimestamp // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$High3wImplCopyWith<$Res> implements $High3wCopyWith<$Res> {
+  factory _$$High3wImplCopyWith(
+          _$High3wImpl value, $Res Function(_$High3wImpl) then) =
+      __$$High3wImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {double? krw,
+      double? usd,
+      @JsonKey(name: 'krw_timestamp') String? krwTimestamp,
+      @JsonKey(name: 'usd_timestamp') String? usdTimestamp});
+}
+
+/// @nodoc
+class __$$High3wImplCopyWithImpl<$Res>
+    extends _$High3wCopyWithImpl<$Res, _$High3wImpl>
+    implements _$$High3wImplCopyWith<$Res> {
+  __$$High3wImplCopyWithImpl(
+      _$High3wImpl _value, $Res Function(_$High3wImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of High3w
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? krw = freezed,
+    Object? usd = freezed,
+    Object? krwTimestamp = freezed,
+    Object? usdTimestamp = freezed,
+  }) {
+    return _then(_$High3wImpl(
+      krw: freezed == krw
+          ? _value.krw
+          : krw // ignore: cast_nullable_to_non_nullable
+              as double?,
+      usd: freezed == usd
+          ? _value.usd
+          : usd // ignore: cast_nullable_to_non_nullable
+              as double?,
+      krwTimestamp: freezed == krwTimestamp
+          ? _value.krwTimestamp
+          : krwTimestamp // ignore: cast_nullable_to_non_nullable
+              as String?,
+      usdTimestamp: freezed == usdTimestamp
+          ? _value.usdTimestamp
+          : usdTimestamp // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$High3wImpl implements _High3w {
+  _$High3wImpl(
+      {this.krw,
+      this.usd,
+      @JsonKey(name: 'krw_timestamp') this.krwTimestamp,
+      @JsonKey(name: 'usd_timestamp') this.usdTimestamp});
+
+  factory _$High3wImpl.fromJson(Map<String, dynamic> json) =>
+      _$$High3wImplFromJson(json);
+
+  @override
+  final double? krw;
+  @override
+  final double? usd;
+  @override
+  @JsonKey(name: 'krw_timestamp')
+  final String? krwTimestamp;
+  @override
+  @JsonKey(name: 'usd_timestamp')
+  final String? usdTimestamp;
+
+  @override
+  String toString() {
+    return 'High3w(krw: $krw, usd: $usd, krwTimestamp: $krwTimestamp, usdTimestamp: $usdTimestamp)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$High3wImpl &&
+            (identical(other.krw, krw) || other.krw == krw) &&
+            (identical(other.usd, usd) || other.usd == usd) &&
+            (identical(other.krwTimestamp, krwTimestamp) ||
+                other.krwTimestamp == krwTimestamp) &&
+            (identical(other.usdTimestamp, usdTimestamp) ||
+                other.usdTimestamp == usdTimestamp));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, krw, usd, krwTimestamp, usdTimestamp);
+
+  /// Create a copy of High3w
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$High3wImplCopyWith<_$High3wImpl> get copyWith =>
+      __$$High3wImplCopyWithImpl<_$High3wImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$High3wImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _High3w implements High3w {
+  factory _High3w(
+          {final double? krw,
+          final double? usd,
+          @JsonKey(name: 'krw_timestamp') final String? krwTimestamp,
+          @JsonKey(name: 'usd_timestamp') final String? usdTimestamp}) =
+      _$High3wImpl;
+
+  factory _High3w.fromJson(Map<String, dynamic> json) = _$High3wImpl.fromJson;
+
+  @override
+  double? get krw;
+  @override
+  double? get usd;
+  @override
+  @JsonKey(name: 'krw_timestamp')
+  String? get krwTimestamp;
+  @override
+  @JsonKey(name: 'usd_timestamp')
+  String? get usdTimestamp;
+
+  /// Create a copy of High3w
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$High3wImplCopyWith<_$High3wImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

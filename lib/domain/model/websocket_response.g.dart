@@ -48,6 +48,9 @@ _$WebSocketResponseImpl _$$WebSocketResponseImplFromJson(
           ? null
           : WebSocketRsi.fromJson(json['rsi'] as Map<String, dynamic>),
       dominance: (json['dominance'] as num?)?.toDouble(),
+      high3w: json['high_3w'] == null
+          ? null
+          : High3w.fromJson(json['high_3w'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$WebSocketResponseImplToJson(
@@ -60,4 +63,20 @@ Map<String, dynamic> _$$WebSocketResponseImplToJson(
       'change_24h': instance.change24h,
       'rsi': instance.rsi,
       'dominance': instance.dominance,
+      'high_3w': instance.high3w,
+    };
+
+_$High3wImpl _$$High3wImplFromJson(Map<String, dynamic> json) => _$High3wImpl(
+      krw: (json['krw'] as num?)?.toDouble(),
+      usd: (json['usd'] as num?)?.toDouble(),
+      krwTimestamp: json['krw_timestamp'] as String?,
+      usdTimestamp: json['usd_timestamp'] as String?,
+    );
+
+Map<String, dynamic> _$$High3wImplToJson(_$High3wImpl instance) =>
+    <String, dynamic>{
+      'krw': instance.krw,
+      'usd': instance.usd,
+      'krw_timestamp': instance.krwTimestamp,
+      'usd_timestamp': instance.usdTimestamp,
     };
