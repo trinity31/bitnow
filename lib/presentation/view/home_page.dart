@@ -53,13 +53,12 @@ class HomePage extends ConsumerWidget {
               );
             },
           ),
-          // IconButton(
-          //   icon: const Icon(Icons.refresh),
-          //   onPressed: () {
-          //     ref.read(priceViewModelProvider.notifier).refresh();
-          //     ref.read(indicatorViewModelProvider.notifier).refresh();
-          //   },
-          // ),
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              ref.read(webSocketViewModelProvider.notifier).reconnect();
+            },
+          ),
         ],
       ),
       body: SingleChildScrollView(

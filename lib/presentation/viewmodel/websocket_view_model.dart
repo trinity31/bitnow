@@ -35,7 +35,9 @@ class WebSocketViewModel extends _$WebSocketViewModel {
   }
 
   void reconnect() {
-    _client?.disconnect();
-    _client?.connect();
+    safePrint('웹소켓 재연결 시도');
+    //state = const AsyncLoading();
+    _client?.reconnect();
+    // _client?.connect();
   }
 }
