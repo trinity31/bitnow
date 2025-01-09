@@ -116,52 +116,54 @@ class HomePage extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  childAspectRatio: 2.0,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  children: [
-                    IndicatorDisplay(
-                      label: '도미넌스',
-                      value: data.dominance,
-                      suffix: '%',
-                    ),
-                    mvrvAsync.when(
-                      loading: () => const CircularProgressIndicator(),
-                      error: (error, stack) => const Text('MVRV 로딩 오류'),
-                      data: (mvrv) => IndicatorDisplay(
-                        label: 'MVRV',
-                        value: mvrv.mvrv,
-                        decimalPlaces: 2,
+                Container(
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.9,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    children: [
+                      IndicatorDisplay(
+                        label: '3주 최고가 (\$)',
+                        value: data.high3w?.usd ?? 0,
+                        formatter: usdFormat,
+                        prefix: '\$',
+                        dateText: data.high3w?.usdTimestamp != null
+                            ? DateFormat('yyyy-MM-dd').format(
+                                DateTime.parse(data.high3w!.usdTimestamp!))
+                            : null,
                       ),
-                    ),
-                    IndicatorDisplay(
-                      label: '3주 최고가 (\$)',
-                      value: data.high3w?.usd ?? 0,
-                      formatter: usdFormat,
-                      prefix: '\$',
-                      dateText: data.high3w?.usdTimestamp != null
-                          ? DateFormat('yyyy-MM-dd').format(
-                              DateTime.parse(data.high3w!.usdTimestamp!))
-                          : null,
-                    ),
-                    IndicatorDisplay(
-                      label: '3주 최고가 (₩)',
-                      value: data.high3w?.krw ?? 0,
-                      formatter: krwFormat,
-                      prefix: '₩',
-                      dateText: data.high3w?.krwTimestamp != null
-                          ? DateFormat('yyyy-MM-dd').format(
-                              DateTime.parse(data.high3w!.krwTimestamp!))
-                          : null,
-                    ),
-                  ],
+                      IndicatorDisplay(
+                        label: '3주 최고가 (₩)',
+                        value: data.high3w?.krw ?? 0,
+                        formatter: krwFormat,
+                        prefix: '₩',
+                        dateText: data.high3w?.krwTimestamp != null
+                            ? DateFormat('yyyy-MM-dd').format(
+                                DateTime.parse(data.high3w!.krwTimestamp!))
+                            : null,
+                      ),
+                      IndicatorDisplay(
+                        label: '도미넌스',
+                        value: data.dominance,
+                        suffix: '%',
+                      ),
+                      mvrvAsync.when(
+                        loading: () => const CircularProgressIndicator(),
+                        error: (error, stack) => const Text('MVRV 로딩 오류'),
+                        data: (mvrv) => IndicatorDisplay(
+                          label: 'MVRV',
+                          value: mvrv.mvrv,
+                          decimalPlaces: 2,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 48),
               ],
             ),
           ),
