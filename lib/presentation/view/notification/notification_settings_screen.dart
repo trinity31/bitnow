@@ -7,6 +7,7 @@ import '../../viewmodel/alert_view_model.dart';
 import '../../../domain/model/alert/alert_model.dart';
 import '../../../core/exceptions.dart';
 import 'package:intl/intl.dart';
+import '../credit/credit_earn_screen.dart';
 
 class NotificationSettingsScreen extends ConsumerStatefulWidget {
   const NotificationSettingsScreen({super.key});
@@ -334,7 +335,13 @@ class _NotificationSettingsScreenState
                                             FilledButton(
                                               onPressed: () {
                                                 Navigator.pop(context);
-                                                // TODO: 광고 시청 화면으로 이동
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const CreditEarnScreen(),
+                                                  ),
+                                                );
                                               },
                                               child: const Text('크레딧 적립하기'),
                                             ),

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../viewmodel/auth_view_model.dart';
 import '../../view/account/account_screen.dart';
 import '../../view/admin/admin_page.dart';
+import '../../view/credit/credit_earn_screen.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -40,6 +41,18 @@ class SettingsScreen extends ConsumerWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const NotificationSettingsScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.copyright),
+            title: const Text('크레딧 적립'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CreditEarnScreen(),
                 ),
               );
             },
