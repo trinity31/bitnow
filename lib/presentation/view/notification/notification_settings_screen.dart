@@ -1,3 +1,4 @@
+import 'package:btc_price_app/presentation/viewmodel/credit_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../auth/auth_screen.dart';
@@ -90,6 +91,40 @@ class _NotificationSettingsScreenState
         return Scaffold(
           appBar: AppBar(
             title: const Text('알림 설정'),
+            actions: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: ref.watch(creditViewModelProvider).when(
+                        data: (credit) => Row(
+                          children: [
+                            const Icon(
+                              Icons.copyright,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${credit.balance}',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        loading: () => const SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
+                        error: (_, __) => const Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                        ),
+                      ),
+                ),
+              ),
+            ],
           ),
           body: Column(
             children: [
@@ -271,6 +306,8 @@ class _NotificationSettingsScreenState
                                         ),
                                       );
 
+                                  ref.invalidate(creditViewModelProvider);
+
                                   if (mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
@@ -280,19 +317,52 @@ class _NotificationSettingsScreenState
                                   }
                                 } catch (e) {
                                   if (mounted) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          e
-                                              .toString()
-                                              .replaceAll('Exception: ', ''),
+                                    if (e is AlertException &&
+                                        e.toString().contains('크레딧이 부족')) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: const Text('크레딧 부족'),
+                                          content: const Text(
+                                              '크레딧이 부족하여 알림을 설정할 수 없습니다.\n광고를 시청하고 크레딧을 적립하시겠습니까?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: const Text('취소'),
+                                            ),
+                                            FilledButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                // TODO: 광고 시청 화면으로 이동
+                                              },
+                                              child: const Text('크레딧 적립하기'),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                    );
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            e
+                                                .toString()
+                                                .replaceAll('Exception: ', ''),
+                                          ),
+                                        ),
+                                      );
+                                    }
                                   }
                                 }
                               },
-                              child: const Text('알림 설정'),
+                              child: const Text(
+                                '알림 설정 (1c)',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ],

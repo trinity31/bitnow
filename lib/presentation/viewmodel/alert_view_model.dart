@@ -1,3 +1,5 @@
+import '../../core/exceptions.dart';
+import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../domain/model/alert/alert_model.dart';
 import '../../data/remote/alert_api_client.dart';
@@ -39,6 +41,12 @@ class AlertViewModel extends _$AlertViewModel {
       ref.invalidateSelf();
     } catch (e) {
       safePrint('알림 생성 실패: $e');
+      if (e is DioException && e.response?.statusCode == 400) {
+        final detail = e.response?.data['detail'] as String?;
+        if (detail != null) {
+          throw AlertException(detail);
+        }
+      }
       rethrow;
     }
   }
