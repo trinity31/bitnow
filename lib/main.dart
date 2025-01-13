@@ -12,6 +12,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'firebase_options.dart';
 import 'presentation/viewmodel/auth_view_model.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 // 백그라운드 메시지 핸들러
 @pragma('vm:entry-point')
@@ -27,6 +28,23 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+
+  if (Platform.isAndroid || Platform.isIOS) {
+    try {
+      // 테스트 디바이스 ID 등록
+      MobileAds.instance.updateRequestConfiguration(
+        RequestConfiguration(
+          testDeviceIds: ['18aea38bb112d1ba870703ef5672c7d3', '71694CD35869E1D1AA27879358C4E46C'],
+        ),
+      );
+
+      // 광고 초기화
+      await MobileAds.instance.initialize();
+      safePrint('AdMob 초기화 성공');
+    } catch (e) {
+      safePrint('AdMob 초기화 실패: $e');
+    }
+  }
 
   try {
     // Firebase 초기화

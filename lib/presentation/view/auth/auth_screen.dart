@@ -3,9 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../viewmodel/auth_view_model.dart';
 import 'package:dio/dio.dart';
 import '../notification/notification_settings_screen.dart';
+import '../credit/credit_earn_screen.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {
-  const AuthScreen({super.key});
+  final String source;
+
+  const AuthScreen({
+    super.key,
+    required this.source,
+  });
 
   @override
   ConsumerState<AuthScreen> createState() => _AuthScreenState();
@@ -55,7 +61,9 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
           if (token != null) {
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                builder: (context) => const NotificationSettingsScreen(),
+                builder: (context) => widget.source == 'credit'
+                    ? const CreditEarnScreen()
+                    : const NotificationSettingsScreen(),
               ),
               (route) => route.isFirst,
             );

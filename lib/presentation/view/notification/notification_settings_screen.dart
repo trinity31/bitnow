@@ -67,7 +67,9 @@ class _NotificationSettingsScreenState
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AuthScreen(),
+                          builder: (context) => const AuthScreen(
+                            source: 'notification',
+                          ),
                         ),
                       ).then((_) {
                         ref.refresh(authViewModelProvider);
