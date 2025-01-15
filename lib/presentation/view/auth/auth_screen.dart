@@ -4,6 +4,7 @@ import '../../viewmodel/auth_view_model.dart';
 import 'package:dio/dio.dart';
 import '../notification/notification_settings_screen.dart';
 import '../credit/credit_earn_screen.dart';
+import 'package:btc_price_app/l10n/app_localizations.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {
   final String source;
@@ -24,27 +25,29 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     ref.listen(authViewModelProvider, (previous, next) {
       next.whenOrNull(
         error: (error, _) {
-          String message = '알 수 없는 오류가 발생했습니다';
+          String message = localizations.translate('unknown_error');
 
           if (error is DioException) {
             switch (error.response?.data['code']) {
               case 'EMAIL_EXISTS':
-                message = '이미 등록된 이메일입니다';
+                message = localizations.translate('email_exists');
                 break;
               case 'INVALID_INPUT':
-                message = '잘못된 입력입니다';
+                message = localizations.translate('invalid_input');
                 break;
               case 'INVALID_CREDENTIALS':
-                message = '이메일 또는 비밀번호가 올바르지 않습니다';
+                message = localizations.translate('invalid_credentials');
                 break;
               default:
                 if (error.type == DioExceptionType.connectionTimeout) {
-                  message = '서버 연결에 실패했습니다';
+                  message = localizations.translate('server_connection_failed');
                 } else {
-                  message = '서버 오류가 발생했습니다';
+                  message = localizations.translate('server_error');
                 }
             }
           }
@@ -74,7 +77,9 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isLogin ? '로그인' : '회원가입'),
+        title: Text(_isLogin
+            ? localizations.translate('sign_in')
+            : localizations.translate('register')),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -83,18 +88,18 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
           children: [
             TextField(
               controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: '이메일',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: localizations.translate('email'),
+                border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: '비밀번호',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: localizations.translate('password'),
+                border: const OutlineInputBorder(),
               ),
               obscureText: true,
             ),
@@ -122,7 +127,9 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 }
               },
               child: Text(
-                _isLogin ? '로그인' : '회원가입',
+                _isLogin
+                    ? localizations.translate('sign_in')
+                    : localizations.translate('sign_up'),
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -138,24 +145,19 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (_isLogin)
-                    const Text(
-                      '아직 계정이 없다면? ',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                    )
-                  else
-                    const Text(
-                      '이미 계정이 있다면? ',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                    ),
                   Text(
-                    _isLogin ? '회원가입하기' : '로그인하기',
+                    _isLogin
+                        ? localizations.translate('no_account')
+                        : localizations.translate('have_account'),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    _isLogin
+                        ? localizations.translate('sign_up')
+                        : localizations.translate('sign_in'),
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],

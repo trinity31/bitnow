@@ -1,11 +1,10 @@
 import 'package:btc_price_app/core/theme.dart';
 import 'package:btc_price_app/domain/model/indicator_response.dart';
+import 'package:btc_price_app/l10n/app_localizations.dart';
 import 'package:btc_price_app/presentation/widget/rsi_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:btc_price_app/presentation/viewmodel/price_view_model.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:btc_price_app/presentation/widget/price_display.dart';
 import 'package:btc_price_app/presentation/viewmodel/indicator_view_model.dart';
 import 'package:btc_price_app/presentation/widget/indicator_display.dart';
@@ -25,11 +24,12 @@ class HomePage extends ConsumerWidget {
     ));
     final krwFormat = NumberFormat('#,###');
     final usdFormat = NumberFormat('#,###');
+    final localizations = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.appBarColor,
-        title: const Text('비트나우'),
+        title: Text(localizations.translate('bitnow')),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
@@ -66,20 +66,20 @@ class HomePage extends ConsumerWidget {
           child: wsStream.when(
             loading: () => const CircularProgressIndicator(),
             error: (error, stack) => ErrorDisplay(
-              message: '연결에 실패했습니다.\n다시 시도해 주세요.',
+              message: localizations.translate('connection_failed'),
               onRetry: () =>
                   ref.read(webSocketViewModelProvider.notifier).reconnect(),
             ),
             data: (data) => Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 24, top: 16),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, top: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        '비트코인 현재 가격',
-                        style: TextStyle(
+                        localizations.translate('Current bitcoin price'),
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
@@ -88,23 +88,25 @@ class HomePage extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
+                if (Localizations.localeOf(context).languageCode == 'ko') ...[
+                  PriceDisplay(
+                    label: localizations.translate('krw_price'),
+                    prefix: '₩',
+                    price: data.krw,
+                    percentChange: data.change24h?.krw,
+                    premium: data.kimchiPremium,
+                    formatter: krwFormat,
+                    source: localizations.translate('upbit'),
+                  ),
+                  const SizedBox(height: 8),
+                ],
                 PriceDisplay(
-                  label: '원화',
-                  prefix: '₩',
-                  price: data.krw,
-                  percentChange: data.change24h?.krw,
-                  premium: data.kimchiPremium,
-                  formatter: krwFormat,
-                  source: '업비트',
-                ),
-                const SizedBox(height: 8),
-                PriceDisplay(
-                  label: '달러',
+                  label: localizations.translate('usd_price'),
                   prefix: '\$',
                   price: data.usd,
                   percentChange: data.change24h?.usd,
                   formatter: usdFormat,
-                  source: 'Binance',
+                  source: localizations.translate('binance'),
                 ),
                 const SizedBox(height: 16),
                 RsiDisplay(
@@ -127,7 +129,7 @@ class HomePage extends ConsumerWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     children: [
                       IndicatorDisplay(
-                        label: '3주 최고가 (\$)',
+                        label: localizations.translate('three_week_high_usd'),
                         value: data.high3w?.usd ?? 0,
                         formatter: usdFormat,
                         prefix: '\$',
@@ -136,26 +138,28 @@ class HomePage extends ConsumerWidget {
                                 DateTime.parse(data.high3w!.usdTimestamp!))
                             : null,
                       ),
+                      if (Localizations.localeOf(context).languageCode == 'ko')
+                        IndicatorDisplay(
+                          label: localizations.translate('three_week_high_krw'),
+                          value: data.high3w?.krw ?? 0,
+                          formatter: krwFormat,
+                          prefix: '₩',
+                          dateText: data.high3w?.krwTimestamp != null
+                              ? DateFormat('yyyy-MM-dd').format(
+                                  DateTime.parse(data.high3w!.krwTimestamp!))
+                              : null,
+                        ),
                       IndicatorDisplay(
-                        label: '3주 최고가 (₩)',
-                        value: data.high3w?.krw ?? 0,
-                        formatter: krwFormat,
-                        prefix: '₩',
-                        dateText: data.high3w?.krwTimestamp != null
-                            ? DateFormat('yyyy-MM-dd').format(
-                                DateTime.parse(data.high3w!.krwTimestamp!))
-                            : null,
-                      ),
-                      IndicatorDisplay(
-                        label: '도미넌스',
+                        label: localizations.translate('dominance'),
                         value: data.dominance,
                         suffix: '%',
                       ),
                       mvrvAsync.when(
                         loading: () => const CircularProgressIndicator(),
-                        error: (error, stack) => const Text('MVRV 로딩 오류'),
+                        error: (error, stack) =>
+                            Text(localizations.translate('mvrv_loading_error')),
                         data: (mvrv) => IndicatorDisplay(
-                          label: 'MVRV',
+                          label: localizations.translate('mvrv'),
                           value: mvrv.mvrv,
                           decimalPlaces: 2,
                         ),

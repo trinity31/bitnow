@@ -4,6 +4,7 @@ import '../../viewmodel/credit_view_model.dart';
 import '../../../services/ad_service.dart';
 import '../../view/auth/auth_screen.dart';
 import '../../viewmodel/auth_view_model.dart';
+import 'package:btc_price_app/l10n/app_localizations.dart';
 
 class CreditEarnScreen extends ConsumerStatefulWidget {
   const CreditEarnScreen({super.key});
@@ -18,21 +19,22 @@ class _CreditEarnScreenState extends ConsumerState<CreditEarnScreen> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authViewModelProvider);
+    final localizations = AppLocalizations.of(context);
 
     return authState.when(
       data: (token) {
         if (token == null) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('크레딧 적립'),
+              title: Text(localizations.translate('credit_earn')),
             ),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    '크레딧을 적립하려면 로그인이 필요합니다',
-                    style: TextStyle(
+                  Text(
+                    localizations.translate('login_required_credit'),
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                     ),
@@ -58,9 +60,9 @@ class _CreditEarnScreenState extends ConsumerState<CreditEarnScreen> {
                         ref.refresh(authViewModelProvider);
                       });
                     },
-                    child: const Text(
-                      '로그인하기',
-                      style: TextStyle(
+                    child: Text(
+                      localizations.translate('sign_in'),
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -74,7 +76,7 @@ class _CreditEarnScreenState extends ConsumerState<CreditEarnScreen> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('크레딧 적립'),
+            title: Text(localizations.translate('credit_earn')),
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -89,9 +91,9 @@ class _CreditEarnScreenState extends ConsumerState<CreditEarnScreen> {
                   ),
                   child: Row(
                     children: [
-                      const Text(
-                        '현재 크레딧',
-                        style: TextStyle(
+                      Text(
+                        localizations.translate('current_credits'),
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                         ),
@@ -125,17 +127,17 @@ class _CreditEarnScreenState extends ConsumerState<CreditEarnScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                const Text(
-                  '광고 시청하고 크레딧 받기',
-                  style: TextStyle(
+                Text(
+                  localizations.translate('watch_ads_title'),
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  '광고 1회 시청당 1크레딧이 적립됩니다.',
-                  style: TextStyle(
+                Text(
+                  localizations.translate('watch_ads_description'),
+                  style: const TextStyle(
                     color: Colors.grey,
                   ),
                 ),
@@ -160,7 +162,10 @@ class _CreditEarnScreenState extends ConsumerState<CreditEarnScreen> {
 
                               if (mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('크레딧이 적립되었습니다')),
+                                  SnackBar(
+                                    content: Text(localizations
+                                        .translate('credit_earned')),
+                                  ),
                                 );
                               }
                             }
@@ -188,7 +193,9 @@ class _CreditEarnScreenState extends ConsumerState<CreditEarnScreen> {
                         )
                       : const Icon(Icons.play_circle_outline),
                   label: Text(
-                    _isLoading ? '광고 로드 중...' : '광고 시청하기',
+                    _isLoading
+                        ? localizations.translate('loading_ad')
+                        : localizations.translate('watch_ad'),
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),

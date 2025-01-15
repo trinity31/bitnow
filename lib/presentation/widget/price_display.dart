@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:btc_price_app/core/theme.dart';
+import 'package:btc_price_app/l10n/app_localizations.dart';
 
 class PriceDisplay extends StatelessWidget {
   final String label;
@@ -27,6 +28,8 @@ class PriceDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Stack(
       children: [
         Card(
@@ -78,11 +81,12 @@ class PriceDisplay extends StatelessWidget {
                     premium!,
                     suffix: '%',
                   ),
-                _buildIndicator(
-                  '24시간 변동률',
-                  percentChange ?? 0,
-                  suffix: '%',
-                ),
+                if (percentChange != null)
+                  _buildIndicator(
+                    localizations.translate('change_24h'),
+                    percentChange ?? 0,
+                    suffix: '%',
+                  ),
               ],
             ),
           ),

@@ -21,7 +21,7 @@ dependencies:
 
   # 유틸리티
   freezed_annotation: ^2.4.1
-  intl: ^0.19.0
+  intl: any
 
   # 추가
   flutter_dotenv: ^5.1.0
@@ -32,6 +32,8 @@ dependencies:
   firebase_core: ^3.4.0
   flutter_local_notifications: ^17.2.2
   google_mobile_ads: ^5.2.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -51,3 +53,4 @@ flutter:
   # 추가
   assets:
     - .env
+    - assets/lang/

@@ -1,3 +1,4 @@
+import 'package:btc_price_app/l10n/app_localizations.dart';
 import 'package:btc_price_app/presentation/view/notification/notification_settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,17 +14,18 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authViewModelProvider);
     final isAdmin = ref.read(authViewModelProvider.notifier).isAdmin;
+    final localizations = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('설정'),
+        title: Text(localizations.translate('settings')),
       ),
       body: ListView(
         children: [
           if (authState.value?.fcmToken != null)
             ListTile(
               leading: const Icon(Icons.account_circle),
-              title: const Text('내 계정'),
+              title: Text(localizations.translate('my_account')),
               onTap: () {
                 Navigator.push(
                   context,
@@ -35,7 +37,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
           ListTile(
             leading: const Icon(Icons.notifications),
-            title: const Text('알림 설정'),
+            title: Text(localizations.translate('notification_settings')),
             onTap: () {
               Navigator.push(
                 context,
@@ -47,7 +49,7 @@ class SettingsScreen extends ConsumerWidget {
           ),
           ListTile(
             leading: const Icon(Icons.copyright),
-            title: const Text('크레딧 적립'),
+            title: Text(localizations.translate('credit_earn')),
             onTap: () {
               Navigator.push(
                 context,
@@ -60,7 +62,7 @@ class SettingsScreen extends ConsumerWidget {
           if (isAdmin)
             ListTile(
               leading: const Icon(Icons.admin_panel_settings),
-              title: const Text('관리자 설정'),
+              title: Text(localizations.translate('admin_settings')),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
                 Navigator.push(

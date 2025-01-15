@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../viewmodel/auth_view_model.dart';
+import 'package:btc_price_app/l10n/app_localizations.dart';
 
 class AccountScreen extends ConsumerWidget {
   const AccountScreen({super.key});
@@ -8,29 +9,30 @@ class AccountScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authViewModelProvider);
+    final localizations = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '내 계정',
-          style: TextStyle(fontSize: 24),
+        title: Text(
+          localizations.translate('my_account'),
+          style: const TextStyle(fontSize: 24),
         ),
       ),
       body: authState.when(
         data: (token) {
           if (token == null) {
-            return const Center(
-              child: Text('로그인이 필요합니다'),
+            return Center(
+              child: Text(localizations.translate('login_required')),
             );
           }
 
           return ListView(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(16.0),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  '계정 설정',
-                  style: TextStyle(
+                  localizations.translate('account_settings'),
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -41,27 +43,28 @@ class AccountScreen extends ConsumerWidget {
                 builder: (context, snapshot) {
                   return ListTile(
                     leading: const Icon(Icons.email),
-                    title: Text(snapshot.data ?? '이메일 정보 없음'),
+                    title: Text(snapshot.data ??
+                        localizations.translate('email_not_found')),
                   );
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.logout),
-                title: const Text('로그아웃'),
+                title: Text(localizations.translate('logout')),
                 onTap: () async {
                   final confirmed = await showDialog<bool>(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: const Text('로그아웃'),
-                      content: const Text('정말 로그아웃하시겠습니까?'),
+                      title: Text(localizations.translate('logout_title')),
+                      content: Text(localizations.translate('logout_message')),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context, false),
-                          child: const Text('취소'),
+                          child: Text(localizations.translate('cancel')),
                         ),
                         TextButton(
                           onPressed: () => Navigator.pop(context, true),
-                          child: const Text('로그아웃'),
+                          child: Text(localizations.translate('logout')),
                         ),
                       ],
                     ),
@@ -77,29 +80,30 @@ class AccountScreen extends ConsumerWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.delete_forever, color: Colors.red),
-                title: const Text(
-                  '계정 탈퇴',
-                  style: TextStyle(color: Colors.red),
+                title: Text(
+                  localizations.translate('delete_account'),
+                  style: const TextStyle(color: Colors.red),
                 ),
                 onTap: () async {
                   final confirmed = await showDialog<bool>(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: const Text('계정 탈퇴'),
-                      content: const Text(
-                        '정말 탈퇴하시겠습니까?\n이 작업은 되돌릴 수 없습니다.',
-                      ),
+                      title:
+                          Text(localizations.translate('delete_account_title')),
+                      content: Text(
+                          localizations.translate('delete_account_message')),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context, false),
-                          child: const Text('취소'),
+                          child: Text(localizations.translate('cancel')),
                         ),
                         TextButton(
                           onPressed: () => Navigator.pop(context, true),
                           style: TextButton.styleFrom(
                             foregroundColor: Colors.red,
                           ),
-                          child: const Text('탈퇴'),
+                          child:
+                              Text(localizations.translate('delete_account')),
                         ),
                       ],
                     ),
@@ -112,12 +116,12 @@ class AccountScreen extends ConsumerWidget {
                           .deleteAccount();
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('계정이 삭제되었습니다'),
+                          SnackBar(
+                            content: Text(
+                                localizations.translate('account_deleted')),
                             backgroundColor: Colors.green,
                           ),
                         );
-                        // 설정 화면까지 모두 닫고 홈으로 이동
                         Navigator.of(context)
                             .popUntil((route) => route.isFirst);
                       }
@@ -125,7 +129,8 @@ class AccountScreen extends ConsumerWidget {
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('계정 삭제 실패: ${e.toString()}'),
+                            content: Text(
+                                '${localizations.translate('account_delete_failed')}${e.toString()}'),
                             backgroundColor: Colors.red,
                           ),
                         );
@@ -141,7 +146,8 @@ class AccountScreen extends ConsumerWidget {
           child: CircularProgressIndicator(),
         ),
         error: (error, _) => Center(
-          child: Text('오류가 발생했습니다: $error'),
+          child:
+              Text('${localizations.translate('error_occurred_with')}$error'),
         ),
       ),
     );

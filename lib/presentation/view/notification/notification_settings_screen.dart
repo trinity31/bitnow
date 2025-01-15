@@ -8,6 +8,7 @@ import '../../../domain/model/alert/alert_model.dart';
 import '../../../core/exceptions.dart';
 import 'package:intl/intl.dart';
 import '../credit/credit_earn_screen.dart';
+import 'package:btc_price_app/l10n/app_localizations.dart';
 
 class NotificationSettingsScreen extends ConsumerStatefulWidget {
   const NotificationSettingsScreen({super.key});
@@ -24,7 +25,19 @@ class _NotificationSettingsScreenState
   AlertDirection _direction = AlertDirection.above;
   RsiInterval? _interval;
   bool _isExpanded = false;
-  Currency _currency = Currency.KRW;
+  late Currency _currency;
+  bool _initialized = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _currency = Localizations.localeOf(context).languageCode == 'ko'
+          ? Currency.KRW
+          : Currency.USD;
+      _initialized = true;
+    }
+  }
 
   @override
   void dispose() {
@@ -34,6 +47,7 @@ class _NotificationSettingsScreenState
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     final authState = ref.watch(authViewModelProvider);
 
     return authState.when(
@@ -41,15 +55,15 @@ class _NotificationSettingsScreenState
         if (token == null) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('알림 설정'),
+              title: Text(localizations.translate('notification_settings')),
             ),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    '알림을 설정하려면 로그인이 필요합니다',
-                    style: TextStyle(
+                  Text(
+                    localizations.translate('login_required'),
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                     ),
@@ -75,9 +89,9 @@ class _NotificationSettingsScreenState
                         ref.refresh(authViewModelProvider);
                       });
                     },
-                    child: const Text(
-                      '로그인하기',
-                      style: TextStyle(
+                    child: Text(
+                      localizations.translate('login'),
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -93,7 +107,7 @@ class _NotificationSettingsScreenState
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('알림 설정'),
+            title: Text(localizations.translate('notification_settings')),
             actions: [
               Center(
                 child: Padding(
@@ -150,7 +164,7 @@ class _NotificationSettingsScreenState
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         title: Text(
-                          '새 알림 추가',
+                          localizations.translate('add_new_alert'),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -166,14 +180,21 @@ class _NotificationSettingsScreenState
                         children: [
                           DropdownButtonFormField<AlertType>(
                             value: _selectedType,
-                            decoration: const InputDecoration(
-                              labelText: '알림 유형',
-                              border: OutlineInputBorder(),
+                            decoration: InputDecoration(
+                              labelText: localizations.translate('alert_type'),
+                              border: const OutlineInputBorder(),
                             ),
-                            items: AlertType.values.map((type) {
+                            items: AlertType.values
+                                .where((type) =>
+                                    type != AlertType.kimchiPremium ||
+                                    Localizations.localeOf(context)
+                                            .languageCode ==
+                                        'ko')
+                                .map((type) {
                               return DropdownMenuItem(
                                 value: type,
-                                child: Text(_getAlertTypeText(type)),
+                                child: Text(localizations
+                                    .translate(_getAlertTypeKey(type))),
                               );
                             }).toList(),
                             onChanged: (value) {
@@ -191,14 +212,16 @@ class _NotificationSettingsScreenState
                           if (_selectedType == AlertType.rsi)
                             DropdownButtonFormField<RsiInterval>(
                               value: _interval ?? RsiInterval.min15,
-                              decoration: const InputDecoration(
-                                labelText: 'RSI 간격',
-                                border: OutlineInputBorder(),
+                              decoration: InputDecoration(
+                                labelText:
+                                    localizations.translate('rsi_interval'),
+                                border: const OutlineInputBorder(),
                               ),
                               items: RsiInterval.values.map((interval) {
                                 return DropdownMenuItem(
                                   value: interval,
-                                  child: Text(_getRsiIntervalText(interval)),
+                                  child: Text(localizations
+                                      .translate(_getRsiIntervalKey(interval))),
                                 );
                               }).toList(),
                               onChanged: (value) {
@@ -210,18 +233,23 @@ class _NotificationSettingsScreenState
                           if (_selectedType == AlertType.price) ...[
                             DropdownButtonFormField<Currency>(
                               value: _currency,
-                              decoration: const InputDecoration(
-                                labelText: '통화',
-                                border: OutlineInputBorder(),
+                              decoration: InputDecoration(
+                                labelText: localizations.translate('currency'),
+                                border: const OutlineInputBorder(),
                               ),
-                              items: const [
-                                DropdownMenuItem(
-                                  value: Currency.KRW,
-                                  child: Text('원화 (KRW)'),
-                                ),
+                              items: [
+                                if (Localizations.localeOf(context)
+                                        .languageCode ==
+                                    'ko')
+                                  DropdownMenuItem(
+                                    value: Currency.KRW,
+                                    child: Text(localizations
+                                        .translate('krw_currency')),
+                                  ),
                                 DropdownMenuItem(
                                   value: Currency.USD,
-                                  child: Text('달러 (USD)'),
+                                  child: Text(
+                                      localizations.translate('usd_currency')),
                                 ),
                               ],
                               onChanged: (value) {
@@ -230,41 +258,39 @@ class _NotificationSettingsScreenState
                                 });
                               },
                             ),
+                            //const SizedBox(height: 16),
                           ],
                           const SizedBox(height: 16),
                           TextField(
                             controller: _thresholdController,
                             decoration: InputDecoration(
-                              labelText: '임계값',
+                              labelText: localizations.translate('threshold'),
                               border: const OutlineInputBorder(),
-                              hintText: _getThresholdHint(_selectedType),
+                              hintText: localizations.translate(
+                                  _getThresholdHintKey(_selectedType)),
                             ),
                             keyboardType: TextInputType.number,
                           ),
                           const SizedBox(height: 16),
                           Row(
                             children: [
-                              const Text('방향:'),
+                              Text('${localizations.translate('direction')}:'),
                               Radio<AlertDirection>(
                                 value: AlertDirection.above,
                                 groupValue: _direction,
                                 onChanged: (value) {
-                                  setState(() {
-                                    _direction = value!;
-                                  });
+                                  setState(() => _direction = value!);
                                 },
                               ),
-                              const Text('이상'),
+                              Text(localizations.translate('above')),
                               Radio<AlertDirection>(
                                 value: AlertDirection.below,
                                 groupValue: _direction,
                                 onChanged: (value) {
-                                  setState(() {
-                                    _direction = value!;
-                                  });
+                                  setState(() => _direction = value!);
                                 },
                               ),
-                              const Text('이하'),
+                              Text(localizations.translate('below')),
                             ],
                           ),
                           const SizedBox(height: 16),
@@ -282,12 +308,14 @@ class _NotificationSettingsScreenState
                                   final threshold = double.tryParse(
                                       _thresholdController.text);
                                   if (threshold == null) {
-                                    throw AlertException('올바른 임계값을 입력해주세요');
+                                    throw AlertException(localizations
+                                        .translate('invalid_threshold'));
                                   }
 
                                   if (_selectedType == AlertType.rsi &&
                                       _interval == null) {
-                                    throw AlertException('RSI 주기를 선택해주세요');
+                                    throw AlertException(localizations
+                                        .translate('select_rsi_interval'));
                                   }
 
                                   await ref
@@ -313,8 +341,10 @@ class _NotificationSettingsScreenState
 
                                   if (mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text('알림이 설정되었습니다')),
+                                      SnackBar(
+                                        content: Text(localizations
+                                            .translate('alert_set')),
+                                      ),
                                     );
                                     _thresholdController.clear();
                                   }
@@ -325,14 +355,16 @@ class _NotificationSettingsScreenState
                                       showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title: const Text('크레딧 부족'),
-                                          content: const Text(
-                                              '크레딧이 부족하여 알림을 설정할 수 없습니다.\n광고를 시청하고 크레딧을 적립하시겠습니까?'),
+                                          title: Text(localizations.translate(
+                                              'credit_insufficient_title')),
+                                          content: Text(localizations.translate(
+                                              'credit_insufficient_message')),
                                           actions: [
                                             TextButton(
                                               onPressed: () =>
                                                   Navigator.pop(context),
-                                              child: const Text('취소'),
+                                              child: Text(localizations
+                                                  .translate('cancel')),
                                             ),
                                             FilledButton(
                                               onPressed: () {
@@ -345,7 +377,8 @@ class _NotificationSettingsScreenState
                                                   ),
                                                 );
                                               },
-                                              child: const Text('크레딧 적립하기'),
+                                              child: Text(localizations
+                                                  .translate('earn_credits')),
                                             ),
                                           ],
                                         ),
@@ -354,20 +387,18 @@ class _NotificationSettingsScreenState
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
-                                          content: Text(
-                                            e
-                                                .toString()
-                                                .replaceAll('Exception: ', ''),
-                                          ),
+                                          content: Text(e
+                                              .toString()
+                                              .replaceAll('Exception: ', '')),
                                         ),
                                       );
                                     }
                                   }
                                 }
                               },
-                              child: const Text(
-                                '알림 설정 (1c)',
-                                style: TextStyle(
+                              child: Text(
+                                localizations.translate('set_alert'),
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -390,8 +421,8 @@ class _NotificationSettingsScreenState
                 child: alertsState.when(
                   data: (alerts) {
                     if (alerts.isEmpty) {
-                      return const Center(
-                        child: Text('설정된 알림이 없습니다'),
+                      return Center(
+                        child: Text(localizations.translate('no_alerts')),
                       );
                     }
 
@@ -427,7 +458,10 @@ class _NotificationSettingsScreenState
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Text(
-                                  alert.isActive ? '활성' : '알림 완료',
+                                  alert.isActive
+                                      ? localizations.translate('status_active')
+                                      : localizations
+                                          .translate('status_triggered'),
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: alert.isActive
@@ -466,8 +500,10 @@ class _NotificationSettingsScreenState
                                         child: Text(
                                           alert.direction ==
                                                   AlertDirection.above
-                                              ? '이상'
-                                              : '이하',
+                                              ? localizations
+                                                  .translate('direction_above')
+                                              : localizations
+                                                  .translate('direction_below'),
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: alert.isActive
@@ -500,8 +536,10 @@ class _NotificationSettingsScreenState
                                       if (mounted) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                          const SnackBar(
-                                            content: Text('알림이 다시 활성화되었습니다'),
+                                          SnackBar(
+                                            content: Text(
+                                                localizations.translate(
+                                                    'alert_reactivated')),
                                           ),
                                         );
                                       }
@@ -510,16 +548,17 @@ class _NotificationSettingsScreenState
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
-                                            content: Text(
-                                              e.toString().replaceAll(
-                                                  'Exception: ', ''),
-                                            ),
+                                            content: Text(e
+                                                .toString()
+                                                .replaceAll('Exception: ', '')),
                                           ),
                                         );
                                       }
                                     }
                                   },
-                                  child: const Text('다시 켜기'),
+                                  child: Text(
+                                    localizations.translate('reactivate'),
+                                  ),
                                 ),
                               ],
                               const SizedBox(width: 8),
@@ -534,15 +573,21 @@ class _NotificationSettingsScreenState
                                     if (mounted) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
-                                        const SnackBar(
-                                            content: Text('알림이 삭제되었습니다')),
+                                        SnackBar(
+                                          content: Text(localizations
+                                              .translate('alert_deleted')),
+                                        ),
                                       );
                                     }
                                   } catch (e) {
                                     if (mounted) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
-                                        SnackBar(content: Text('알림 삭제 실패: $e')),
+                                        SnackBar(
+                                          content: Text(e
+                                              .toString()
+                                              .replaceAll('Exception: ', '')),
+                                        ),
                                       );
                                     }
                                   }
@@ -557,7 +602,7 @@ class _NotificationSettingsScreenState
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
                   error: (error, _) => Center(
-                    child: Text('오류가 발생했습니다: $error'),
+                    child: Text(error.toString()),
                   ),
                 ),
               ),
@@ -569,54 +614,13 @@ class _NotificationSettingsScreenState
         body: Center(child: CircularProgressIndicator()),
       ),
       error: (error, _) => Scaffold(
-        body: Center(child: Text('오류가 발생했습니다: $error')),
+        body: Center(child: Text(error.toString())),
       ),
     );
   }
 
   String _getAlertTypeText(AlertType type) {
-    switch (type) {
-      case AlertType.price:
-        return '가격';
-      case AlertType.rsi:
-        return 'RSI';
-      case AlertType.kimchiPremium:
-        return '김치프리미엄';
-      case AlertType.dominance:
-        return '도미넌스';
-      case AlertType.mvrv:
-        return 'MVRV';
-    }
-  }
-
-  String _getRsiIntervalText(RsiInterval interval) {
-    switch (interval) {
-      case RsiInterval.min15:
-        return '15분';
-      case RsiInterval.hour1:
-        return '1시간';
-      case RsiInterval.hour4:
-        return '4시간';
-      case RsiInterval.day1:
-        return '1일';
-    }
-  }
-
-  String _getThresholdHint(AlertType type) {
-    switch (type) {
-      case AlertType.price:
-        return _currency == Currency.KRW
-            ? '원화 가격 (예: 30000000)'
-            : '달러 가격 (예: 20000)';
-      case AlertType.rsi:
-        return 'RSI 값 (0-100)';
-      case AlertType.kimchiPremium:
-        return '프리미엄 % (예: 5.0)';
-      case AlertType.dominance:
-        return '도미넌스 % (예: 50.0)';
-      case AlertType.mvrv:
-        return 'MVRV 비율 (예: 3.0)';
-    }
+    return AppLocalizations.of(context).translate(_getAlertTypeKey(type));
   }
 
   String _formatAlertValue(AlertType type, double value, Currency? currency) {
@@ -634,6 +638,51 @@ class _NotificationSettingsScreenState
         return '${value.toStringAsFixed(1)}%';
       case AlertType.mvrv:
         return value.toStringAsFixed(1);
+    }
+  }
+
+  String _getAlertTypeKey(AlertType type) {
+    switch (type) {
+      case AlertType.price:
+        return 'price';
+      case AlertType.rsi:
+        return 'rsi';
+      case AlertType.kimchiPremium:
+        return 'kimchi_premium';
+      case AlertType.dominance:
+        return 'dominance';
+      case AlertType.mvrv:
+        return 'mvrv';
+    }
+  }
+
+  String _getRsiIntervalKey(RsiInterval interval) {
+    switch (interval) {
+      case RsiInterval.min15:
+        return 'rsi_15m';
+      case RsiInterval.hour1:
+        return 'rsi_1h';
+      case RsiInterval.hour4:
+        return 'rsi_4h';
+      case RsiInterval.day1:
+        return 'rsi_1d';
+    }
+  }
+
+  String _getThresholdHintKey(AlertType type) {
+    switch (type) {
+      case AlertType.price:
+        return _currency == Currency.KRW
+            ? 'price_threshold_hint_krw'
+            : 'price_threshold_hint_usd';
+      case AlertType.rsi:
+        return 'rsi_threshold_hint';
+      case AlertType.kimchiPremium:
+        return 'premium_threshold_hint';
+      case AlertType.dominance:
+        return 'dominance_threshold_hint';
+      case AlertType.mvrv:
+        return 'mvrv_threshold_hint';
     }
   }
 }

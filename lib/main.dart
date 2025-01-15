@@ -13,6 +13,8 @@ import 'firebase_options.dart';
 import 'presentation/viewmodel/auth_view_model.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:btc_price_app/l10n/app_localizations.dart';
 
 // 백그라운드 메시지 핸들러
 @pragma('vm:entry-point')
@@ -34,7 +36,10 @@ void main() async {
       // 테스트 디바이스 ID 등록
       MobileAds.instance.updateRequestConfiguration(
         RequestConfiguration(
-          testDeviceIds: ['18aea38bb112d1ba870703ef5672c7d3', '71694CD35869E1D1AA27879358C4E46C'],
+          testDeviceIds: [
+            '18aea38bb112d1ba870703ef5672c7d3',
+            '71694CD35869E1D1AA27879358C4E46C'
+          ],
         ),
       );
 
@@ -174,6 +179,16 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       title: 'BTC Price App',
       theme: AppTheme.darkTheme,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('ko', ''),
+      ],
       home: const HomePage(),
     );
   }

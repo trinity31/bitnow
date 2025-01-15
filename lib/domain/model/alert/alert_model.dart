@@ -48,19 +48,6 @@ class AlertRequest {
         if (interval != null) 'interval': interval!.value,
         if (currency != null) 'currency': currency!.name,
       };
-
-  String _getRsiIntervalText(RsiInterval interval) {
-    switch (interval) {
-      case RsiInterval.min15:
-        return '15분';
-      case RsiInterval.hour1:
-        return '1시간';
-      case RsiInterval.hour4:
-        return '4시간';
-      case RsiInterval.day1:
-        return '1일';
-    }
-  }
 }
 
 class AlertResponse {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:btc_price_app/domain/model/indicator_response.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:btc_price_app/core/theme.dart';
+import 'package:btc_price_app/l10n/app_localizations.dart';
 
 class RsiDisplay extends StatelessWidget {
   final RsiResponse rsiResponse;
@@ -77,6 +78,8 @@ class RsiDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Column(
       children: [
         const Padding(
@@ -109,10 +112,14 @@ class RsiDisplay extends StatelessWidget {
           crossAxisSpacing: 8,
           padding: const EdgeInsets.symmetric(horizontal: 16),
           children: [
-            _buildRsiItem('15분', rsiResponse.min15),
-            _buildRsiItem('1시간', rsiResponse.hour1),
-            _buildRsiItem('4시간', rsiResponse.hour4),
-            _buildRsiItem('1일', rsiResponse.day1),
+            _buildRsiItem(
+                localizations.translate('rsi_15min'), rsiResponse.min15),
+            _buildRsiItem(
+                localizations.translate('rsi_1hour'), rsiResponse.hour1),
+            _buildRsiItem(
+                localizations.translate('rsi_4hour'), rsiResponse.hour4),
+            _buildRsiItem(
+                localizations.translate('rsi_1day'), rsiResponse.day1),
           ],
         ),
       ],
