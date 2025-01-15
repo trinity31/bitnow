@@ -6,6 +6,7 @@ import '../../viewmodel/auth_view_model.dart';
 import '../../view/account/account_screen.dart';
 import '../../view/admin/admin_page.dart';
 import '../../view/credit/credit_earn_screen.dart';
+import '../feedback/feedback_screen.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -73,6 +74,18 @@ class SettingsScreen extends ConsumerWidget {
                 );
               },
             ),
+          ListTile(
+            leading: const Icon(Icons.feedback),
+            title: Text(localizations.translate('feedback')),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FeedbackScreen(),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );

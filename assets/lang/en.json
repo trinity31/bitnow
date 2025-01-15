@@ -111,5 +111,13 @@
     "rsi_1hour": "1hour",
     "rsi_4hour": "4hour",
     "rsi_1day": "1day",
-    "change_24h": "24h Change"
+    "change_24h": "24h Change",
+    "feedback": "Feedback",
+    "send_feedback": "Send Feedback",
+    "feedback_hint": "Please share your thoughts, suggestions, or report issues",
+    "email_optional": "Email (optional)",
+    "email_hint": "Enter your email if you'd like a response",
+    "submit": "Submit",
+    "feedback_sent": "Thank you for your feedback!",
+    "feedback_error": "Failed to send feedback. Please try again."
 }
