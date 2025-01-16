@@ -40,10 +40,11 @@ class AlertViewModel extends _$AlertViewModel {
       await client.createAlert(request);
       ref.invalidateSelf();
     } catch (e) {
-      safePrint('알림 생성 실패: $e');
       if (e is DioException && e.response?.statusCode == 400) {
-        final detail = e.response?.data['detail'] as String?;
+        safePrint('알림 생성 실패: ${e.response?.data}');
+        final detail = e.response?.data['detail']['message'] as String?;
         if (detail != null) {
+          safePrint('알림 생성 실패: $detail');
           throw AlertException(detail);
         }
       }

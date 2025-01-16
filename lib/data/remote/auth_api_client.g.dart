@@ -156,12 +156,12 @@ class _AuthApiClient implements AuthApiClient {
   }
 
   @override
-  Future<MessageResponse> updateFcmToken(Map<String, String> body) async {
+  Future<MessageResponse> updateFcmToken(Map<String, dynamic> request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body);
+    _data.addAll(request);
     final _options = _setStreamType<MessageResponse>(Options(
       method: 'PUT',
       headers: _headers,

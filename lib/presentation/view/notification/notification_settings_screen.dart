@@ -9,6 +9,7 @@ import '../../../core/exceptions.dart';
 import 'package:intl/intl.dart';
 import '../credit/credit_earn_screen.dart';
 import 'package:btc_price_app/l10n/app_localizations.dart';
+import 'package:dio/dio.dart' show DioException;
 
 class NotificationSettingsScreen extends ConsumerStatefulWidget {
   const NotificationSettingsScreen({super.key});

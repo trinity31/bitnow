@@ -6,6 +6,10 @@ import '../../domain/model/user.dart';
 import '../../core/constants.dart';
 import '../../core/network/dio_client.dart';
 import '../../utils/print.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart' show Localizations;
+import 'dart:io' show Platform;
+import '../../data/model/request/fcm_token_request.dart';
 
 part 'auth_view_model.g.dart';
 
@@ -80,13 +84,16 @@ class AuthViewModel extends _$AuthViewModel {
       await prefs.setString(_emailKey, email);
       await prefs.setBool(_isAdminKey, response.user?.isAdmin ?? false);
 
+      final savedFcmToken = prefs.getString(_fcmTokenKey);
+
+      safePrint('savedFcmToken: $savedFcmToken');
+
       final user = User(
-        fcmToken: response.accessToken ?? '',
+        fcmToken: savedFcmToken ?? '',
         isAdmin: response.user?.isAdmin ?? false,
       );
       state = AsyncValue.data(user);
 
-      final savedFcmToken = prefs.getString(_fcmTokenKey);
       if (savedFcmToken != null) {
         await updateFcmToken(savedFcmToken);
       }
@@ -123,23 +130,16 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
-  Future<void> updateFcmToken(String fcmToken) async {
+  Future<void> updateFcmToken(String token) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_fcmTokenKey, fcmToken);
-      safePrint('FCM 토큰 저장됨: $fcmToken');
+      final currentLocale = Platform.localeName.split('_')[0];
 
-      if (state.hasValue && state.value != null) {
-        await client.updateFcmToken({'fcm_token': fcmToken});
-        safePrint('FCM 토큰 업데이트 성공');
-
-        state = AsyncValue.data(User(
-          fcmToken: fcmToken,
-          isAdmin: state.value!.isAdmin,
-        ));
-      } else {
-        safePrint('FCM 토큰 업데이트 실패: 사용자가 로그인되어 있지 않음');
-      }
+      await client.updateFcmToken(
+        FcmTokenRequest(
+          fcmToken: token,
+          locale: currentLocale,
+        ).toJson(),
+      );
     } catch (e) {
       safePrint('FCM 토큰 업데이트 실패: $e');
     }

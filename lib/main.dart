@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:btc_price_app/l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // 백그라운드 메시지 핸들러
 @pragma('vm:entry-point')
@@ -83,28 +84,36 @@ void main() async {
 
   String? fcmToken;
   if (Platform.isIOS) {
-    // iOS: APNs 토큰 먼저 가져오기
     try {
       final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-      safePrint('APNs Token: $apnsToken');
-
-      // APNs 토큰을 얻은 후 FCM 토큰 요청
       if (apnsToken != null) {
         fcmToken = await FirebaseMessaging.instance.getToken();
-        safePrint('FCM Token: $fcmToken');
+        // FCM 토큰 저장
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('fcm_token', fcmToken ?? '');
+        safePrint('FCM Token saved: $fcmToken');
       }
     } catch (e) {
       safePrint('iOS 토큰 가져오기 실패: $e');
     }
   } else {
-    // Android: 직접 FCM 토큰 요청
     try {
       fcmToken = await FirebaseMessaging.instance.getToken();
-      safePrint('FCM Token: $fcmToken');
+      // FCM 토큰 저장
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('fcm_token', fcmToken ?? '');
+      safePrint('FCM Token saved: $fcmToken');
     } catch (e) {
       safePrint('Android FCM Token 가져오기 실패: $e');
     }
   }
+
+  // 토큰 리스너 등록
+  FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('fcm_token', newToken);
+    safePrint('New FCM Token saved: $newToken');
+  });
 
   // 로컬 노티피케이션 초기화
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -178,6 +187,7 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp(
       title: 'BTC Price App',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
       localizationsDelegates: const [
         AppLocalizations.delegate,

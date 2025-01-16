@@ -6,7 +6,7 @@ part of 'alert_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$alertViewModelHash() => r'96e21d2e2704c479d3d55cbbd9934149c98b996d';
+String _$alertViewModelHash() => r'5eef9ab8db48a0032e2f59aa6d53cbb3a88421e5';
 
 /// See also [AlertViewModel].
 @ProviderFor(AlertViewModel)

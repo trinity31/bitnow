@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../domain/model/auth/auth_model.dart';
+import '../model/request/fcm_token_request.dart';
 
 part 'auth_api_client.g.dart';
 
@@ -21,5 +22,5 @@ abstract class AuthApiClient {
   Future<MessageResponse> deleteAccount();
 
   @PUT('/auth/fcm-token')
-  Future<MessageResponse> updateFcmToken(@Body() Map<String, String> body);
+  Future<MessageResponse> updateFcmToken(@Body() Map<String, dynamic> request);
 }
