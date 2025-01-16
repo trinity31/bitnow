@@ -4,9 +4,8 @@ import 'package:flutter/foundation.dart';
 class ApiConstants {
   static String get baseUrl {
     // 릴리즈 모드일 때는 프로덕션 URL 사용
-    final url =
-        kReleaseMode ? dotenv.env['BASE_URL_PROD'] : dotenv.env['BASE_URL_DEV'];
-    return url ?? 'http://localhost:8000';
+    //return dotenv.env['BASE_URL_DEV'] ?? 'http://localhost:8000';
+    return dotenv.env['BASE_URL_PROD'] ?? 'http://localhost:8000';
   }
 
   static String get wsUrl => baseUrl.replaceFirst(
