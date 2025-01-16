@@ -34,6 +34,7 @@ dependencies:
   google_mobile_ads: ^5.2.0
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.4.4
 
 dev_dependencies:
   flutter_test:
@@ -65,3 +66,30 @@ flutter_launcher_icons:
   remove_alpha_ios: true
   adaptive_icon_background: "#ffffff"
   adaptive_icon_foreground: "assets/icon/icon.png"
+
+flutter_native_splash:
+  # 스플래시 화면의 배경색
+  color: "#000000"
+  color_dark: "#000000"
+
+  # 스플래시 화면에 표시할 이미지를 설정 (앱 아이콘, 로고 등)
+  image: assets/icon/icon.png
+
+  # Android 12용 세부 설정 (Map 형태로 작성)
+  android_12:
+    # Android 12에서 사용할 스플래시 배경색
+    color: "#000000"
+    color_dark: "#000000"
+    # Android 12에서 사용할 스플래시 아이콘 (선택)
+    image: assets/icon/icon.png
+    # 필요 시 branding, fullscreen, image_dark 등 다양한 옵션 사용 가능
+
+  # 안드로이드에서 이미지의 배치 위치
+  android_gravity: center
+
+  # iOS에서 이미지의 표시 모드 (중앙 정렬)
+  ios_content_mode: center
+
+  # 안드로이드/아이폰 플랫폼 모두 생성
+  android: true
+  ios: true
