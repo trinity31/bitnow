@@ -269,7 +269,13 @@ class _NotificationSettingsScreenState
                               hintText: localizations.translate(
                                   _getThresholdHintKey(_selectedType)),
                             ),
-                            keyboardType: TextInputType.number,
+                            keyboardType:
+                                _selectedType == AlertType.kimchiPremium ||
+                                        _selectedType == AlertType.dominance ||
+                                        _selectedType == AlertType.mvrv
+                                    ? const TextInputType.numberWithOptions(
+                                        decimal: true)
+                                    : TextInputType.number,
                           ),
                           const SizedBox(height: 16),
                           Row(
