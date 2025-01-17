@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:btc_price_app/presentation/viewmodel/alert_view_model.dart';
 import 'package:btc_price_app/utils/print.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:btc_price_app/presentation/view/home_page.dart';
@@ -57,6 +59,7 @@ void main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+
     safePrint('Firebase 초기화 성공');
   } catch (e) {
     safePrint('Firebase 초기화 실패: $e');
@@ -153,10 +156,20 @@ void main() async {
         ?.createNotificationChannel(channel);
   }
 
-  runApp(
-    ProviderScope(
-      child: MyApp(initialFcmToken: fcmToken),
-    ),
+  runZonedGuarded<Future<void>>(
+    () async {
+      FlutterError.onError =
+          FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+      runApp(
+        ProviderScope(
+          child: MyApp(initialFcmToken: fcmToken),
+        ),
+      );
+    },
+    (error, stackTrace) {
+      FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
+    },
   );
 }
 

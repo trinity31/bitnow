@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:btc_price_app/utils/print.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -57,6 +58,15 @@ class AdService extends _$AdService {
             _isLoading = false;
             safePrint(
                 '광고 로드 실패: ${error.message} (시도: ${_retryAttempt + 1}/$maxRetries)');
+              
+            // Crashlytics Non-fatal error 기록
+            FirebaseCrashlytics.instance.recordError(
+              Exception(
+                  '광고 로드 실패: ${error.message} (시도: ${_retryAttempt + 1}/$maxRetries)'),
+              null, // stackTrace가 있다면 함께 전달
+              reason: 'AdMob load failed',
+              fatal: false, // 비치명적 에러
+            );
 
             if (_retryAttempt < maxRetries) {
               _retryAttempt++;
