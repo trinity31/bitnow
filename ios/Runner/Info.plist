@@ -57,10 +57,6 @@
 	<array>
 		<integer>1</integer>
 	</array>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>iphone</string>
-	</array>
 	<key>aps-environment</key>
 	<string>development</string>
 </dict>

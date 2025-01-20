@@ -39,11 +39,11 @@ void main() async {
       // 테스트 디바이스 ID 등록
       MobileAds.instance.updateRequestConfiguration(
         RequestConfiguration(
-          testDeviceIds: [
-            '18aea38bb112d1ba870703ef5672c7d3',
-            '71694CD35869E1D1AA27879358C4E46C'
-          ],
-        ),
+            // testDeviceIds: [
+            //   '18aea38bb112d1ba870703ef5672c7d3',
+            //   '71694CD35869E1D1AA27879358C4E46C'
+            // ],
+            ),
       );
 
       // 광고 초기화
