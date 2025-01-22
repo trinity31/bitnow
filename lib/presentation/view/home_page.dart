@@ -16,15 +16,217 @@ import 'package:btc_price_app/presentation/viewmodel/websocket_view_model.dart';
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
+  Widget _buildPriceSection(
+      BuildContext context,
+      dynamic data,
+      AsyncValue<dynamic> mvrvAsync,
+      AppLocalizations localizations,
+      NumberFormat krwFormat,
+      NumberFormat usdFormat) {
+    final isKorean = Localizations.localeOf(context).languageCode == 'ko';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          localizations.translate('Current bitcoin price'),
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        if (isKorean) ...[
+          PriceDisplay(
+            label: localizations.translate('krw_price'),
+            prefix: '₩',
+            price: data.krw,
+            percentChange: data.change24h?.krw,
+            premium: data.kimchiPremium,
+            formatter: krwFormat,
+            source: localizations.translate('upbit'),
+          ),
+          const SizedBox(height: 8),
+        ],
+        PriceDisplay(
+          label: localizations.translate('usd_price'),
+          prefix: '\$',
+          price: data.usd,
+          percentChange: data.change24h?.usd,
+          formatter: usdFormat,
+          source: localizations.translate('binance'),
+        ),
+        if (!isKorean) ...[
+          const SizedBox(height: 16),
+          GridView.custom(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 3.2,
+            ),
+            childrenDelegate: SliverChildListDelegate([
+              IndicatorDisplay(
+                label: localizations.translate('dominance'),
+                value: data.dominance,
+                suffix: '%',
+                isCompact: true,
+              ),
+              mvrvAsync.when(
+                loading: () => const CircularProgressIndicator(),
+                error: (error, stack) =>
+                    Text(localizations.translate('mvrv_loading_error')),
+                data: (mvrv) => IndicatorDisplay(
+                  label: localizations.translate('mvrv'),
+                  value: mvrv.mvrv,
+                  decimalPlaces: 2,
+                  isCompact: true,
+                ),
+              ),
+            ]),
+          ),
+          const SizedBox(height: 8),
+          GridView.custom(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 1.8,
+            ),
+            childrenDelegate: SliverChildListDelegate([
+              IndicatorDisplay(
+                label: localizations.translate('three_week_high_usd'),
+                value: data.high3w?.usd ?? 0,
+                formatter: usdFormat,
+                prefix: '\$',
+                dateText: data.high3w?.usdTimestamp != null
+                    ? DateFormat('yyyy-MM-dd')
+                        .format(DateTime.parse(data.high3w!.usdTimestamp!))
+                    : null,
+              ),
+              if (Localizations.localeOf(context).languageCode == 'ko')
+                IndicatorDisplay(
+                  label: localizations.translate('three_week_high_krw'),
+                  value: data.high3w?.krw ?? 0,
+                  formatter: krwFormat,
+                  prefix: '₩',
+                  dateText: data.high3w?.krwTimestamp != null
+                      ? DateFormat('yyyy-MM-dd')
+                          .format(DateTime.parse(data.high3w!.krwTimestamp!))
+                      : null,
+                ),
+            ]),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildIndicatorSection(
+      BuildContext context,
+      dynamic data,
+      AsyncValue<dynamic> mvrvAsync,
+      AppLocalizations localizations,
+      NumberFormat krwFormat,
+      NumberFormat usdFormat) {
+    final isKorean = Localizations.localeOf(context).languageCode == 'ko';
+    return Column(
+      children: [
+        RsiDisplay(
+          rsiResponse: RsiResponse(
+            min15: RsiData(rsi: data.rsi?.min15),
+            hour1: RsiData(rsi: data.rsi?.hour1),
+            hour4: RsiData(rsi: data.rsi?.hour4),
+            day1: RsiData(rsi: data.rsi?.day1),
+          ),
+        ),
+        if (isKorean) ...[
+          const SizedBox(height: 16),
+          GridView.custom(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 3.2,
+            ),
+            childrenDelegate: SliverChildListDelegate([
+              IndicatorDisplay(
+                label: localizations.translate('dominance'),
+                value: data.dominance,
+                suffix: '%',
+                isCompact: true,
+              ),
+              mvrvAsync.when(
+                loading: () => const CircularProgressIndicator(),
+                error: (error, stack) =>
+                    Text(localizations.translate('mvrv_loading_error')),
+                data: (mvrv) => IndicatorDisplay(
+                  label: localizations.translate('mvrv'),
+                  value: mvrv.mvrv,
+                  decimalPlaces: 2,
+                  isCompact: true,
+                ),
+              ),
+            ]),
+          ),
+          const SizedBox(height: 8),
+          GridView.custom(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 1.8,
+            ),
+            childrenDelegate: SliverChildListDelegate([
+              IndicatorDisplay(
+                label: localizations.translate('three_week_high_usd'),
+                value: data.high3w?.usd ?? 0,
+                formatter: usdFormat,
+                prefix: '\$',
+                dateText: data.high3w?.usdTimestamp != null
+                    ? DateFormat('yyyy-MM-dd')
+                        .format(DateTime.parse(data.high3w!.usdTimestamp!))
+                    : null,
+              ),
+              if (Localizations.localeOf(context).languageCode == 'ko')
+                IndicatorDisplay(
+                  label: localizations.translate('three_week_high_krw'),
+                  value: data.high3w?.krw ?? 0,
+                  formatter: krwFormat,
+                  prefix: '₩',
+                  dateText: data.high3w?.krwTimestamp != null
+                      ? DateFormat('yyyy-MM-dd')
+                          .format(DateTime.parse(data.high3w!.krwTimestamp!))
+                      : null,
+                ),
+            ]),
+          ),
+        ],
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final wsStream = ref.watch(webSocketViewModelProvider);
-    final mvrvAsync = ref.watch(indicatorViewModelProvider.select(
-      (value) => value.whenData((data) => data.$3),
-    ));
+    final mvrvAsync = ref.watch(indicatorViewModelProvider
+        .select((value) => value.whenData((data) => data.$3)));
     final krwFormat = NumberFormat('#,###');
     final usdFormat = NumberFormat('#,###');
     final localizations = AppLocalizations.of(context);
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
       appBar: AppBar(
@@ -68,113 +270,49 @@ class HomePage extends ConsumerWidget {
             error: (error, stack) {
               Future.microtask(() =>
                   ref.read(webSocketViewModelProvider.notifier).reconnect());
-
               return ErrorDisplay(
                 message: localizations.translate('connection_failed'),
                 onRetry: () =>
                     ref.read(webSocketViewModelProvider.notifier).reconnect(),
               );
             },
-            data: (data) => Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 24, top: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+            data: (data) => isLandscape
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        localizations.translate('Current bitcoin price'),
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 16, left: 16),
+                          child: _buildPriceSection(context, data, mvrvAsync,
+                              localizations, krwFormat, usdFormat),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: _buildIndicatorSection(context, data,
+                              mvrvAsync, localizations, krwFormat, usdFormat),
                         ),
                       ),
                     ],
-                  ),
-                ),
-                const SizedBox(height: 8),
-                if (Localizations.localeOf(context).languageCode == 'ko') ...[
-                  PriceDisplay(
-                    label: localizations.translate('krw_price'),
-                    prefix: '₩',
-                    price: data.krw,
-                    percentChange: data.change24h?.krw,
-                    premium: data.kimchiPremium,
-                    formatter: krwFormat,
-                    source: localizations.translate('upbit'),
-                  ),
-                  const SizedBox(height: 8),
-                ],
-                PriceDisplay(
-                  label: localizations.translate('usd_price'),
-                  prefix: '\$',
-                  price: data.usd,
-                  percentChange: data.change24h?.usd,
-                  formatter: usdFormat,
-                  source: localizations.translate('binance'),
-                ),
-                const SizedBox(height: 16),
-                RsiDisplay(
-                  rsiResponse: RsiResponse(
-                    min15: RsiData(rsi: data.rsi?.min15),
-                    hour1: RsiData(rsi: data.rsi?.hour1),
-                    hour4: RsiData(rsi: data.rsi?.hour4),
-                    day1: RsiData(rsi: data.rsi?.day1),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.9,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                  )
+                : Column(
                     children: [
-                      IndicatorDisplay(
-                        label: localizations.translate('three_week_high_usd'),
-                        value: data.high3w?.usd ?? 0,
-                        formatter: usdFormat,
-                        prefix: '\$',
-                        dateText: data.high3w?.usdTimestamp != null
-                            ? DateFormat('yyyy-MM-dd').format(
-                                DateTime.parse(data.high3w!.usdTimestamp!))
-                            : null,
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 16, top: 16, right: 16),
+                        child: _buildPriceSection(context, data, mvrvAsync,
+                            localizations, krwFormat, usdFormat),
                       ),
-                      if (Localizations.localeOf(context).languageCode == 'ko')
-                        IndicatorDisplay(
-                          label: localizations.translate('three_week_high_krw'),
-                          value: data.high3w?.krw ?? 0,
-                          formatter: krwFormat,
-                          prefix: '₩',
-                          dateText: data.high3w?.krwTimestamp != null
-                              ? DateFormat('yyyy-MM-dd').format(
-                                  DateTime.parse(data.high3w!.krwTimestamp!))
-                              : null,
-                        ),
-                      IndicatorDisplay(
-                        label: localizations.translate('dominance'),
-                        value: data.dominance,
-                        suffix: '%',
-                      ),
-                      mvrvAsync.when(
-                        loading: () => const CircularProgressIndicator(),
-                        error: (error, stack) =>
-                            Text(localizations.translate('mvrv_loading_error')),
-                        data: (mvrv) => IndicatorDisplay(
-                          label: localizations.translate('mvrv'),
-                          value: mvrv.mvrv,
-                          decimalPlaces: 2,
-                        ),
-                      ),
+                      const SizedBox(height: 16),
+                      _buildIndicatorSection(context, data, mvrvAsync,
+                          localizations, krwFormat, usdFormat),
+                      const SizedBox(height: 48),
                     ],
                   ),
-                ),
-                const SizedBox(height: 48),
-              ],
-            ),
           ),
         ),
       ),

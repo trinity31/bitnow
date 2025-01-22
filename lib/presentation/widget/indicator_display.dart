@@ -10,6 +10,7 @@ class IndicatorDisplay extends StatelessWidget {
   final NumberFormat? formatter;
   final String? secondaryText;
   final String? dateText;
+  final bool isCompact;
 
   const IndicatorDisplay({
     super.key,
@@ -21,41 +22,47 @@ class IndicatorDisplay extends StatelessWidget {
     this.formatter,
     this.secondaryText,
     this.dateText,
+    this.isCompact = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: isCompact ? 2 : 8,
+      ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             '$label:',
-            style: const TextStyle(
-              fontSize: 16,
+            style: TextStyle(
+              fontSize: isCompact ? 13 : 14,
               color: Colors.grey,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           Text(
             formatter != null
                 ? '${prefix ?? ''}${formatter!.format(value ?? 0)}'
                 : '${prefix ?? ''}${value?.toStringAsFixed(decimalPlaces ?? 1)}${suffix ?? ''}',
-            style: const TextStyle(
-              fontSize: 20,
+            style: TextStyle(
+              fontSize: isCompact ? 16 : 18,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 3),
-          if (dateText != null)
+          if (dateText != null) ...[
+            const SizedBox(height: 2),
             Text(
               dateText!,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 color: Colors.grey,
               ),
             ),
+          ],
         ],
       ),
     );

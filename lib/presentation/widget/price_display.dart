@@ -33,7 +33,7 @@ class PriceDisplay extends StatelessWidget {
     return Stack(
       children: [
         Card(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          margin: const EdgeInsets.symmetric(horizontal: 1, vertical: 8),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
             side: BorderSide(

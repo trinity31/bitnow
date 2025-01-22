@@ -34,6 +34,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
 
+  // 가로, 세로 모드 모두 허용
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
+
   if (Platform.isAndroid || Platform.isIOS) {
     try {
       // 테스트 디바이스 ID 등록
