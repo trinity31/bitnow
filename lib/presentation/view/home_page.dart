@@ -65,11 +65,16 @@ class HomePage extends ConsumerWidget {
         child: Center(
           child: wsStream.when(
             loading: () => const CircularProgressIndicator(),
-            error: (error, stack) => ErrorDisplay(
-              message: localizations.translate('connection_failed'),
-              onRetry: () =>
-                  ref.read(webSocketViewModelProvider.notifier).reconnect(),
-            ),
+            error: (error, stack) {
+              Future.microtask(() =>
+                  ref.read(webSocketViewModelProvider.notifier).reconnect());
+
+              return ErrorDisplay(
+                message: localizations.translate('connection_failed'),
+                onRetry: () =>
+                    ref.read(webSocketViewModelProvider.notifier).reconnect(),
+              );
+            },
             data: (data) => Column(
               children: [
                 Padding(
