@@ -33,7 +33,7 @@ class PriceDisplay extends StatelessWidget {
     return Stack(
       children: [
         Card(
-          margin: const EdgeInsets.symmetric(horizontal: 1, vertical: 8),
+          margin: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
             side: BorderSide(
@@ -92,10 +92,10 @@ class PriceDisplay extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 16,
-          left: 24,
+          bottom: 8,
+          left: 8,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             decoration: BoxDecoration(
               color: AppTheme.cardColor,
               borderRadius: BorderRadius.circular(12),
