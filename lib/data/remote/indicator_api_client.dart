@@ -26,4 +26,7 @@ abstract class IndicatorApiClient {
 
   @PUT(ApiConstants.mvrvEndpoint)
   Future<MvrvResponse> updateMvrv(@Body() Map<String, dynamic> body);
+
+  @GET(ApiConstants.maCrossEndpoint)
+  Future<MACrossResponse> getMaCross();
 }

@@ -2,7 +2,7 @@ name: btc_price_app
 description: BTC 가격 조회 앱
 publish_to: "none"
 
-version: 1.0.0+3
+version: 3.0.1+8
 
 environment:
   sdk: ">=3.0.0 <4.0.0"

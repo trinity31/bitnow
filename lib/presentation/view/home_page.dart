@@ -12,6 +12,7 @@ import 'package:btc_price_app/presentation/widget/error_display.dart';
 import 'notification/notification_settings_screen.dart';
 import 'settings/settings_screen.dart';
 import 'package:btc_price_app/presentation/viewmodel/websocket_view_model.dart';
+import 'package:btc_price_app/presentation/widget/ma_cross_widget.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -45,7 +46,7 @@ class HomePage extends ConsumerWidget {
             formatter: krwFormat,
             source: localizations.translate('upbit'),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
         ],
         PriceDisplay(
           label: localizations.translate('usd_price'),
@@ -225,8 +226,7 @@ class HomePage extends ConsumerWidget {
     final krwFormat = NumberFormat('#,###');
     final usdFormat = NumberFormat('#,###');
     final localizations = AppLocalizations.of(context);
-    final isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final orientation = MediaQuery.of(context).orientation;
 
     return Scaffold(
       appBar: AppBar(
@@ -276,25 +276,37 @@ class HomePage extends ConsumerWidget {
                     ref.read(webSocketViewModelProvider.notifier).reconnect(),
               );
             },
-            data: (data) => isLandscape
+            data: (data) => orientation == Orientation.landscape
                 ? Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        flex: 1,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 16, left: 16),
+                          padding: const EdgeInsets.all(16),
                           child: _buildPriceSection(context, data, mvrvAsync,
                               localizations, krwFormat, usdFormat),
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      const VerticalDivider(
+                        color: Colors.grey,
+                        thickness: 0.5,
+                      ),
                       Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: _buildIndicatorSection(context, data,
-                              mvrvAsync, localizations, krwFormat, usdFormat),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              _buildIndicatorSection(context, data, mvrvAsync,
+                                  localizations, krwFormat, usdFormat),
+                              const Divider(
+                                color: Colors.grey,
+                                thickness: 0.5,
+                                indent: 16,
+                                endIndent: 16,
+                              ),
+                              const MACrossWidget(),
+                              const SizedBox(height: 24),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -310,7 +322,14 @@ class HomePage extends ConsumerWidget {
                       const SizedBox(height: 16),
                       _buildIndicatorSection(context, data, mvrvAsync,
                           localizations, krwFormat, usdFormat),
-                      const SizedBox(height: 48),
+                      const Divider(
+                        color: Colors.grey,
+                        thickness: 0.5,
+                        indent: 16,
+                        endIndent: 16,
+                      ),
+                      const MACrossWidget(),
+                      const SizedBox(height: 24),
                     ],
                   ),
           ),

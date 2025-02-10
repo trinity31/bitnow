@@ -48,3 +48,29 @@ class MvrvResponse with _$MvrvResponse {
   factory MvrvResponse.fromJson(Map<String, dynamic> json) =>
       _$MvrvResponseFromJson(json);
 }
+
+@freezed
+class MAValue with _$MAValue {
+  factory MAValue({
+    @JsonKey(name: 'ma_value') double? maValue,
+    @JsonKey(name: 'threshold_up') double? thresholdUp,
+    @JsonKey(name: 'threshold_down') double? thresholdDown,
+    @JsonKey(name: 'confirmed_up') bool? confirmedUp,
+    @JsonKey(name: 'confirmed_down') bool? confirmedDown,
+  }) = _MAValue;
+
+  factory MAValue.fromJson(Map<String, dynamic> json) =>
+      _$MAValueFromJson(json);
+}
+
+@freezed
+class MACrossResponse with _$MACrossResponse {
+  factory MACrossResponse({
+    double? price,
+    int? timestamp,
+    @JsonKey(name: 'ma_results') Map<String, dynamic>? maResults,
+  }) = _MACrossResponse;
+
+  factory MACrossResponse.fromJson(Map<String, dynamic> json) =>
+      _$MACrossResponseFromJson(json);
+}

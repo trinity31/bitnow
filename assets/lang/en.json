@@ -119,5 +119,11 @@
     "email_hint": "Enter your email if you'd like a response",
     "submit": "Submit",
     "feedback_sent": "Thank you for your feedback!",
-    "feedback_error": "Failed to send feedback. Please try again."
+    "feedback_error": "Failed to send feedback. Please try again.",
+    "price_vs_ma": "Price vs Moving Averages",
+    "ma_description": "Indicates when the price is 2% or more above or below the moving average for more than 2 days.",
+    "ma_baseline": "MA Baseline",
+    "above_ma": "Above MA",
+    "below_ma": "Below MA",
+    "near_ma": "Near MA"
 }

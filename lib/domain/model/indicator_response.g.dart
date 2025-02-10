@@ -67,3 +67,37 @@ Map<String, dynamic> _$$MvrvResponseImplToJson(_$MvrvResponseImpl instance) =>
       'mvrv': instance.mvrv,
       'timestamp': instance.timestamp,
     };
+
+_$MAValueImpl _$$MAValueImplFromJson(Map<String, dynamic> json) =>
+    _$MAValueImpl(
+      maValue: (json['ma_value'] as num?)?.toDouble(),
+      thresholdUp: (json['threshold_up'] as num?)?.toDouble(),
+      thresholdDown: (json['threshold_down'] as num?)?.toDouble(),
+      confirmedUp: json['confirmed_up'] as bool?,
+      confirmedDown: json['confirmed_down'] as bool?,
+    );
+
+Map<String, dynamic> _$$MAValueImplToJson(_$MAValueImpl instance) =>
+    <String, dynamic>{
+      'ma_value': instance.maValue,
+      'threshold_up': instance.thresholdUp,
+      'threshold_down': instance.thresholdDown,
+      'confirmed_up': instance.confirmedUp,
+      'confirmed_down': instance.confirmedDown,
+    };
+
+_$MACrossResponseImpl _$$MACrossResponseImplFromJson(
+        Map<String, dynamic> json) =>
+    _$MACrossResponseImpl(
+      price: (json['price'] as num?)?.toDouble(),
+      timestamp: (json['timestamp'] as num?)?.toInt(),
+      maResults: json['ma_results'] as Map<String, dynamic>?,
+    );
+
+Map<String, dynamic> _$$MACrossResponseImplToJson(
+        _$MACrossResponseImpl instance) =>
+    <String, dynamic>{
+      'price': instance.price,
+      'timestamp': instance.timestamp,
+      'ma_results': instance.maResults,
+    };

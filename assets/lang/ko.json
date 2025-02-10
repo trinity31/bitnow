@@ -119,5 +119,11 @@
     "email_hint": "답변을 원하시면 이메일을 입력해주세요",
     "submit": "제출",
     "feedback_sent": "피드백을 보내주셔서 감사합니다!",
-    "feedback_error": "피드백 전송에 실패했습니다. 다시 시도해주세요."
+    "feedback_error": "피드백 전송에 실패했습니다. 다시 시도해주세요.",
+    "price_vs_ma": "이동평균선 대비 현재 가격",
+    "ma_description": "이동평균선 대비 이격도 2% 이상, 2일 이상 지속되는 경우 MA 아래 또는 위 표기",
+    "ma_baseline": "MA 기준선",
+    "above_ma": "MA 위",
+    "below_ma": "MA 아래",
+    "near_ma": "MA 근접"
 }

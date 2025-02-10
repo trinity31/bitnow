@@ -5,6 +5,8 @@ import 'package:btc_price_app/domain/model/indicator_response.dart';
 import 'package:btc_price_app/core/constants.dart';
 import 'package:flutter/foundation.dart';
 import '../../utils/print.dart';
+import '../../core/network/dio_client.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'indicator_view_model.g.dart';
 
@@ -82,4 +84,14 @@ class IndicatorViewModel extends _$IndicatorViewModel {
       throw Exception('MVRV 업데이트 실패: $e');
     }
   }
+}
+
+@riverpod
+Future<MACrossResponse> maCross(Ref ref) async {
+  final client = IndicatorApiClient(
+    DioClient.getInstance(),
+    baseUrl: ApiConstants.baseUrl,
+  );
+
+  return await client.getMaCross();
 }

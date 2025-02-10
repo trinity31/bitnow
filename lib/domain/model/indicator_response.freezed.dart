@@ -806,3 +806,462 @@ abstract class _MvrvResponse implements MvrvResponse {
   _$$MvrvResponseImplCopyWith<_$MvrvResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+MAValue _$MAValueFromJson(Map<String, dynamic> json) {
+  return _MAValue.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MAValue {
+  @JsonKey(name: 'ma_value')
+  double? get maValue => throw _privateConstructorUsedError;
+  @JsonKey(name: 'threshold_up')
+  double? get thresholdUp => throw _privateConstructorUsedError;
+  @JsonKey(name: 'threshold_down')
+  double? get thresholdDown => throw _privateConstructorUsedError;
+  @JsonKey(name: 'confirmed_up')
+  bool? get confirmedUp => throw _privateConstructorUsedError;
+  @JsonKey(name: 'confirmed_down')
+  bool? get confirmedDown => throw _privateConstructorUsedError;
+
+  /// Serializes this MAValue to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MAValue
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MAValueCopyWith<MAValue> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MAValueCopyWith<$Res> {
+  factory $MAValueCopyWith(MAValue value, $Res Function(MAValue) then) =
+      _$MAValueCopyWithImpl<$Res, MAValue>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'ma_value') double? maValue,
+      @JsonKey(name: 'threshold_up') double? thresholdUp,
+      @JsonKey(name: 'threshold_down') double? thresholdDown,
+      @JsonKey(name: 'confirmed_up') bool? confirmedUp,
+      @JsonKey(name: 'confirmed_down') bool? confirmedDown});
+}
+
+/// @nodoc
+class _$MAValueCopyWithImpl<$Res, $Val extends MAValue>
+    implements $MAValueCopyWith<$Res> {
+  _$MAValueCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MAValue
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? maValue = freezed,
+    Object? thresholdUp = freezed,
+    Object? thresholdDown = freezed,
+    Object? confirmedUp = freezed,
+    Object? confirmedDown = freezed,
+  }) {
+    return _then(_value.copyWith(
+      maValue: freezed == maValue
+          ? _value.maValue
+          : maValue // ignore: cast_nullable_to_non_nullable
+              as double?,
+      thresholdUp: freezed == thresholdUp
+          ? _value.thresholdUp
+          : thresholdUp // ignore: cast_nullable_to_non_nullable
+              as double?,
+      thresholdDown: freezed == thresholdDown
+          ? _value.thresholdDown
+          : thresholdDown // ignore: cast_nullable_to_non_nullable
+              as double?,
+      confirmedUp: freezed == confirmedUp
+          ? _value.confirmedUp
+          : confirmedUp // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      confirmedDown: freezed == confirmedDown
+          ? _value.confirmedDown
+          : confirmedDown // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MAValueImplCopyWith<$Res> implements $MAValueCopyWith<$Res> {
+  factory _$$MAValueImplCopyWith(
+          _$MAValueImpl value, $Res Function(_$MAValueImpl) then) =
+      __$$MAValueImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'ma_value') double? maValue,
+      @JsonKey(name: 'threshold_up') double? thresholdUp,
+      @JsonKey(name: 'threshold_down') double? thresholdDown,
+      @JsonKey(name: 'confirmed_up') bool? confirmedUp,
+      @JsonKey(name: 'confirmed_down') bool? confirmedDown});
+}
+
+/// @nodoc
+class __$$MAValueImplCopyWithImpl<$Res>
+    extends _$MAValueCopyWithImpl<$Res, _$MAValueImpl>
+    implements _$$MAValueImplCopyWith<$Res> {
+  __$$MAValueImplCopyWithImpl(
+      _$MAValueImpl _value, $Res Function(_$MAValueImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MAValue
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? maValue = freezed,
+    Object? thresholdUp = freezed,
+    Object? thresholdDown = freezed,
+    Object? confirmedUp = freezed,
+    Object? confirmedDown = freezed,
+  }) {
+    return _then(_$MAValueImpl(
+      maValue: freezed == maValue
+          ? _value.maValue
+          : maValue // ignore: cast_nullable_to_non_nullable
+              as double?,
+      thresholdUp: freezed == thresholdUp
+          ? _value.thresholdUp
+          : thresholdUp // ignore: cast_nullable_to_non_nullable
+              as double?,
+      thresholdDown: freezed == thresholdDown
+          ? _value.thresholdDown
+          : thresholdDown // ignore: cast_nullable_to_non_nullable
+              as double?,
+      confirmedUp: freezed == confirmedUp
+          ? _value.confirmedUp
+          : confirmedUp // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      confirmedDown: freezed == confirmedDown
+          ? _value.confirmedDown
+          : confirmedDown // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MAValueImpl implements _MAValue {
+  _$MAValueImpl(
+      {@JsonKey(name: 'ma_value') this.maValue,
+      @JsonKey(name: 'threshold_up') this.thresholdUp,
+      @JsonKey(name: 'threshold_down') this.thresholdDown,
+      @JsonKey(name: 'confirmed_up') this.confirmedUp,
+      @JsonKey(name: 'confirmed_down') this.confirmedDown});
+
+  factory _$MAValueImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MAValueImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'ma_value')
+  final double? maValue;
+  @override
+  @JsonKey(name: 'threshold_up')
+  final double? thresholdUp;
+  @override
+  @JsonKey(name: 'threshold_down')
+  final double? thresholdDown;
+  @override
+  @JsonKey(name: 'confirmed_up')
+  final bool? confirmedUp;
+  @override
+  @JsonKey(name: 'confirmed_down')
+  final bool? confirmedDown;
+
+  @override
+  String toString() {
+    return 'MAValue(maValue: $maValue, thresholdUp: $thresholdUp, thresholdDown: $thresholdDown, confirmedUp: $confirmedUp, confirmedDown: $confirmedDown)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MAValueImpl &&
+            (identical(other.maValue, maValue) || other.maValue == maValue) &&
+            (identical(other.thresholdUp, thresholdUp) ||
+                other.thresholdUp == thresholdUp) &&
+            (identical(other.thresholdDown, thresholdDown) ||
+                other.thresholdDown == thresholdDown) &&
+            (identical(other.confirmedUp, confirmedUp) ||
+                other.confirmedUp == confirmedUp) &&
+            (identical(other.confirmedDown, confirmedDown) ||
+                other.confirmedDown == confirmedDown));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, maValue, thresholdUp,
+      thresholdDown, confirmedUp, confirmedDown);
+
+  /// Create a copy of MAValue
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MAValueImplCopyWith<_$MAValueImpl> get copyWith =>
+      __$$MAValueImplCopyWithImpl<_$MAValueImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MAValueImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MAValue implements MAValue {
+  factory _MAValue(
+          {@JsonKey(name: 'ma_value') final double? maValue,
+          @JsonKey(name: 'threshold_up') final double? thresholdUp,
+          @JsonKey(name: 'threshold_down') final double? thresholdDown,
+          @JsonKey(name: 'confirmed_up') final bool? confirmedUp,
+          @JsonKey(name: 'confirmed_down') final bool? confirmedDown}) =
+      _$MAValueImpl;
+
+  factory _MAValue.fromJson(Map<String, dynamic> json) = _$MAValueImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'ma_value')
+  double? get maValue;
+  @override
+  @JsonKey(name: 'threshold_up')
+  double? get thresholdUp;
+  @override
+  @JsonKey(name: 'threshold_down')
+  double? get thresholdDown;
+  @override
+  @JsonKey(name: 'confirmed_up')
+  bool? get confirmedUp;
+  @override
+  @JsonKey(name: 'confirmed_down')
+  bool? get confirmedDown;
+
+  /// Create a copy of MAValue
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MAValueImplCopyWith<_$MAValueImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MACrossResponse _$MACrossResponseFromJson(Map<String, dynamic> json) {
+  return _MACrossResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MACrossResponse {
+  double? get price => throw _privateConstructorUsedError;
+  int? get timestamp => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ma_results')
+  Map<String, dynamic>? get maResults => throw _privateConstructorUsedError;
+
+  /// Serializes this MACrossResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MACrossResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MACrossResponseCopyWith<MACrossResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MACrossResponseCopyWith<$Res> {
+  factory $MACrossResponseCopyWith(
+          MACrossResponse value, $Res Function(MACrossResponse) then) =
+      _$MACrossResponseCopyWithImpl<$Res, MACrossResponse>;
+  @useResult
+  $Res call(
+      {double? price,
+      int? timestamp,
+      @JsonKey(name: 'ma_results') Map<String, dynamic>? maResults});
+}
+
+/// @nodoc
+class _$MACrossResponseCopyWithImpl<$Res, $Val extends MACrossResponse>
+    implements $MACrossResponseCopyWith<$Res> {
+  _$MACrossResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MACrossResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? price = freezed,
+    Object? timestamp = freezed,
+    Object? maResults = freezed,
+  }) {
+    return _then(_value.copyWith(
+      price: freezed == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double?,
+      timestamp: freezed == timestamp
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maResults: freezed == maResults
+          ? _value.maResults
+          : maResults // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MACrossResponseImplCopyWith<$Res>
+    implements $MACrossResponseCopyWith<$Res> {
+  factory _$$MACrossResponseImplCopyWith(_$MACrossResponseImpl value,
+          $Res Function(_$MACrossResponseImpl) then) =
+      __$$MACrossResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {double? price,
+      int? timestamp,
+      @JsonKey(name: 'ma_results') Map<String, dynamic>? maResults});
+}
+
+/// @nodoc
+class __$$MACrossResponseImplCopyWithImpl<$Res>
+    extends _$MACrossResponseCopyWithImpl<$Res, _$MACrossResponseImpl>
+    implements _$$MACrossResponseImplCopyWith<$Res> {
+  __$$MACrossResponseImplCopyWithImpl(
+      _$MACrossResponseImpl _value, $Res Function(_$MACrossResponseImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MACrossResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? price = freezed,
+    Object? timestamp = freezed,
+    Object? maResults = freezed,
+  }) {
+    return _then(_$MACrossResponseImpl(
+      price: freezed == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double?,
+      timestamp: freezed == timestamp
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maResults: freezed == maResults
+          ? _value._maResults
+          : maResults // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MACrossResponseImpl implements _MACrossResponse {
+  _$MACrossResponseImpl(
+      {this.price,
+      this.timestamp,
+      @JsonKey(name: 'ma_results') final Map<String, dynamic>? maResults})
+      : _maResults = maResults;
+
+  factory _$MACrossResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MACrossResponseImplFromJson(json);
+
+  @override
+  final double? price;
+  @override
+  final int? timestamp;
+  final Map<String, dynamic>? _maResults;
+  @override
+  @JsonKey(name: 'ma_results')
+  Map<String, dynamic>? get maResults {
+    final value = _maResults;
+    if (value == null) return null;
+    if (_maResults is EqualUnmodifiableMapView) return _maResults;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  @override
+  String toString() {
+    return 'MACrossResponse(price: $price, timestamp: $timestamp, maResults: $maResults)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MACrossResponseImpl &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.timestamp, timestamp) ||
+                other.timestamp == timestamp) &&
+            const DeepCollectionEquality()
+                .equals(other._maResults, _maResults));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, price, timestamp,
+      const DeepCollectionEquality().hash(_maResults));
+
+  /// Create a copy of MACrossResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MACrossResponseImplCopyWith<_$MACrossResponseImpl> get copyWith =>
+      __$$MACrossResponseImplCopyWithImpl<_$MACrossResponseImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MACrossResponseImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MACrossResponse implements MACrossResponse {
+  factory _MACrossResponse(
+          {final double? price,
+          final int? timestamp,
+          @JsonKey(name: 'ma_results') final Map<String, dynamic>? maResults}) =
+      _$MACrossResponseImpl;
+
+  factory _MACrossResponse.fromJson(Map<String, dynamic> json) =
+      _$MACrossResponseImpl.fromJson;
+
+  @override
+  double? get price;
+  @override
+  int? get timestamp;
+  @override
+  @JsonKey(name: 'ma_results')
+  Map<String, dynamic>? get maResults;
+
+  /// Create a copy of MACrossResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MACrossResponseImplCopyWith<_$MACrossResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
