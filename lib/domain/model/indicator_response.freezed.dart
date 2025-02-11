@@ -1057,6 +1057,174 @@ abstract class _MAValue implements MAValue {
       throw _privateConstructorUsedError;
 }
 
+MarketDiagnosis _$MarketDiagnosisFromJson(Map<String, dynamic> json) {
+  return _MarketDiagnosis.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MarketDiagnosis {
+  String? get trend => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+
+  /// Serializes this MarketDiagnosis to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MarketDiagnosis
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MarketDiagnosisCopyWith<MarketDiagnosis> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MarketDiagnosisCopyWith<$Res> {
+  factory $MarketDiagnosisCopyWith(
+          MarketDiagnosis value, $Res Function(MarketDiagnosis) then) =
+      _$MarketDiagnosisCopyWithImpl<$Res, MarketDiagnosis>;
+  @useResult
+  $Res call({String? trend, String? description});
+}
+
+/// @nodoc
+class _$MarketDiagnosisCopyWithImpl<$Res, $Val extends MarketDiagnosis>
+    implements $MarketDiagnosisCopyWith<$Res> {
+  _$MarketDiagnosisCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MarketDiagnosis
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? trend = freezed,
+    Object? description = freezed,
+  }) {
+    return _then(_value.copyWith(
+      trend: freezed == trend
+          ? _value.trend
+          : trend // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MarketDiagnosisImplCopyWith<$Res>
+    implements $MarketDiagnosisCopyWith<$Res> {
+  factory _$$MarketDiagnosisImplCopyWith(_$MarketDiagnosisImpl value,
+          $Res Function(_$MarketDiagnosisImpl) then) =
+      __$$MarketDiagnosisImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? trend, String? description});
+}
+
+/// @nodoc
+class __$$MarketDiagnosisImplCopyWithImpl<$Res>
+    extends _$MarketDiagnosisCopyWithImpl<$Res, _$MarketDiagnosisImpl>
+    implements _$$MarketDiagnosisImplCopyWith<$Res> {
+  __$$MarketDiagnosisImplCopyWithImpl(
+      _$MarketDiagnosisImpl _value, $Res Function(_$MarketDiagnosisImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MarketDiagnosis
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? trend = freezed,
+    Object? description = freezed,
+  }) {
+    return _then(_$MarketDiagnosisImpl(
+      trend: freezed == trend
+          ? _value.trend
+          : trend // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MarketDiagnosisImpl implements _MarketDiagnosis {
+  _$MarketDiagnosisImpl({this.trend, this.description});
+
+  factory _$MarketDiagnosisImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MarketDiagnosisImplFromJson(json);
+
+  @override
+  final String? trend;
+  @override
+  final String? description;
+
+  @override
+  String toString() {
+    return 'MarketDiagnosis(trend: $trend, description: $description)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MarketDiagnosisImpl &&
+            (identical(other.trend, trend) || other.trend == trend) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, trend, description);
+
+  /// Create a copy of MarketDiagnosis
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MarketDiagnosisImplCopyWith<_$MarketDiagnosisImpl> get copyWith =>
+      __$$MarketDiagnosisImplCopyWithImpl<_$MarketDiagnosisImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MarketDiagnosisImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MarketDiagnosis implements MarketDiagnosis {
+  factory _MarketDiagnosis({final String? trend, final String? description}) =
+      _$MarketDiagnosisImpl;
+
+  factory _MarketDiagnosis.fromJson(Map<String, dynamic> json) =
+      _$MarketDiagnosisImpl.fromJson;
+
+  @override
+  String? get trend;
+  @override
+  String? get description;
+
+  /// Create a copy of MarketDiagnosis
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MarketDiagnosisImplCopyWith<_$MarketDiagnosisImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 MACrossResponse _$MACrossResponseFromJson(Map<String, dynamic> json) {
   return _MACrossResponse.fromJson(json);
 }
@@ -1067,6 +1235,8 @@ mixin _$MACrossResponse {
   int? get timestamp => throw _privateConstructorUsedError;
   @JsonKey(name: 'ma_results')
   Map<String, dynamic>? get maResults => throw _privateConstructorUsedError;
+  @JsonKey(name: 'market_diagnosis')
+  MarketDiagnosis? get marketDiagnosis => throw _privateConstructorUsedError;
 
   /// Serializes this MACrossResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1087,7 +1257,10 @@ abstract class $MACrossResponseCopyWith<$Res> {
   $Res call(
       {double? price,
       int? timestamp,
-      @JsonKey(name: 'ma_results') Map<String, dynamic>? maResults});
+      @JsonKey(name: 'ma_results') Map<String, dynamic>? maResults,
+      @JsonKey(name: 'market_diagnosis') MarketDiagnosis? marketDiagnosis});
+
+  $MarketDiagnosisCopyWith<$Res>? get marketDiagnosis;
 }
 
 /// @nodoc
@@ -1108,6 +1281,7 @@ class _$MACrossResponseCopyWithImpl<$Res, $Val extends MACrossResponse>
     Object? price = freezed,
     Object? timestamp = freezed,
     Object? maResults = freezed,
+    Object? marketDiagnosis = freezed,
   }) {
     return _then(_value.copyWith(
       price: freezed == price
@@ -1122,7 +1296,25 @@ class _$MACrossResponseCopyWithImpl<$Res, $Val extends MACrossResponse>
           ? _value.maResults
           : maResults // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
+      marketDiagnosis: freezed == marketDiagnosis
+          ? _value.marketDiagnosis
+          : marketDiagnosis // ignore: cast_nullable_to_non_nullable
+              as MarketDiagnosis?,
     ) as $Val);
+  }
+
+  /// Create a copy of MACrossResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $MarketDiagnosisCopyWith<$Res>? get marketDiagnosis {
+    if (_value.marketDiagnosis == null) {
+      return null;
+    }
+
+    return $MarketDiagnosisCopyWith<$Res>(_value.marketDiagnosis!, (value) {
+      return _then(_value.copyWith(marketDiagnosis: value) as $Val);
+    });
   }
 }
 
@@ -1137,7 +1329,11 @@ abstract class _$$MACrossResponseImplCopyWith<$Res>
   $Res call(
       {double? price,
       int? timestamp,
-      @JsonKey(name: 'ma_results') Map<String, dynamic>? maResults});
+      @JsonKey(name: 'ma_results') Map<String, dynamic>? maResults,
+      @JsonKey(name: 'market_diagnosis') MarketDiagnosis? marketDiagnosis});
+
+  @override
+  $MarketDiagnosisCopyWith<$Res>? get marketDiagnosis;
 }
 
 /// @nodoc
@@ -1156,6 +1352,7 @@ class __$$MACrossResponseImplCopyWithImpl<$Res>
     Object? price = freezed,
     Object? timestamp = freezed,
     Object? maResults = freezed,
+    Object? marketDiagnosis = freezed,
   }) {
     return _then(_$MACrossResponseImpl(
       price: freezed == price
@@ -1170,6 +1367,10 @@ class __$$MACrossResponseImplCopyWithImpl<$Res>
           ? _value._maResults
           : maResults // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
+      marketDiagnosis: freezed == marketDiagnosis
+          ? _value.marketDiagnosis
+          : marketDiagnosis // ignore: cast_nullable_to_non_nullable
+              as MarketDiagnosis?,
     ));
   }
 }
@@ -1180,7 +1381,8 @@ class _$MACrossResponseImpl implements _MACrossResponse {
   _$MACrossResponseImpl(
       {this.price,
       this.timestamp,
-      @JsonKey(name: 'ma_results') final Map<String, dynamic>? maResults})
+      @JsonKey(name: 'ma_results') final Map<String, dynamic>? maResults,
+      @JsonKey(name: 'market_diagnosis') this.marketDiagnosis})
       : _maResults = maResults;
 
   factory _$MACrossResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -1202,8 +1404,12 @@ class _$MACrossResponseImpl implements _MACrossResponse {
   }
 
   @override
+  @JsonKey(name: 'market_diagnosis')
+  final MarketDiagnosis? marketDiagnosis;
+
+  @override
   String toString() {
-    return 'MACrossResponse(price: $price, timestamp: $timestamp, maResults: $maResults)';
+    return 'MACrossResponse(price: $price, timestamp: $timestamp, maResults: $maResults, marketDiagnosis: $marketDiagnosis)';
   }
 
   @override
@@ -1215,13 +1421,15 @@ class _$MACrossResponseImpl implements _MACrossResponse {
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
             const DeepCollectionEquality()
-                .equals(other._maResults, _maResults));
+                .equals(other._maResults, _maResults) &&
+            (identical(other.marketDiagnosis, marketDiagnosis) ||
+                other.marketDiagnosis == marketDiagnosis));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, price, timestamp,
-      const DeepCollectionEquality().hash(_maResults));
+      const DeepCollectionEquality().hash(_maResults), marketDiagnosis);
 
   /// Create a copy of MACrossResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -1242,10 +1450,11 @@ class _$MACrossResponseImpl implements _MACrossResponse {
 
 abstract class _MACrossResponse implements MACrossResponse {
   factory _MACrossResponse(
-          {final double? price,
-          final int? timestamp,
-          @JsonKey(name: 'ma_results') final Map<String, dynamic>? maResults}) =
-      _$MACrossResponseImpl;
+      {final double? price,
+      final int? timestamp,
+      @JsonKey(name: 'ma_results') final Map<String, dynamic>? maResults,
+      @JsonKey(name: 'market_diagnosis')
+      final MarketDiagnosis? marketDiagnosis}) = _$MACrossResponseImpl;
 
   factory _MACrossResponse.fromJson(Map<String, dynamic> json) =
       _$MACrossResponseImpl.fromJson;
@@ -1257,6 +1466,9 @@ abstract class _MACrossResponse implements MACrossResponse {
   @override
   @JsonKey(name: 'ma_results')
   Map<String, dynamic>? get maResults;
+  @override
+  @JsonKey(name: 'market_diagnosis')
+  MarketDiagnosis? get marketDiagnosis;
 
   /// Create a copy of MACrossResponse
   /// with the given fields replaced by the non-null parameter values.

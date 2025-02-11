@@ -86,12 +86,30 @@ Map<String, dynamic> _$$MAValueImplToJson(_$MAValueImpl instance) =>
       'confirmed_down': instance.confirmedDown,
     };
 
+_$MarketDiagnosisImpl _$$MarketDiagnosisImplFromJson(
+        Map<String, dynamic> json) =>
+    _$MarketDiagnosisImpl(
+      trend: json['trend'] as String?,
+      description: json['description'] as String?,
+    );
+
+Map<String, dynamic> _$$MarketDiagnosisImplToJson(
+        _$MarketDiagnosisImpl instance) =>
+    <String, dynamic>{
+      'trend': instance.trend,
+      'description': instance.description,
+    };
+
 _$MACrossResponseImpl _$$MACrossResponseImplFromJson(
         Map<String, dynamic> json) =>
     _$MACrossResponseImpl(
       price: (json['price'] as num?)?.toDouble(),
       timestamp: (json['timestamp'] as num?)?.toInt(),
       maResults: json['ma_results'] as Map<String, dynamic>?,
+      marketDiagnosis: json['market_diagnosis'] == null
+          ? null
+          : MarketDiagnosis.fromJson(
+              json['market_diagnosis'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$MACrossResponseImplToJson(
@@ -100,4 +118,5 @@ Map<String, dynamic> _$$MACrossResponseImplToJson(
       'price': instance.price,
       'timestamp': instance.timestamp,
       'ma_results': instance.maResults,
+      'market_diagnosis': instance.marketDiagnosis,
     };

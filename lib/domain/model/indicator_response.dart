@@ -64,11 +64,23 @@ class MAValue with _$MAValue {
 }
 
 @freezed
+class MarketDiagnosis with _$MarketDiagnosis {
+  factory MarketDiagnosis({
+    String? trend,
+    String? description,
+  }) = _MarketDiagnosis;
+
+  factory MarketDiagnosis.fromJson(Map<String, dynamic> json) =>
+      _$MarketDiagnosisFromJson(json);
+}
+
+@freezed
 class MACrossResponse with _$MACrossResponse {
   factory MACrossResponse({
     double? price,
     int? timestamp,
     @JsonKey(name: 'ma_results') Map<String, dynamic>? maResults,
+    @JsonKey(name: 'market_diagnosis') MarketDiagnosis? marketDiagnosis,
   }) = _MACrossResponse;
 
   factory MACrossResponse.fromJson(Map<String, dynamic> json) =>
