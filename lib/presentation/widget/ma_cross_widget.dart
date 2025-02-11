@@ -39,6 +39,42 @@ class MACrossWidget extends ConsumerWidget {
                 _buildMAStatus(context, 'MA60', ma60),
                 _buildMAStatus(context, 'MA120', ma120),
                 _buildMAStatus(context, 'MA200', ma200),
+                if (data.marketDiagnosis != null) ...[
+                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color:
+                          Theme.of(context).colorScheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              '현재 추세: ',
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            Text(
+                              data.marketDiagnosis?.trend ?? '',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          data.marketDiagnosis?.description ?? '',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ],
             );
           },
