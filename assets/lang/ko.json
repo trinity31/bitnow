@@ -125,5 +125,8 @@
     "ma_baseline": "MA 기준선",
     "above_ma": "MA 위",
     "below_ma": "MA 아래",
-    "near_ma": "MA 근접"
+    "near_ma": "MA 근접",
+    "moving_average": "이동평균선",
+    "day_ma": "일 이동평균선",
+    "select_ma_interval": "이동평균선 주기를 선택해주세요"
 }

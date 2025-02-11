@@ -9,7 +9,6 @@ import '../../../core/exceptions.dart';
 import 'package:intl/intl.dart';
 import '../credit/credit_earn_screen.dart';
 import 'package:btc_price_app/l10n/app_localizations.dart';
-import 'package:dio/dio.dart' show DioException;
 
 class NotificationSettingsScreen extends ConsumerStatefulWidget {
   const NotificationSettingsScreen({super.key});
@@ -28,6 +27,7 @@ class _NotificationSettingsScreenState
   bool _isExpanded = false;
   late Currency _currency;
   bool _initialized = false;
+  MaInterval? _maInterval;
 
   @override
   void didChangeDependencies() {
@@ -261,23 +261,47 @@ class _NotificationSettingsScreenState
                             ),
                             //const SizedBox(height: 16),
                           ],
-                          const SizedBox(height: 16),
-                          TextField(
-                            controller: _thresholdController,
-                            decoration: InputDecoration(
-                              labelText: localizations.translate('threshold'),
-                              border: const OutlineInputBorder(),
-                              hintText: localizations.translate(
-                                  _getThresholdHintKey(_selectedType)),
+                          if (_selectedType == AlertType.ma) ...[
+                            DropdownButtonFormField<MaInterval>(
+                              value: _maInterval ?? MaInterval.ma20,
+                              decoration: InputDecoration(
+                                labelText:
+                                    localizations.translate('ma_interval'),
+                                border: const OutlineInputBorder(),
+                              ),
+                              items: MaInterval.values.map((interval) {
+                                return DropdownMenuItem(
+                                  value: interval,
+                                  child: Text(
+                                      '${interval.toString().split('.').last.replaceAll('ma', '')}${AppLocalizations.of(context).translate('day_ma')}'),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _maInterval = value;
+                                });
+                              },
                             ),
-                            keyboardType:
-                                _selectedType == AlertType.kimchiPremium ||
-                                        _selectedType == AlertType.dominance ||
-                                        _selectedType == AlertType.mvrv
-                                    ? const TextInputType.numberWithOptions(
-                                        decimal: true)
-                                    : TextInputType.number,
-                          ),
+                            const SizedBox(height: 16),
+                          ],
+                          const SizedBox(height: 16),
+                          if (_selectedType != AlertType.ma)
+                            TextField(
+                              controller: _thresholdController,
+                              decoration: InputDecoration(
+                                labelText: localizations.translate('threshold'),
+                                border: const OutlineInputBorder(),
+                                hintText: localizations.translate(
+                                    _getThresholdHintKey(_selectedType)),
+                              ),
+                              keyboardType: _selectedType ==
+                                          AlertType.kimchiPremium ||
+                                      _selectedType == AlertType.dominance ||
+                                      _selectedType == AlertType.mvrv
+                                  ? const TextInputType.numberWithOptions(
+                                      decimal: true)
+                                  : TextInputType.number,
+                            ),
                           const SizedBox(height: 16),
                           Row(
                             children: [
@@ -312,17 +336,21 @@ class _NotificationSettingsScreenState
                                 FocusScope.of(context).unfocus();
 
                                 try {
-                                  final threshold = double.tryParse(
-                                      _thresholdController.text);
-                                  if (threshold == null) {
+                                  final threshold =
+                                      _selectedType == AlertType.ma
+                                          ? 0
+                                          : double.tryParse(
+                                              _thresholdController.text);
+                                  if (_selectedType != AlertType.ma &&
+                                      threshold == null) {
                                     throw AlertException(localizations
                                         .translate('invalid_threshold'));
                                   }
 
-                                  if (_selectedType == AlertType.rsi &&
-                                      _interval == null) {
+                                  if (_selectedType == AlertType.ma &&
+                                      _maInterval == null) {
                                     throw AlertException(localizations
-                                        .translate('select_rsi_interval'));
+                                        .translate('select_ma_interval'));
                                   }
 
                                   await ref
@@ -331,14 +359,20 @@ class _NotificationSettingsScreenState
                                         AlertRequest(
                                           type: _selectedType,
                                           symbol: 'BTC',
-                                          threshold: threshold,
+                                          threshold: threshold!.toDouble(),
                                           direction: _direction,
                                           interval:
                                               _selectedType == AlertType.rsi
                                                   ? _interval
                                                   : null,
-                                          currency:
-                                              _selectedType == AlertType.price
+                                          maInterval:
+                                              _selectedType == AlertType.ma
+                                                  ? _maInterval
+                                                  : null,
+                                          currency: _selectedType ==
+                                                  AlertType.ma
+                                              ? Currency.USD
+                                              : _selectedType == AlertType.price
                                                   ? _currency
                                                   : null,
                                         ),
@@ -437,11 +471,7 @@ class _NotificationSettingsScreenState
                       itemCount: alerts.length,
                       itemBuilder: (context, index) {
                         final alert = alerts[index];
-                        final formattedValue = _formatAlertValue(
-                          alert.type,
-                          alert.threshold,
-                          _selectedType == AlertType.price ? _currency : null,
-                        );
+                        final formattedValue = _formatAlertValue(alert);
                         return ListTile(
                           title: Row(
                             children: [
@@ -630,21 +660,26 @@ class _NotificationSettingsScreenState
     return AppLocalizations.of(context).translate(_getAlertTypeKey(type));
   }
 
-  String _formatAlertValue(AlertType type, double value, Currency? currency) {
-    switch (type) {
+  String _formatAlertValue(AlertResponse alert) {
+    switch (alert.type) {
       case AlertType.price:
         final formatter = NumberFormat('#,###');
-        return currency == Currency.KRW
-            ? '₩${formatter.format(value)}'
-            : '\$${formatter.format(value)}';
+        return alert.currency == Currency.KRW
+            ? '₩${formatter.format(alert.threshold)}'
+            : '\$${formatter.format(alert.threshold)}';
       case AlertType.rsi:
-        return value.toStringAsFixed(0);
+        final intervalText = alert.rsiInterval != null
+            ? '${AppLocalizations.of(context).translate(_getRsiIntervalKey(alert.rsiInterval!))} '
+            : '';
+        return '$intervalText${alert.threshold.toStringAsFixed(0)}';
       case AlertType.kimchiPremium:
-        return '${value.toStringAsFixed(2)}%';
+        return '${alert.threshold.toStringAsFixed(2)}%';
       case AlertType.dominance:
-        return '${value.toStringAsFixed(1)}%';
+        return '${alert.threshold.toStringAsFixed(1)}%';
       case AlertType.mvrv:
-        return value.toStringAsFixed(1);
+        return alert.threshold.toStringAsFixed(1);
+      case AlertType.ma:
+        return '${alert.maInterval}${AppLocalizations.of(context).translate('day_ma')}';
     }
   }
 
@@ -660,6 +695,8 @@ class _NotificationSettingsScreenState
         return 'dominance';
       case AlertType.mvrv:
         return 'mvrv';
+      case AlertType.ma:
+        return 'moving_average';
     }
   }
 
@@ -690,6 +727,8 @@ class _NotificationSettingsScreenState
         return 'dominance_threshold_hint';
       case AlertType.mvrv:
         return 'mvrv_threshold_hint';
+      case AlertType.ma:
+        return 'ma_threshold_hint';
     }
   }
 }

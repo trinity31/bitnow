@@ -125,5 +125,8 @@
     "ma_baseline": "MA Baseline",
     "above_ma": "Above MA",
     "below_ma": "Below MA",
-    "near_ma": "Near MA"
+    "near_ma": "Near MA",
+    "moving_average": "Moving Average",
+    "day_ma": "Day MA",
+    "select_ma_interval": "Please select MA interval"
 }
