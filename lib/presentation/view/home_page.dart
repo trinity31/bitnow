@@ -13,9 +13,51 @@ import 'notification/notification_settings_screen.dart';
 import 'settings/settings_screen.dart';
 import 'package:btc_price_app/presentation/viewmodel/websocket_view_model.dart';
 import 'package:btc_price_app/presentation/widget/ma_cross_widget.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:btc_price_app/core/constants.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
+
+  @override
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  BannerAd? _bannerAd;
+  bool _isAdLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBannerAd();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  void _loadBannerAd() {
+    _bannerAd = BannerAd(
+      adUnitId: Constants.bannerAdUnitId,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+        },
+      ),
+    );
+
+    _bannerAd?.load();
+  }
 
   Widget _buildPriceSection(
       BuildContext context,
@@ -31,7 +73,7 @@ class HomePage extends ConsumerWidget {
         Text(
           localizations.translate('Current bitcoin price'),
           style: const TextStyle(
-            fontSize: 24,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -218,8 +260,25 @@ class HomePage extends ConsumerWidget {
     );
   }
 
+  Widget _buildBannerAd() {
+    return _isAdLoaded && _bannerAd != null
+        ? Container(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+            alignment: Alignment.center,
+            child: AdWidget(ad: _bannerAd!),
+          )
+        : Container(
+            width: 320,
+            height: 50,
+            alignment: Alignment.center,
+            child: const Text('광고 로딩 중...'),
+          );
+  }
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    final ref = this.ref;
     final wsStream = ref.watch(webSocketViewModelProvider);
     final mvrvAsync = ref.watch(indicatorViewModelProvider
         .select((value) => value.whenData((data) => data.$3)));
@@ -263,77 +322,101 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: wsStream.when(
-            loading: () => const CircularProgressIndicator(),
-            error: (error, stack) {
-              Future.microtask(() =>
-                  ref.read(webSocketViewModelProvider.notifier).reconnect());
-              return ErrorDisplay(
-                message: localizations.translate('connection_failed'),
-                onRetry: () =>
-                    ref.read(webSocketViewModelProvider.notifier).reconnect(),
-              );
-            },
-            data: (data) => orientation == Orientation.landscape
-                ? Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: _buildPriceSection(context, data, mvrvAsync,
-                              localizations, krwFormat, usdFormat),
-                        ),
-                      ),
-                      const VerticalDivider(
-                        color: Colors.grey,
-                        thickness: 0.5,
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              _buildIndicatorSection(context, data, mvrvAsync,
-                                  localizations, krwFormat, usdFormat),
-                              const Divider(
-                                color: Colors.grey,
-                                thickness: 0.5,
-                                indent: 16,
-                                endIndent: 16,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Center(
+                child: wsStream.when(
+                  loading: () => const CircularProgressIndicator(),
+                  error: (error, stack) {
+                    Future.microtask(() => ref
+                        .read(webSocketViewModelProvider.notifier)
+                        .reconnect());
+                    return ErrorDisplay(
+                      message: localizations.translate('connection_failed'),
+                      onRetry: () => ref
+                          .read(webSocketViewModelProvider.notifier)
+                          .reconnect(),
+                    );
+                  },
+                  data: (data) => orientation == Orientation.landscape
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: _buildPriceSection(
+                                    context,
+                                    data,
+                                    mvrvAsync,
+                                    localizations,
+                                    krwFormat,
+                                    usdFormat),
                               ),
-                              const MACrossWidget(),
-                              const SizedBox(height: 24),
-                            ],
-                          ),
+                            ),
+                            const VerticalDivider(
+                              color: Colors.grey,
+                              thickness: 0.5,
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    _buildIndicatorSection(
+                                        context,
+                                        data,
+                                        mvrvAsync,
+                                        localizations,
+                                        krwFormat,
+                                        usdFormat),
+                                    const Divider(
+                                      color: Colors.grey,
+                                      thickness: 0.5,
+                                      indent: 16,
+                                      endIndent: 16,
+                                    ),
+                                    const MACrossWidget(),
+                                    const SizedBox(height: 24),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 16, top: 16, right: 16),
+                              child: _buildPriceSection(
+                                  context,
+                                  data,
+                                  mvrvAsync,
+                                  localizations,
+                                  krwFormat,
+                                  usdFormat),
+                            ),
+                            const SizedBox(height: 16),
+                            _buildIndicatorSection(context, data, mvrvAsync,
+                                localizations, krwFormat, usdFormat),
+                            const Divider(
+                              color: Colors.grey,
+                              thickness: 0.5,
+                              indent: 16,
+                              endIndent: 16,
+                            ),
+                            const MACrossWidget(),
+                            const SizedBox(height: 24),
+                          ],
                         ),
-                      ),
-                    ],
-                  )
-                : Column(
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 16, top: 16, right: 16),
-                        child: _buildPriceSection(context, data, mvrvAsync,
-                            localizations, krwFormat, usdFormat),
-                      ),
-                      const SizedBox(height: 16),
-                      _buildIndicatorSection(context, data, mvrvAsync,
-                          localizations, krwFormat, usdFormat),
-                      const Divider(
-                        color: Colors.grey,
-                        thickness: 0.5,
-                        indent: 16,
-                        endIndent: 16,
-                      ),
-                      const MACrossWidget(),
-                      const SizedBox(height: 24),
-                    ],
-                  ),
+                ),
+              ),
+            ),
           ),
-        ),
+          _buildBannerAd(),
+        ],
       ),
     );
   }

@@ -22,8 +22,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 // 백그라운드 메시지 핸들러
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  //();
-  safePrint('백그라운드 메시지 수신: ${message.messageId}');
   safePrint('백그라운드 메시지 수신: ${message.messageId}');
   safePrint('알림 제목: ${message.notification?.title}');
   safePrint('알림 내용: ${message.notification?.body}');
@@ -31,153 +29,132 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+  // Zone 오류를 치명적으로 만들기 (디버깅용)
+  // BindingBase.debugZoneErrorsAreFatal = true;
 
-  // 가로, 세로 모드 모두 허용
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
+  // 모든 초기화 작업을 동일한 Zone에서 수행
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await dotenv.load(fileName: ".env");
 
-  if (Platform.isAndroid || Platform.isIOS) {
+    // 가로, 세로 모드 모두 허용
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+
+    // AdMob 초기화
+    await MobileAds.instance.initialize();
+
     try {
-      // 테스트 디바이스 ID 등록
-      MobileAds.instance.updateRequestConfiguration(
-        RequestConfiguration(
-            // testDeviceIds: [
-            //   '18aea38bb112d1ba870703ef5672c7d3',
-            //   '71694CD35869E1D1AA27879358C4E46C'
-            // ],
-            ),
+      // Firebase 초기화
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
       );
-
-      // 광고 초기화
-      await MobileAds.instance.initialize();
-      safePrint('AdMob 초기화 성공');
+      safePrint('Firebase 초기화 성공');
     } catch (e) {
-      safePrint('AdMob 초기화 실패: $e');
+      safePrint('Firebase 초기화 실패: $e');
+      return;
     }
-  }
 
-  try {
-    // Firebase 초기화
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
+    // FCM 백그라운드 핸들러 설정
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    NotificationSettings settings =
+        await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
     );
 
-    safePrint('Firebase 초기화 성공');
-  } catch (e) {
-    safePrint('Firebase 초기화 실패: $e');
-    return;
-  }
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      safePrint('User granted permission');
+    } else {
+      safePrint('User declined or has not accepted permission');
+    }
 
-  // FCM 백그라운드 핸들러 설정
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  NotificationSettings settings =
-      await FirebaseMessaging.instance.requestPermission(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-
-  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-    safePrint('User granted permission');
-    // String? apnsToken = await messaging.getAPNSToken();
-    // String? fcmToken = await messaging.getToken();
-    // safePrint("FCM Token: $fcmToken");
-  } else {
-    safePrint('User declined or has not accepted permission');
-  }
-
-  String? fcmToken;
-  if (Platform.isIOS) {
-    try {
-      final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-      if (apnsToken != null) {
+    String? fcmToken;
+    if (Platform.isIOS) {
+      try {
+        final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+        if (apnsToken != null) {
+          fcmToken = await FirebaseMessaging.instance.getToken();
+          // FCM 토큰 저장
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('fcm_token', fcmToken ?? '');
+          safePrint('FCM Token saved: $fcmToken');
+        }
+      } catch (e) {
+        safePrint('iOS 토큰 가져오기 실패: $e');
+      }
+    } else {
+      try {
         fcmToken = await FirebaseMessaging.instance.getToken();
         // FCM 토큰 저장
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('fcm_token', fcmToken ?? '');
         safePrint('FCM Token saved: $fcmToken');
+      } catch (e) {
+        safePrint('Android FCM Token 가져오기 실패: $e');
       }
-    } catch (e) {
-      safePrint('iOS 토큰 가져오기 실패: $e');
     }
-  } else {
-    try {
-      fcmToken = await FirebaseMessaging.instance.getToken();
-      // FCM 토큰 저장
+
+    // 토큰 리스너 등록
+    FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('fcm_token', fcmToken ?? '');
-      safePrint('FCM Token saved: $fcmToken');
-    } catch (e) {
-      safePrint('Android FCM Token 가져오기 실패: $e');
-    }
-  }
+      await prefs.setString('fcm_token', newToken);
+      safePrint('New FCM Token saved: $newToken');
+    });
 
-  // 토큰 리스너 등록
-  FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('fcm_token', newToken);
-    safePrint('New FCM Token saved: $newToken');
-  });
+    // 로컬 노티피케이션 초기화
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  // 로컬 노티피케이션 초기화
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    const AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'default_channel_id',
+      'Default Channel',
+      importance: Importance.high,
+    );
 
-  const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'default_channel_id', // 동일한 ID를 AndroidManifest.xml에 설정
-    'Default Channel', // 사용자에게 표시될 채널 이름
-    importance: Importance.high,
-  );
+    const initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
-  const initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
-
-  const initializationSettingsIOS = DarwinInitializationSettings(
-    requestAlertPermission: true,
-    requestBadgePermission: true,
-    requestSoundPermission: true,
-    notificationCategories: [
-      DarwinNotificationCategory(
-        'bitnow_alert',
-        options: {
-          DarwinNotificationCategoryOption.allowAnnouncement,
-        },
-      ),
-    ],
-  );
-  const initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: initializationSettingsIOS,
-  );
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
-  if (Platform.isAndroid) {
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel);
-  }
-
-  runZonedGuarded<Future<void>>(
-    () async {
-      FlutterError.onError =
-          FirebaseCrashlytics.instance.recordFlutterFatalError;
-
-      runApp(
-        ProviderScope(
-          child: MyApp(initialFcmToken: fcmToken),
+    const initializationSettingsIOS = DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+      notificationCategories: [
+        DarwinNotificationCategory(
+          'bitnow_alert',
+          options: {
+            DarwinNotificationCategoryOption.allowAnnouncement,
+          },
         ),
-      );
-    },
-    (error, stackTrace) {
-      FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
-    },
-  );
+      ],
+    );
+    const initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+    if (Platform.isAndroid) {
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(channel);
+    }
+
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+    runApp(
+      ProviderScope(
+        child: MyApp(initialFcmToken: fcmToken),
+      ),
+    );
+  }, (error, stackTrace) {
+    FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
+  });
 }
 
 class MyApp extends ConsumerWidget {

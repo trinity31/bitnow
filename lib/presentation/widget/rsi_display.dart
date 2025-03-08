@@ -89,7 +89,7 @@ class RsiDisplay extends StatelessWidget {
             children: [
               Text(
                 'RSI',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               SizedBox(width: 8),
               Text(
