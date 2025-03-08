@@ -128,5 +128,6 @@
     "near_ma": "Near MA",
     "moving_average": "Moving Average",
     "day_ma": "Day MA",
-    "select_ma_interval": "Please select MA interval"
+    "select_ma_interval": "Please select MA interval",
+    "fear_greed_index": "Fear & Greed Index"
 }

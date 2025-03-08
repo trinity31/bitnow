@@ -86,3 +86,14 @@ class MACrossResponse with _$MACrossResponse {
   factory MACrossResponse.fromJson(Map<String, dynamic> json) =>
       _$MACrossResponseFromJson(json);
 }
+
+@freezed
+class FearGreedResponse with _$FearGreedResponse {
+  factory FearGreedResponse({
+    int? value,
+    String? classification,
+  }) = _FearGreedResponse;
+
+  factory FearGreedResponse.fromJson(Map<String, dynamic> json) =>
+      _$FearGreedResponseFromJson(json);
+}

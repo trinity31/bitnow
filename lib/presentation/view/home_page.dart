@@ -15,6 +15,7 @@ import 'package:btc_price_app/presentation/viewmodel/websocket_view_model.dart';
 import 'package:btc_price_app/presentation/widget/ma_cross_widget.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:btc_price_app/core/constants.dart';
+import 'package:btc_price_app/presentation/widget/fear_greed_display.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -188,6 +189,8 @@ class _HomePageState extends ConsumerState<HomePage> {
             day1: RsiData(rsi: data.rsi?.day1),
           ),
         ),
+        const SizedBox(height: 16),
+        const FearGreedDisplay(),
         if (isKorean) ...[
           const SizedBox(height: 16),
           GridView.custom(

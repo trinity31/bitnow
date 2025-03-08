@@ -128,5 +128,6 @@
     "near_ma": "MA 근접",
     "moving_average": "이동평균선",
     "day_ma": "일 이동평균선",
-    "select_ma_interval": "이동평균선 주기를 선택해주세요"
+    "select_ma_interval": "이동평균선 주기를 선택해주세요",
+    "fear_greed_index": "공포/탐욕 지수"
 }

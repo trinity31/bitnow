@@ -21,12 +21,13 @@ class IndicatorViewModel extends _$IndicatorViewModel {
   }
 
   @override
-  Future<(RsiResponse, DominanceResponse, MvrvResponse)> build() async {
+  Future<(RsiResponse, DominanceResponse, MvrvResponse, FearGreedResponse?)>
+      build() async {
     safePrint('🏗️ IndicatorViewModel build called');
     return _fetchIndicators();
   }
 
-  Future<(RsiResponse, DominanceResponse, MvrvResponse)>
+  Future<(RsiResponse, DominanceResponse, MvrvResponse, FearGreedResponse?)>
       _fetchIndicators() async {
     final dio = Dio(BaseOptions(
       baseUrl: ApiConstants.baseUrl,
@@ -40,7 +41,9 @@ class IndicatorViewModel extends _$IndicatorViewModel {
       final rsi = await client.getRsi();
       final dominance = await client.getDominance();
       final mvrv = await client.getMvrv();
-      return (rsi, dominance, mvrv);
+      final fearGreed = await client.getFearGreed();
+
+      return (rsi, dominance, mvrv, fearGreed);
     } catch (e) {
       throw Exception('[IndicatorViewModel] 지표 정보를 가져오는데 실패했습니다: $e');
     }
@@ -94,4 +97,14 @@ Future<MACrossResponse> maCross(Ref ref) async {
   );
 
   return await client.getMaCross();
+}
+
+@riverpod
+Future<FearGreedResponse> fearGreed(Ref ref) async {
+  final client = IndicatorApiClient(
+    DioClient.getInstance(),
+    baseUrl: ApiConstants.baseUrl,
+  );
+
+  return await client.getFearGreed();
 }

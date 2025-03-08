@@ -29,4 +29,7 @@ abstract class IndicatorApiClient {
 
   @GET(ApiConstants.maCrossEndpoint)
   Future<MACrossResponse> getMaCross();
+
+  @GET(ApiConstants.fearGreedEndpoint)
+  Future<FearGreedResponse> getFearGreed();
 }

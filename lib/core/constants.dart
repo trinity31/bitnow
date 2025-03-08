@@ -21,6 +21,7 @@ class ApiConstants {
   static const String dominanceEndpoint = '/indicator/dominance';
   static const String mvrvEndpoint = '/indicator/mvrv';
   static const String maCrossEndpoint = '/indicator/ma-cross';
+  static const String fearGreedEndpoint = '/indicator/fear-greed';
 }
 
 class Constants {

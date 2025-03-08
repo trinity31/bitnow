@@ -1477,3 +1477,171 @@ abstract class _MACrossResponse implements MACrossResponse {
   _$$MACrossResponseImplCopyWith<_$MACrossResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+FearGreedResponse _$FearGreedResponseFromJson(Map<String, dynamic> json) {
+  return _FearGreedResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$FearGreedResponse {
+  int? get value => throw _privateConstructorUsedError;
+  String? get classification => throw _privateConstructorUsedError;
+
+  /// Serializes this FearGreedResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of FearGreedResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $FearGreedResponseCopyWith<FearGreedResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FearGreedResponseCopyWith<$Res> {
+  factory $FearGreedResponseCopyWith(
+          FearGreedResponse value, $Res Function(FearGreedResponse) then) =
+      _$FearGreedResponseCopyWithImpl<$Res, FearGreedResponse>;
+  @useResult
+  $Res call({int? value, String? classification});
+}
+
+/// @nodoc
+class _$FearGreedResponseCopyWithImpl<$Res, $Val extends FearGreedResponse>
+    implements $FearGreedResponseCopyWith<$Res> {
+  _$FearGreedResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of FearGreedResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = freezed,
+    Object? classification = freezed,
+  }) {
+    return _then(_value.copyWith(
+      value: freezed == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as int?,
+      classification: freezed == classification
+          ? _value.classification
+          : classification // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$FearGreedResponseImplCopyWith<$Res>
+    implements $FearGreedResponseCopyWith<$Res> {
+  factory _$$FearGreedResponseImplCopyWith(_$FearGreedResponseImpl value,
+          $Res Function(_$FearGreedResponseImpl) then) =
+      __$$FearGreedResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int? value, String? classification});
+}
+
+/// @nodoc
+class __$$FearGreedResponseImplCopyWithImpl<$Res>
+    extends _$FearGreedResponseCopyWithImpl<$Res, _$FearGreedResponseImpl>
+    implements _$$FearGreedResponseImplCopyWith<$Res> {
+  __$$FearGreedResponseImplCopyWithImpl(_$FearGreedResponseImpl _value,
+      $Res Function(_$FearGreedResponseImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of FearGreedResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = freezed,
+    Object? classification = freezed,
+  }) {
+    return _then(_$FearGreedResponseImpl(
+      value: freezed == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as int?,
+      classification: freezed == classification
+          ? _value.classification
+          : classification // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$FearGreedResponseImpl implements _FearGreedResponse {
+  _$FearGreedResponseImpl({this.value, this.classification});
+
+  factory _$FearGreedResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FearGreedResponseImplFromJson(json);
+
+  @override
+  final int? value;
+  @override
+  final String? classification;
+
+  @override
+  String toString() {
+    return 'FearGreedResponse(value: $value, classification: $classification)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FearGreedResponseImpl &&
+            (identical(other.value, value) || other.value == value) &&
+            (identical(other.classification, classification) ||
+                other.classification == classification));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, value, classification);
+
+  /// Create a copy of FearGreedResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FearGreedResponseImplCopyWith<_$FearGreedResponseImpl> get copyWith =>
+      __$$FearGreedResponseImplCopyWithImpl<_$FearGreedResponseImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FearGreedResponseImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _FearGreedResponse implements FearGreedResponse {
+  factory _FearGreedResponse({final int? value, final String? classification}) =
+      _$FearGreedResponseImpl;
+
+  factory _FearGreedResponse.fromJson(Map<String, dynamic> json) =
+      _$FearGreedResponseImpl.fromJson;
+
+  @override
+  int? get value;
+  @override
+  String? get classification;
+
+  /// Create a copy of FearGreedResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FearGreedResponseImplCopyWith<_$FearGreedResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

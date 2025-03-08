@@ -120,3 +120,17 @@ Map<String, dynamic> _$$MACrossResponseImplToJson(
       'ma_results': instance.maResults,
       'market_diagnosis': instance.marketDiagnosis,
     };
+
+_$FearGreedResponseImpl _$$FearGreedResponseImplFromJson(
+        Map<String, dynamic> json) =>
+    _$FearGreedResponseImpl(
+      value: (json['value'] as num?)?.toInt(),
+      classification: json['classification'] as String?,
+    );
+
+Map<String, dynamic> _$$FearGreedResponseImplToJson(
+        _$FearGreedResponseImpl instance) =>
+    <String, dynamic>{
+      'value': instance.value,
+      'classification': instance.classification,
+    };
