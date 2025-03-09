@@ -69,7 +69,8 @@ class FearGreedDisplay extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      _getKoreanClassification(index.classification),
+                      _getLocalizedClassification(
+                          context, index.classification),
                       style: TextStyle(
                         fontSize: 16,
                         color: _getClassificationColor(index.classification),
@@ -97,6 +98,40 @@ class FearGreedDisplay extends ConsumerWidget {
     );
   }
 
+  String _getLocalizedClassification(
+      BuildContext context, String? classification) {
+    final locale = Localizations.localeOf(context).languageCode;
+
+    if (classification == null) {
+      return locale == 'ko' ? '정보 없음' : 'No Data';
+    }
+
+    // 한국어인 경우 한글로 표시
+    if (locale == 'ko') {
+      return _getKoreanClassification(classification);
+    }
+
+    // 영어 또는 기타 언어인 경우 영어로 표시
+    switch (classification.toLowerCase()) {
+      case 'extreme_fear':
+        return 'Extreme Fear';
+      case 'fear':
+        return 'Fear';
+      case 'neutral':
+        return 'Neutral';
+      case 'greed':
+        return 'Greed';
+      case 'extreme_greed':
+        return 'Extreme Greed';
+      case 'extreme fear':
+        return 'Extreme Fear';
+      case 'extreme greed':
+        return 'Extreme Greed';
+      default:
+        return classification;
+    }
+  }
+
   String _getKoreanClassification(String? classification) {
     if (classification == null) return '정보 없음';
 
@@ -111,6 +146,10 @@ class FearGreedDisplay extends ConsumerWidget {
         return '탐욕';
       case 'extreme greed':
         return '극도의 탐욕';
+      case 'extreme_fear':
+        return '극도의 공포';
+      case 'extreme_greed':
+        return '극도의 탐욕';
       default:
         return classification;
     }
@@ -121,6 +160,7 @@ class FearGreedDisplay extends ConsumerWidget {
 
     switch (classification.toLowerCase()) {
       case 'extreme fear':
+      case 'extreme_fear':
         return Colors.red.shade800;
       case 'fear':
         return Colors.red.shade400;
@@ -129,6 +169,7 @@ class FearGreedDisplay extends ConsumerWidget {
       case 'greed':
         return Colors.green.shade400;
       case 'extreme greed':
+      case 'extreme_greed':
         return Colors.green.shade800;
       default:
         return Colors.grey;
