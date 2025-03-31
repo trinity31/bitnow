@@ -127,20 +127,20 @@ class _CreditEarnScreenState extends ConsumerState<CreditEarnScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Text(
-                  localizations.translate('watch_ads_title'),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  localizations.translate('watch_ads_description'),
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
+                // Text(
+                //   localizations.translate('watch_ads_title'),
+                //   style: const TextStyle(
+                //     fontSize: 20,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // ),
+                // const SizedBox(height: 8),
+                // Text(
+                //   localizations.translate('watch_ads_description'),
+                //   style: const TextStyle(
+                //     color: Colors.grey,
+                //   ),
+                // ),
                 const SizedBox(height: 16),
                 FilledButton.icon(
                   style: FilledButton.styleFrom(
