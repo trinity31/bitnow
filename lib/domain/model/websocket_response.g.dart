@@ -51,6 +51,9 @@ _$WebSocketResponseImpl _$$WebSocketResponseImplFromJson(
       high3w: json['high_3w'] == null
           ? null
           : High3w.fromJson(json['high_3w'] as Map<String, dynamic>),
+      volume: json['volume'] == null
+          ? null
+          : Volume.fromJson(json['volume'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$WebSocketResponseImplToJson(
@@ -64,6 +67,7 @@ Map<String, dynamic> _$$WebSocketResponseImplToJson(
       'rsi': instance.rsi,
       'dominance': instance.dominance,
       'high_3w': instance.high3w,
+      'volume': instance.volume,
     };
 
 _$High3wImpl _$$High3wImplFromJson(Map<String, dynamic> json) => _$High3wImpl(
@@ -79,4 +83,21 @@ Map<String, dynamic> _$$High3wImplToJson(_$High3wImpl instance) =>
       'usd': instance.usd,
       'krw_timestamp': instance.krwTimestamp,
       'usd_timestamp': instance.usdTimestamp,
+    };
+
+_$VolumeImpl _$$VolumeImplFromJson(Map<String, dynamic> json) => _$VolumeImpl(
+      min1: (json['1m'] as num?)?.toDouble(),
+      min5: (json['5m'] as num?)?.toDouble(),
+      min15: (json['15m'] as num?)?.toDouble(),
+      hour1: (json['1h'] as num?)?.toDouble(),
+      hour24: (json['24h'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$VolumeImplToJson(_$VolumeImpl instance) =>
+    <String, dynamic>{
+      '1m': instance.min1,
+      '5m': instance.min5,
+      '15m': instance.min15,
+      '1h': instance.hour1,
+      '24h': instance.hour24,
     };

@@ -45,9 +45,11 @@ class IndicatorDisplay extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           Text(
-            formatter != null
-                ? '${prefix ?? ''}${formatter!.format(value ?? 0)}'
-                : '${prefix ?? ''}${value?.toStringAsFixed(decimalPlaces ?? 1)}${suffix ?? ''}',
+            (value == null || value == 0)
+                ? 'N/A'
+                : (formatter != null
+                    ? '${prefix ?? ''}${formatter!.format(value!)}'
+                    : '${prefix ?? ''}${value!.toStringAsFixed(decimalPlaces ?? 1)}${suffix ?? ''}'),
             style: TextStyle(
               fontSize: isCompact ? 16 : 18,
               fontWeight: FontWeight.bold,

@@ -129,5 +129,6 @@
     "moving_average": "Moving Average",
     "day_ma": "Day MA",
     "select_ma_interval": "Please select MA interval",
-    "fear_greed_index": "Fear & Greed Index"
+    "fear_greed_index": "Fear & Greed Index",
+    "Volume": "Volume"
 }

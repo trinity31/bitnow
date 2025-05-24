@@ -420,6 +420,7 @@ mixin _$WebSocketResponse {
   double? get dominance => throw _privateConstructorUsedError;
   @JsonKey(name: 'high_3w')
   High3w? get high3w => throw _privateConstructorUsedError;
+  Volume? get volume => throw _privateConstructorUsedError;
 
   /// Serializes this WebSocketResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -445,11 +446,13 @@ abstract class $WebSocketResponseCopyWith<$Res> {
       @JsonKey(name: 'change_24h') Change24h? change24h,
       WebSocketRsi? rsi,
       double? dominance,
-      @JsonKey(name: 'high_3w') High3w? high3w});
+      @JsonKey(name: 'high_3w') High3w? high3w,
+      Volume? volume});
 
   $Change24hCopyWith<$Res>? get change24h;
   $WebSocketRsiCopyWith<$Res>? get rsi;
   $High3wCopyWith<$Res>? get high3w;
+  $VolumeCopyWith<$Res>? get volume;
 }
 
 /// @nodoc
@@ -475,6 +478,7 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
     Object? rsi = freezed,
     Object? dominance = freezed,
     Object? high3w = freezed,
+    Object? volume = freezed,
   }) {
     return _then(_value.copyWith(
       krw: freezed == krw
@@ -509,6 +513,10 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
           ? _value.high3w
           : high3w // ignore: cast_nullable_to_non_nullable
               as High3w?,
+      volume: freezed == volume
+          ? _value.volume
+          : volume // ignore: cast_nullable_to_non_nullable
+              as Volume?,
     ) as $Val);
   }
 
@@ -553,6 +561,20 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
       return _then(_value.copyWith(high3w: value) as $Val);
     });
   }
+
+  /// Create a copy of WebSocketResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $VolumeCopyWith<$Res>? get volume {
+    if (_value.volume == null) {
+      return null;
+    }
+
+    return $VolumeCopyWith<$Res>(_value.volume!, (value) {
+      return _then(_value.copyWith(volume: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -571,7 +593,8 @@ abstract class _$$WebSocketResponseImplCopyWith<$Res>
       @JsonKey(name: 'change_24h') Change24h? change24h,
       WebSocketRsi? rsi,
       double? dominance,
-      @JsonKey(name: 'high_3w') High3w? high3w});
+      @JsonKey(name: 'high_3w') High3w? high3w,
+      Volume? volume});
 
   @override
   $Change24hCopyWith<$Res>? get change24h;
@@ -579,6 +602,8 @@ abstract class _$$WebSocketResponseImplCopyWith<$Res>
   $WebSocketRsiCopyWith<$Res>? get rsi;
   @override
   $High3wCopyWith<$Res>? get high3w;
+  @override
+  $VolumeCopyWith<$Res>? get volume;
 }
 
 /// @nodoc
@@ -602,6 +627,7 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
     Object? rsi = freezed,
     Object? dominance = freezed,
     Object? high3w = freezed,
+    Object? volume = freezed,
   }) {
     return _then(_$WebSocketResponseImpl(
       krw: freezed == krw
@@ -636,6 +662,10 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
           ? _value.high3w
           : high3w // ignore: cast_nullable_to_non_nullable
               as High3w?,
+      volume: freezed == volume
+          ? _value.volume
+          : volume // ignore: cast_nullable_to_non_nullable
+              as Volume?,
     ));
   }
 }
@@ -651,7 +681,8 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
       @JsonKey(name: 'change_24h') this.change24h,
       this.rsi,
       this.dominance,
-      @JsonKey(name: 'high_3w') this.high3w});
+      @JsonKey(name: 'high_3w') this.high3w,
+      this.volume});
 
   factory _$WebSocketResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$WebSocketResponseImplFromJson(json);
@@ -675,10 +706,12 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
   @override
   @JsonKey(name: 'high_3w')
   final High3w? high3w;
+  @override
+  final Volume? volume;
 
   @override
   String toString() {
-    return 'WebSocketResponse(krw: $krw, usd: $usd, timestamp: $timestamp, kimchiPremium: $kimchiPremium, change24h: $change24h, rsi: $rsi, dominance: $dominance, high3w: $high3w)';
+    return 'WebSocketResponse(krw: $krw, usd: $usd, timestamp: $timestamp, kimchiPremium: $kimchiPremium, change24h: $change24h, rsi: $rsi, dominance: $dominance, high3w: $high3w, volume: $volume)';
   }
 
   @override
@@ -697,13 +730,14 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
             (identical(other.rsi, rsi) || other.rsi == rsi) &&
             (identical(other.dominance, dominance) ||
                 other.dominance == dominance) &&
-            (identical(other.high3w, high3w) || other.high3w == high3w));
+            (identical(other.high3w, high3w) || other.high3w == high3w) &&
+            (identical(other.volume, volume) || other.volume == volume));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, krw, usd, timestamp,
-      kimchiPremium, change24h, rsi, dominance, high3w);
+      kimchiPremium, change24h, rsi, dominance, high3w, volume);
 
   /// Create a copy of WebSocketResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -724,15 +758,15 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
 
 abstract class _WebSocketResponse implements WebSocketResponse {
   factory _WebSocketResponse(
-          {final double? krw,
-          final double? usd,
-          final String? timestamp,
-          @JsonKey(name: 'kimchi_premium') final double? kimchiPremium,
-          @JsonKey(name: 'change_24h') final Change24h? change24h,
-          final WebSocketRsi? rsi,
-          final double? dominance,
-          @JsonKey(name: 'high_3w') final High3w? high3w}) =
-      _$WebSocketResponseImpl;
+      {final double? krw,
+      final double? usd,
+      final String? timestamp,
+      @JsonKey(name: 'kimchi_premium') final double? kimchiPremium,
+      @JsonKey(name: 'change_24h') final Change24h? change24h,
+      final WebSocketRsi? rsi,
+      final double? dominance,
+      @JsonKey(name: 'high_3w') final High3w? high3w,
+      final Volume? volume}) = _$WebSocketResponseImpl;
 
   factory _WebSocketResponse.fromJson(Map<String, dynamic> json) =
       _$WebSocketResponseImpl.fromJson;
@@ -756,6 +790,8 @@ abstract class _WebSocketResponse implements WebSocketResponse {
   @override
   @JsonKey(name: 'high_3w')
   High3w? get high3w;
+  @override
+  Volume? get volume;
 
   /// Create a copy of WebSocketResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -981,5 +1017,250 @@ abstract class _High3w implements High3w {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$High3wImplCopyWith<_$High3wImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Volume _$VolumeFromJson(Map<String, dynamic> json) {
+  return _Volume.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Volume {
+  @JsonKey(name: '1m')
+  double? get min1 => throw _privateConstructorUsedError;
+  @JsonKey(name: '5m')
+  double? get min5 => throw _privateConstructorUsedError;
+  @JsonKey(name: '15m')
+  double? get min15 => throw _privateConstructorUsedError;
+  @JsonKey(name: '1h')
+  double? get hour1 => throw _privateConstructorUsedError;
+  @JsonKey(name: '24h')
+  double? get hour24 => throw _privateConstructorUsedError;
+
+  /// Serializes this Volume to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Volume
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $VolumeCopyWith<Volume> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VolumeCopyWith<$Res> {
+  factory $VolumeCopyWith(Volume value, $Res Function(Volume) then) =
+      _$VolumeCopyWithImpl<$Res, Volume>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: '1m') double? min1,
+      @JsonKey(name: '5m') double? min5,
+      @JsonKey(name: '15m') double? min15,
+      @JsonKey(name: '1h') double? hour1,
+      @JsonKey(name: '24h') double? hour24});
+}
+
+/// @nodoc
+class _$VolumeCopyWithImpl<$Res, $Val extends Volume>
+    implements $VolumeCopyWith<$Res> {
+  _$VolumeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Volume
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? min1 = freezed,
+    Object? min5 = freezed,
+    Object? min15 = freezed,
+    Object? hour1 = freezed,
+    Object? hour24 = freezed,
+  }) {
+    return _then(_value.copyWith(
+      min1: freezed == min1
+          ? _value.min1
+          : min1 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      min5: freezed == min5
+          ? _value.min5
+          : min5 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      min15: freezed == min15
+          ? _value.min15
+          : min15 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      hour1: freezed == hour1
+          ? _value.hour1
+          : hour1 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      hour24: freezed == hour24
+          ? _value.hour24
+          : hour24 // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$VolumeImplCopyWith<$Res> implements $VolumeCopyWith<$Res> {
+  factory _$$VolumeImplCopyWith(
+          _$VolumeImpl value, $Res Function(_$VolumeImpl) then) =
+      __$$VolumeImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: '1m') double? min1,
+      @JsonKey(name: '5m') double? min5,
+      @JsonKey(name: '15m') double? min15,
+      @JsonKey(name: '1h') double? hour1,
+      @JsonKey(name: '24h') double? hour24});
+}
+
+/// @nodoc
+class __$$VolumeImplCopyWithImpl<$Res>
+    extends _$VolumeCopyWithImpl<$Res, _$VolumeImpl>
+    implements _$$VolumeImplCopyWith<$Res> {
+  __$$VolumeImplCopyWithImpl(
+      _$VolumeImpl _value, $Res Function(_$VolumeImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Volume
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? min1 = freezed,
+    Object? min5 = freezed,
+    Object? min15 = freezed,
+    Object? hour1 = freezed,
+    Object? hour24 = freezed,
+  }) {
+    return _then(_$VolumeImpl(
+      min1: freezed == min1
+          ? _value.min1
+          : min1 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      min5: freezed == min5
+          ? _value.min5
+          : min5 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      min15: freezed == min15
+          ? _value.min15
+          : min15 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      hour1: freezed == hour1
+          ? _value.hour1
+          : hour1 // ignore: cast_nullable_to_non_nullable
+              as double?,
+      hour24: freezed == hour24
+          ? _value.hour24
+          : hour24 // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$VolumeImpl implements _Volume {
+  _$VolumeImpl(
+      {@JsonKey(name: '1m') this.min1,
+      @JsonKey(name: '5m') this.min5,
+      @JsonKey(name: '15m') this.min15,
+      @JsonKey(name: '1h') this.hour1,
+      @JsonKey(name: '24h') this.hour24});
+
+  factory _$VolumeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$VolumeImplFromJson(json);
+
+  @override
+  @JsonKey(name: '1m')
+  final double? min1;
+  @override
+  @JsonKey(name: '5m')
+  final double? min5;
+  @override
+  @JsonKey(name: '15m')
+  final double? min15;
+  @override
+  @JsonKey(name: '1h')
+  final double? hour1;
+  @override
+  @JsonKey(name: '24h')
+  final double? hour24;
+
+  @override
+  String toString() {
+    return 'Volume(min1: $min1, min5: $min5, min15: $min15, hour1: $hour1, hour24: $hour24)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VolumeImpl &&
+            (identical(other.min1, min1) || other.min1 == min1) &&
+            (identical(other.min5, min5) || other.min5 == min5) &&
+            (identical(other.min15, min15) || other.min15 == min15) &&
+            (identical(other.hour1, hour1) || other.hour1 == hour1) &&
+            (identical(other.hour24, hour24) || other.hour24 == hour24));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, min1, min5, min15, hour1, hour24);
+
+  /// Create a copy of Volume
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VolumeImplCopyWith<_$VolumeImpl> get copyWith =>
+      __$$VolumeImplCopyWithImpl<_$VolumeImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$VolumeImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Volume implements Volume {
+  factory _Volume(
+      {@JsonKey(name: '1m') final double? min1,
+      @JsonKey(name: '5m') final double? min5,
+      @JsonKey(name: '15m') final double? min15,
+      @JsonKey(name: '1h') final double? hour1,
+      @JsonKey(name: '24h') final double? hour24}) = _$VolumeImpl;
+
+  factory _Volume.fromJson(Map<String, dynamic> json) = _$VolumeImpl.fromJson;
+
+  @override
+  @JsonKey(name: '1m')
+  double? get min1;
+  @override
+  @JsonKey(name: '5m')
+  double? get min5;
+  @override
+  @JsonKey(name: '15m')
+  double? get min15;
+  @override
+  @JsonKey(name: '1h')
+  double? get hour1;
+  @override
+  @JsonKey(name: '24h')
+  double? get hour24;
+
+  /// Create a copy of Volume
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$VolumeImplCopyWith<_$VolumeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

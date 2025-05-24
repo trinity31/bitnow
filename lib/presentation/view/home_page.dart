@@ -279,6 +279,88 @@ class _HomePageState extends ConsumerState<HomePage> {
           );
   }
 
+  Widget _buildVolumeIndicatorSection(
+      BuildContext context,
+      dynamic data,
+      AppLocalizations localizations,
+      NumberFormat krwFormat,
+      NumberFormat usdFormat) {
+    final isKorean = Localizations.localeOf(context).languageCode == 'ko';
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                localizations.translate('Volume'),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(width: 6),
+              Text(
+                '(${localizations.translate('binance')})',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[600],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          GridView.custom(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 3.2,
+            ),
+            childrenDelegate: SliverChildListDelegate([
+              IndicatorDisplay(
+                label:
+                    '${isKorean ? '1분' : '1m'} ${isKorean ? '거래량' : 'Volume'}',
+                value: data.volume?.min1,
+                decimalPlaces: 5,
+                suffix: ' BTC',
+                isCompact: true,
+              ),
+              IndicatorDisplay(
+                label:
+                    '${isKorean ? '5분' : '5m'} ${isKorean ? '거래량' : 'Volume'}',
+                value: data.volume?.min5,
+                decimalPlaces: 5,
+                suffix: ' BTC',
+                isCompact: true,
+              ),
+              IndicatorDisplay(
+                label:
+                    '${isKorean ? '15분' : '15m'} ${isKorean ? '거래량' : 'Volume'}',
+                value: data.volume?.min15,
+                decimalPlaces: 5,
+                suffix: ' BTC',
+                isCompact: true,
+              ),
+              IndicatorDisplay(
+                label:
+                    '${isKorean ? '1시간' : '1h'} ${isKorean ? '거래량' : 'Volume'}',
+                value: data.volume?.hour1,
+                decimalPlaces: 5,
+                suffix: ' BTC',
+                isCompact: true,
+              ),
+            ]),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final ref = this.ref;
@@ -380,6 +462,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       indent: 16,
                                       endIndent: 16,
                                     ),
+                                    if (data.volume != null)
+                                      _buildVolumeIndicatorSection(
+                                          context,
+                                          data,
+                                          localizations,
+                                          krwFormat,
+                                          usdFormat),
+                                    const Divider(
+                                      color: Colors.grey,
+                                      thickness: 0.5,
+                                      indent: 16,
+                                      endIndent: 16,
+                                    ),
                                     const MACrossWidget(),
                                     const SizedBox(height: 24),
                                   ],
@@ -404,6 +499,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                             const SizedBox(height: 16),
                             _buildIndicatorSection(context, data, mvrvAsync,
                                 localizations, krwFormat, usdFormat),
+                            const Divider(
+                              color: Colors.grey,
+                              thickness: 0.5,
+                              indent: 16,
+                              endIndent: 16,
+                            ),
+                            if (data.volume != null)
+                              _buildVolumeIndicatorSection(context, data,
+                                  localizations, krwFormat, usdFormat),
                             const Divider(
                               color: Colors.grey,
                               thickness: 0.5,
