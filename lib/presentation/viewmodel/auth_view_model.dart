@@ -1,15 +1,18 @@
-import 'package:btc_price_app/data/remote/auth_api_client.dart';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../domain/model/auth/auth_model.dart';
-import '../../domain/model/user.dart';
+
 import '../../core/constants.dart';
 import '../../core/network/dio_client.dart';
 import '../../utils/print.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' show Localizations;
-import 'dart:io' show Platform;
+import 'alert_view_model.dart';
 import '../../data/model/request/fcm_token_request.dart';
+import '../../data/remote/auth_api_client.dart';
+import '../../domain/model/auth/auth_model.dart';
+import '../../domain/model/user.dart';
 
 part 'auth_view_model.g.dart';
 
@@ -84,37 +87,58 @@ class AuthViewModel extends _$AuthViewModel {
       await prefs.setString(_emailKey, email);
       await prefs.setBool(_isAdminKey, response.user?.isAdmin ?? false);
 
-      final savedFcmToken = prefs.getString(_fcmTokenKey);
-
-      safePrint('savedFcmToken: $savedFcmToken');
+      // 로그인 성공 후 FCM 토큰 새로 가져오기
+      String? fcmToken;
+      try {
+        final token = await FirebaseMessaging.instance.getToken();
+        if (token != null) {
+          fcmToken = token;
+          await prefs.setString(_fcmTokenKey, token);
+          await updateFcmToken(token);
+          safePrint('✅ FCM 토큰 업데이트 성공');
+        } else {
+          safePrint('⚠️ FCM 토큰을 가져올 수 없음');
+        }
+      } catch (e) {
+        safePrint('⚠️ FCM 토큰 가져오기 실패: $e');
+      }
 
       final user = User(
-        fcmToken: savedFcmToken ?? '',
+        fcmToken: fcmToken ?? '',
         isAdmin: response.user?.isAdmin ?? false,
       );
       state = AsyncValue.data(user);
-
-      if (savedFcmToken != null) {
-        await updateFcmToken(savedFcmToken);
-      }
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     }
   }
 
   Future<void> logout() async {
-    state = const AsyncValue.loading();
-    try {
-      await client.logout();
+    // 로컬 상태 먼저 초기화
+    final prefs = await SharedPreferences.getInstance();
+    final hadToken = prefs.containsKey(_tokenKey);
 
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove(_tokenKey);
-      await prefs.remove(_emailKey);
-      await prefs.remove(_isAdminKey);
+    // 로컬 저장소에서 토큰, 사용자 정보, FCM 토큰 제거
+    await prefs.remove(_tokenKey);
+    await prefs.remove(_emailKey);
+    await prefs.remove(_isAdminKey);
+    await prefs.remove(_fcmTokenKey);
 
-      state = const AsyncValue.data(null);
-    } catch (e, st) {
-      state = AsyncValue.error(e, st);
+    // 상태 초기화
+    state = const AsyncValue.data(null);
+
+    // 알림 설정 관련 상태 초기화
+    ref.invalidate(alertViewModelProvider);
+
+    // 서버에 로그아웃을 알리기 전에 로컬 상태를 먼저 업데이트
+    if (hadToken) {
+      try {
+        // 서버에 로그아웃 알리기 (실패해도 무시)
+        await client.logout();
+      } catch (e) {
+        // 401 에러를 포함한 모든 에러는 무시 (이미 로그아웃된 상태일 수 있음)
+        safePrint('로그아웃 API 호출 중 오류가 발생했지만 무시합니다: $e');
+      }
     }
   }
 
@@ -140,8 +164,16 @@ class AuthViewModel extends _$AuthViewModel {
           locale: currentLocale,
         ).toJson(),
       );
-    } catch (e) {
-      safePrint('FCM 토큰 업데이트 실패: $e');
+
+      safePrint('✅ FCM 토큰 업데이트 성공');
+    } on DioException catch (e) {
+      safePrint('❌ FCM 토큰 업데이트 실패 (${e.response?.statusCode}): ${e.message}');
+      if (e.response?.statusCode == 401) {
+        safePrint('🔒 인증 실패: 토큰이 만료되었거나 유효하지 않습니다.');
+      }
+    } catch (e, stackTrace) {
+      safePrint('❌ FCM 토큰 업데이트 중 오류 발생: $e');
+      safePrint('Stack trace: $stackTrace');
     }
   }
 

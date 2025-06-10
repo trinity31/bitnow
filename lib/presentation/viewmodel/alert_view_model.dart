@@ -9,7 +9,7 @@ import '../../utils/print.dart';
 
 part 'alert_view_model.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 class AlertViewModel extends _$AlertViewModel {
   AlertApiClient? _client;
 

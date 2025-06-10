@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:btc_price_app/presentation/viewmodel/alert_view_model.dart';
 import 'package:btc_price_app/utils/print.dart';
+import 'package:btc_price_app/core/utils/auth_utils.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -164,11 +165,11 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // FCM 토큰이 있으면 저장 및 업데이트 시도
-    if (initialFcmToken != null) {
-      ref.read(authViewModelProvider.notifier).updateFcmToken(initialFcmToken!);
-    }
-
+    // MaterialApp이 빌드된 후에 토큰 검증 실행
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkTokenAndUpdateFcm(ref);
+    });
+    
     // 앱이 포그라운드로 돌아올 때 알림 목록 새로고침
     FirebaseMessaging.onMessage.listen((message) {
       ref.invalidate(alertViewModelProvider);
@@ -198,5 +199,24 @@ class MyApp extends ConsumerWidget {
       ],
       home: const HomePage(),
     );
+  }
+  
+  Future<void> _checkTokenAndUpdateFcm(WidgetRef ref) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('auth_token');
+
+    if (token != null) {
+      final isExpired = AuthUtils.isTokenExpired(token);
+      if (isExpired) {
+        // 토큰이 만료된 경우 자동으로 로그아웃 처리
+        await ref.read(authViewModelProvider.notifier).logout();
+        return;
+      }
+    }
+
+    // FCM 토큰이 있으면 저장 및 업데이트 시도
+    if (initialFcmToken != null) {
+      ref.read(authViewModelProvider.notifier).updateFcmToken(initialFcmToken!);
+    }
   }
 }

@@ -51,9 +51,19 @@ class _NotificationSettingsScreenState
     final localizations = AppLocalizations.of(context);
     final authState = ref.watch(authViewModelProvider);
 
+    // 로딩 중이거나 에러인 경우 처리
+    if (authState.isLoading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return authState.when(
       data: (token) {
-        if (token == null) {
+        // 토큰이 null이거나 빈 문자열인 경우 로그인 화면 표시
+        if (token == null || token.toString().isEmpty) {
           return Scaffold(
             appBar: AppBar(
               title: Text(localizations.translate('notification_settings')),
