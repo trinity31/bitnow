@@ -10,6 +10,8 @@
     "dominance": "Dominance",
     "mvrv": "MVRV",
     "eth_btc_ratio": "ETH/BTC Ratio",
+    "stablecoin_inflow_ratio": "Stablecoin Inflow Ratio",
+    "stablecoin_inflow_ratio_description": "The ratio of coin reserves to all stablecoin reserves held by exchanges. A lower value indicates buying power and potential for price increases.",
     "mvrv_loading_error": "MVRV Loading Error",
     "connection_failed": "Connection failed.\nPlease try again.",
     "notification_settings": "Notification Settings",

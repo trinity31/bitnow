@@ -11,6 +11,7 @@ class IndicatorDisplay extends StatelessWidget {
   final String? secondaryText;
   final String? dateText;
   final bool isCompact;
+  final String? tooltipMessage;
 
   const IndicatorDisplay({
     super.key,
@@ -23,6 +24,7 @@ class IndicatorDisplay extends StatelessWidget {
     this.secondaryText,
     this.dateText,
     this.isCompact = false,
+    this.tooltipMessage,
   });
 
   @override
@@ -36,12 +38,92 @@ class IndicatorDisplay extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '$label:',
-            style: TextStyle(
-              fontSize: isCompact ? 13 : 14,
-              color: Colors.grey,
-            ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '$label:',
+                style: TextStyle(
+                  fontSize: isCompact ? 13 : 14,
+                  color: Colors.grey,
+                ),
+              ),
+              if (tooltipMessage != null) ...[
+                const SizedBox(width: 4),
+                GestureDetector(
+                  onTap: () {
+                    final overlay = Overlay.of(context);
+                    final renderBox = context.findRenderObject() as RenderBox;
+                    final offset = renderBox.localToGlobal(Offset.zero);
+
+                    late OverlayEntry overlayEntry;
+                    overlayEntry = OverlayEntry(
+                      builder: (context) => Positioned(
+                        top: offset.dy + 20,
+                        left: offset.dx - 100,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              width: 250,
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 24),
+                                    child: Text(
+                                      tooltipMessage!,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 0,
+                                    top: -4,
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        Icons.close,
+                                        size: 16,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        overlayEntry.remove();
+                                      },
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+
+                    overlay.insert(overlayEntry);
+
+                    Future.delayed(const Duration(seconds: 5), () {
+                      if (overlayEntry.mounted) {
+                        overlayEntry.remove();
+                      }
+                    });
+                  },
+                  child: Icon(
+                    Icons.info_outline,
+                    size: isCompact ? 14 : 16,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ],
           ),
           const SizedBox(height: 2),
           Text(

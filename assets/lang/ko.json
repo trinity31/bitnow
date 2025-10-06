@@ -10,6 +10,8 @@
     "dominance": "도미넌스",
     "mvrv": "MVRV",
     "eth_btc_ratio": "ETH/BTC 비율",
+    "stablecoin_inflow_ratio": "스테이블코인 유입 비율",
+    "stablecoin_inflow_ratio_description": "거래소가 보유한 모든 스테이블코인 준비금 대비 코인 준비금 비율입니다. 낮은 값은 구매력을 의미하며 가격 상승 가능성으로 이어집니다.",
     "mvrv_loading_error": "MVRV 로딩 오류",
     "connection_failed": "연결에 실패했습니다.\n다시 시도해 주세요.",
     "notification_settings": "알림 설정",

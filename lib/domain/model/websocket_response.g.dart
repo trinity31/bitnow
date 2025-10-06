@@ -55,6 +55,8 @@ _$WebSocketResponseImpl _$$WebSocketResponseImplFromJson(
           ? null
           : Volume.fromJson(json['volume'] as Map<String, dynamic>),
       ethBtcRatio: (json['eth_btc_ratio'] as num?)?.toDouble(),
+      stablecoinInflowRatio:
+          (json['stablecoin_inflow_ratio'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$WebSocketResponseImplToJson(
@@ -70,6 +72,7 @@ Map<String, dynamic> _$$WebSocketResponseImplToJson(
       'high_3w': instance.high3w,
       'volume': instance.volume,
       'eth_btc_ratio': instance.ethBtcRatio,
+      'stablecoin_inflow_ratio': instance.stablecoinInflowRatio,
     };
 
 _$High3wImpl _$$High3wImplFromJson(Map<String, dynamic> json) => _$High3wImpl(

@@ -169,7 +169,7 @@ class MyApp extends ConsumerWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _checkTokenAndUpdateFcm(ref);
     });
-    
+
     // 앱이 포그라운드로 돌아올 때 알림 목록 새로고침
     FirebaseMessaging.onMessage.listen((message) {
       ref.invalidate(alertViewModelProvider);
@@ -200,7 +200,7 @@ class MyApp extends ConsumerWidget {
       home: const HomePage(),
     );
   }
-  
+
   Future<void> _checkTokenAndUpdateFcm(WidgetRef ref) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token');
