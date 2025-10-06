@@ -81,6 +81,21 @@ class _HomePageState extends ConsumerState<HomePage> {
     }
   }
 
+  Color _getSoprColor(double? sopr) {
+    if (sopr == null) return Colors.grey;
+
+    if (sopr > 1.0) {
+      // 1 초과 = 이익 실현중 (익절, 강세)
+      return Colors.green.shade400;
+    } else if (sopr < 1.0) {
+      // 1 미만 = 손실 실현중 (손절, 약세)
+      return Colors.red.shade400;
+    } else {
+      // 1 = 본전 (횡보)
+      return Colors.white;
+    }
+  }
+
   Widget _buildPriceSection(
       BuildContext context,
       dynamic data,
@@ -205,6 +220,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 decimalPlaces: 2,
                 isCompact: true,
                 tooltipMessage: localizations.translate('sopr_description'),
+                valueColor: _getSoprColor(data.sopr),
               ),
             ]),
           ),
@@ -353,6 +369,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 decimalPlaces: 2,
                 isCompact: true,
                 tooltipMessage: localizations.translate('sopr_description'),
+                valueColor: _getSoprColor(data.sopr),
               ),
             ]),
           ),
