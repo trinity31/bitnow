@@ -26,7 +26,7 @@ class AppTheme {
     textTheme: GoogleFonts.interTextTheme(
       ThemeData.dark().textTheme,
     ),
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
       color: cardColor,
       elevation: 0,
     ),

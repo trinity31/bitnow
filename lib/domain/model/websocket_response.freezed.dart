@@ -23,12 +23,8 @@ mixin _$Change24h {
   double? get krw => throw _privateConstructorUsedError;
   double? get usd => throw _privateConstructorUsedError;
 
-  /// Serializes this Change24h to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of Change24h
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $Change24hCopyWith<Change24h> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,8 +47,6 @@ class _$Change24hCopyWithImpl<$Res, $Val extends Change24h>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Change24h
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,8 +85,6 @@ class __$$Change24hImplCopyWithImpl<$Res>
       _$Change24hImpl _value, $Res Function(_$Change24hImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Change24h
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -139,13 +131,11 @@ class _$Change24hImpl implements _Change24h {
             (identical(other.usd, usd) || other.usd == usd));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, krw, usd);
 
-  /// Create a copy of Change24h
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$Change24hImplCopyWith<_$Change24hImpl> get copyWith =>
@@ -169,11 +159,8 @@ abstract class _Change24h implements Change24h {
   double? get krw;
   @override
   double? get usd;
-
-  /// Create a copy of Change24h
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$Change24hImplCopyWith<_$Change24hImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -193,12 +180,8 @@ mixin _$WebSocketRsi {
   @JsonKey(name: '1d')
   double? get day1 => throw _privateConstructorUsedError;
 
-  /// Serializes this WebSocketRsi to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of WebSocketRsi
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $WebSocketRsiCopyWith<WebSocketRsi> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -226,8 +209,6 @@ class _$WebSocketRsiCopyWithImpl<$Res, $Val extends WebSocketRsi>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of WebSocketRsi
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -280,8 +261,6 @@ class __$$WebSocketRsiImplCopyWithImpl<$Res>
       _$WebSocketRsiImpl _value, $Res Function(_$WebSocketRsiImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of WebSocketRsi
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -352,13 +331,11 @@ class _$WebSocketRsiImpl implements _WebSocketRsi {
             (identical(other.day1, day1) || other.day1 == day1));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, min15, hour1, hour4, day1);
 
-  /// Create a copy of WebSocketRsi
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$WebSocketRsiImplCopyWith<_$WebSocketRsiImpl> get copyWith =>
@@ -394,11 +371,8 @@ abstract class _WebSocketRsi implements WebSocketRsi {
   @override
   @JsonKey(name: '1d')
   double? get day1;
-
-  /// Create a copy of WebSocketRsi
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$WebSocketRsiImplCopyWith<_$WebSocketRsiImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -421,13 +395,11 @@ mixin _$WebSocketResponse {
   @JsonKey(name: 'high_3w')
   High3w? get high3w => throw _privateConstructorUsedError;
   Volume? get volume => throw _privateConstructorUsedError;
+  @JsonKey(name: 'eth_btc_ratio')
+  double? get ethBtcRatio => throw _privateConstructorUsedError;
 
-  /// Serializes this WebSocketResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of WebSocketResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $WebSocketResponseCopyWith<WebSocketResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -447,7 +419,8 @@ abstract class $WebSocketResponseCopyWith<$Res> {
       WebSocketRsi? rsi,
       double? dominance,
       @JsonKey(name: 'high_3w') High3w? high3w,
-      Volume? volume});
+      Volume? volume,
+      @JsonKey(name: 'eth_btc_ratio') double? ethBtcRatio});
 
   $Change24hCopyWith<$Res>? get change24h;
   $WebSocketRsiCopyWith<$Res>? get rsi;
@@ -465,8 +438,6 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of WebSocketResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -479,6 +450,7 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
     Object? dominance = freezed,
     Object? high3w = freezed,
     Object? volume = freezed,
+    Object? ethBtcRatio = freezed,
   }) {
     return _then(_value.copyWith(
       krw: freezed == krw
@@ -517,11 +489,13 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
           ? _value.volume
           : volume // ignore: cast_nullable_to_non_nullable
               as Volume?,
+      ethBtcRatio: freezed == ethBtcRatio
+          ? _value.ethBtcRatio
+          : ethBtcRatio // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 
-  /// Create a copy of WebSocketResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Change24hCopyWith<$Res>? get change24h {
@@ -534,8 +508,6 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
     });
   }
 
-  /// Create a copy of WebSocketResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $WebSocketRsiCopyWith<$Res>? get rsi {
@@ -548,8 +520,6 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
     });
   }
 
-  /// Create a copy of WebSocketResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $High3wCopyWith<$Res>? get high3w {
@@ -562,8 +532,6 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
     });
   }
 
-  /// Create a copy of WebSocketResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $VolumeCopyWith<$Res>? get volume {
@@ -594,7 +562,8 @@ abstract class _$$WebSocketResponseImplCopyWith<$Res>
       WebSocketRsi? rsi,
       double? dominance,
       @JsonKey(name: 'high_3w') High3w? high3w,
-      Volume? volume});
+      Volume? volume,
+      @JsonKey(name: 'eth_btc_ratio') double? ethBtcRatio});
 
   @override
   $Change24hCopyWith<$Res>? get change24h;
@@ -614,8 +583,6 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
       $Res Function(_$WebSocketResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of WebSocketResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -628,6 +595,7 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
     Object? dominance = freezed,
     Object? high3w = freezed,
     Object? volume = freezed,
+    Object? ethBtcRatio = freezed,
   }) {
     return _then(_$WebSocketResponseImpl(
       krw: freezed == krw
@@ -666,6 +634,10 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
           ? _value.volume
           : volume // ignore: cast_nullable_to_non_nullable
               as Volume?,
+      ethBtcRatio: freezed == ethBtcRatio
+          ? _value.ethBtcRatio
+          : ethBtcRatio // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -682,7 +654,8 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
       this.rsi,
       this.dominance,
       @JsonKey(name: 'high_3w') this.high3w,
-      this.volume});
+      this.volume,
+      @JsonKey(name: 'eth_btc_ratio') this.ethBtcRatio});
 
   factory _$WebSocketResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$WebSocketResponseImplFromJson(json);
@@ -708,10 +681,13 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
   final High3w? high3w;
   @override
   final Volume? volume;
+  @override
+  @JsonKey(name: 'eth_btc_ratio')
+  final double? ethBtcRatio;
 
   @override
   String toString() {
-    return 'WebSocketResponse(krw: $krw, usd: $usd, timestamp: $timestamp, kimchiPremium: $kimchiPremium, change24h: $change24h, rsi: $rsi, dominance: $dominance, high3w: $high3w, volume: $volume)';
+    return 'WebSocketResponse(krw: $krw, usd: $usd, timestamp: $timestamp, kimchiPremium: $kimchiPremium, change24h: $change24h, rsi: $rsi, dominance: $dominance, high3w: $high3w, volume: $volume, ethBtcRatio: $ethBtcRatio)';
   }
 
   @override
@@ -731,17 +707,17 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
             (identical(other.dominance, dominance) ||
                 other.dominance == dominance) &&
             (identical(other.high3w, high3w) || other.high3w == high3w) &&
-            (identical(other.volume, volume) || other.volume == volume));
+            (identical(other.volume, volume) || other.volume == volume) &&
+            (identical(other.ethBtcRatio, ethBtcRatio) ||
+                other.ethBtcRatio == ethBtcRatio));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, krw, usd, timestamp,
-      kimchiPremium, change24h, rsi, dominance, high3w, volume);
+      kimchiPremium, change24h, rsi, dominance, high3w, volume, ethBtcRatio);
 
-  /// Create a copy of WebSocketResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$WebSocketResponseImplCopyWith<_$WebSocketResponseImpl> get copyWith =>
@@ -758,15 +734,17 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
 
 abstract class _WebSocketResponse implements WebSocketResponse {
   factory _WebSocketResponse(
-      {final double? krw,
-      final double? usd,
-      final String? timestamp,
-      @JsonKey(name: 'kimchi_premium') final double? kimchiPremium,
-      @JsonKey(name: 'change_24h') final Change24h? change24h,
-      final WebSocketRsi? rsi,
-      final double? dominance,
-      @JsonKey(name: 'high_3w') final High3w? high3w,
-      final Volume? volume}) = _$WebSocketResponseImpl;
+          {final double? krw,
+          final double? usd,
+          final String? timestamp,
+          @JsonKey(name: 'kimchi_premium') final double? kimchiPremium,
+          @JsonKey(name: 'change_24h') final Change24h? change24h,
+          final WebSocketRsi? rsi,
+          final double? dominance,
+          @JsonKey(name: 'high_3w') final High3w? high3w,
+          final Volume? volume,
+          @JsonKey(name: 'eth_btc_ratio') final double? ethBtcRatio}) =
+      _$WebSocketResponseImpl;
 
   factory _WebSocketResponse.fromJson(Map<String, dynamic> json) =
       _$WebSocketResponseImpl.fromJson;
@@ -792,11 +770,11 @@ abstract class _WebSocketResponse implements WebSocketResponse {
   High3w? get high3w;
   @override
   Volume? get volume;
-
-  /// Create a copy of WebSocketResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(name: 'eth_btc_ratio')
+  double? get ethBtcRatio;
+  @override
+  @JsonKey(ignore: true)
   _$$WebSocketResponseImplCopyWith<_$WebSocketResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -814,12 +792,8 @@ mixin _$High3w {
   @JsonKey(name: 'usd_timestamp')
   String? get usdTimestamp => throw _privateConstructorUsedError;
 
-  /// Serializes this High3w to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of High3w
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $High3wCopyWith<High3w> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -845,8 +819,6 @@ class _$High3wCopyWithImpl<$Res, $Val extends High3w>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of High3w
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -898,8 +870,6 @@ class __$$High3wImplCopyWithImpl<$Res>
       _$High3wImpl _value, $Res Function(_$High3wImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of High3w
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -970,14 +940,12 @@ class _$High3wImpl implements _High3w {
                 other.usdTimestamp == usdTimestamp));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, krw, usd, krwTimestamp, usdTimestamp);
 
-  /// Create a copy of High3w
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$High3wImplCopyWith<_$High3wImpl> get copyWith =>
@@ -1011,11 +979,8 @@ abstract class _High3w implements High3w {
   @override
   @JsonKey(name: 'usd_timestamp')
   String? get usdTimestamp;
-
-  /// Create a copy of High3w
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$High3wImplCopyWith<_$High3wImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1037,12 +1002,8 @@ mixin _$Volume {
   @JsonKey(name: '24h')
   double? get hour24 => throw _privateConstructorUsedError;
 
-  /// Serializes this Volume to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of Volume
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $VolumeCopyWith<Volume> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1069,8 +1030,6 @@ class _$VolumeCopyWithImpl<$Res, $Val extends Volume>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Volume
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1128,8 +1087,6 @@ class __$$VolumeImplCopyWithImpl<$Res>
       _$VolumeImpl _value, $Res Function(_$VolumeImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Volume
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1210,14 +1167,12 @@ class _$VolumeImpl implements _Volume {
             (identical(other.hour24, hour24) || other.hour24 == hour24));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, min1, min5, min15, hour1, hour24);
 
-  /// Create a copy of Volume
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$VolumeImplCopyWith<_$VolumeImpl> get copyWith =>
@@ -1256,11 +1211,8 @@ abstract class _Volume implements Volume {
   @override
   @JsonKey(name: '24h')
   double? get hour24;
-
-  /// Create a copy of Volume
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$VolumeImplCopyWith<_$VolumeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

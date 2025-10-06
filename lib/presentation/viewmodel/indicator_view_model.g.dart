@@ -19,8 +19,6 @@ final maCrossProvider = AutoDisposeFutureProvider<MACrossResponse>.internal(
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 typedef MaCrossRef = AutoDisposeFutureProviderRef<MACrossResponse>;
 String _$fearGreedHash() => r'a4ba0e7bcd3df2154ca6d684a5b1ccd4d562df9c';
 
@@ -35,8 +33,6 @@ final fearGreedProvider = AutoDisposeFutureProvider<FearGreedResponse>.internal(
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 typedef FearGreedRef = AutoDisposeFutureProviderRef<FearGreedResponse>;
 String _$indicatorViewModelHash() =>
     r'ea4cb7db65c8659ee8ea7ba00d62c051fe1aceec';
@@ -63,4 +59,4 @@ final indicatorViewModelProvider = AsyncNotifierProvider<
 typedef _$IndicatorViewModel = AsyncNotifier<
     (RsiResponse, DominanceResponse, MvrvResponse, FearGreedResponse?)>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

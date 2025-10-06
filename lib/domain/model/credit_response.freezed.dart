@@ -22,12 +22,8 @@ CreditResponse _$CreditResponseFromJson(Map<String, dynamic> json) {
 mixin _$CreditResponse {
   int get balance => throw _privateConstructorUsedError;
 
-  /// Serializes this CreditResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of CreditResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $CreditResponseCopyWith<CreditResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,8 +47,6 @@ class _$CreditResponseCopyWithImpl<$Res, $Val extends CreditResponse>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of CreditResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,8 +80,6 @@ class __$$CreditResponseImplCopyWithImpl<$Res>
       _$CreditResponseImpl _value, $Res Function(_$CreditResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreditResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -126,13 +118,11 @@ class _$CreditResponseImpl implements _CreditResponse {
             (identical(other.balance, balance) || other.balance == balance));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, balance);
 
-  /// Create a copy of CreditResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$CreditResponseImplCopyWith<_$CreditResponseImpl> get copyWith =>
@@ -155,11 +145,8 @@ abstract class _CreditResponse implements CreditResponse {
 
   @override
   int get balance;
-
-  /// Create a copy of CreditResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$CreditResponseImplCopyWith<_$CreditResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

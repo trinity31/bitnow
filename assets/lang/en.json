@@ -9,6 +9,7 @@
     "three_week_high_krw": "3-Week High (₩)",
     "dominance": "Dominance",
     "mvrv": "MVRV",
+    "eth_btc_ratio": "ETH/BTC Ratio",
     "mvrv_loading_error": "MVRV Loading Error",
     "connection_failed": "Connection failed.\nPlease try again.",
     "notification_settings": "Notification Settings",

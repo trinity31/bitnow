@@ -140,6 +140,26 @@ class _HomePageState extends ConsumerState<HomePage> {
               crossAxisCount: 2,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,
+              childAspectRatio: 3.2,
+            ),
+            childrenDelegate: SliverChildListDelegate([
+              IndicatorDisplay(
+                label: localizations.translate('eth_btc_ratio'),
+                value: data.ethBtcRatio,
+                decimalPlaces: 4,
+                isCompact: true,
+              ),
+            ]),
+          ),
+          const SizedBox(height: 8),
+          GridView.custom(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
               childAspectRatio: 1.8,
             ),
             childrenDelegate: SliverChildListDelegate([
@@ -220,6 +240,26 @@ class _HomePageState extends ConsumerState<HomePage> {
                   decimalPlaces: 2,
                   isCompact: true,
                 ),
+              ),
+            ]),
+          ),
+          const SizedBox(height: 8),
+          GridView.custom(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 3.2,
+            ),
+            childrenDelegate: SliverChildListDelegate([
+              IndicatorDisplay(
+                label: localizations.translate('eth_btc_ratio'),
+                value: data.ethBtcRatio,
+                decimalPlaces: 4,
+                isCompact: true,
               ),
             ]),
           ),

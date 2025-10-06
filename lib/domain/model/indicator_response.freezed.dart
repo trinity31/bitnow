@@ -23,12 +23,8 @@ mixin _$RsiData {
   double? get rsi => throw _privateConstructorUsedError;
   String? get signal => throw _privateConstructorUsedError;
 
-  /// Serializes this RsiData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of RsiData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $RsiDataCopyWith<RsiData> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -50,8 +46,6 @@ class _$RsiDataCopyWithImpl<$Res, $Val extends RsiData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of RsiData
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -89,8 +83,6 @@ class __$$RsiDataImplCopyWithImpl<$Res>
       _$RsiDataImpl _value, $Res Function(_$RsiDataImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of RsiData
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -137,13 +129,11 @@ class _$RsiDataImpl implements _RsiData {
             (identical(other.signal, signal) || other.signal == signal));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, rsi, signal);
 
-  /// Create a copy of RsiData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$RsiDataImplCopyWith<_$RsiDataImpl> get copyWith =>
@@ -166,11 +156,8 @@ abstract class _RsiData implements RsiData {
   double? get rsi;
   @override
   String? get signal;
-
-  /// Create a copy of RsiData
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$RsiDataImplCopyWith<_$RsiDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -190,12 +177,8 @@ mixin _$RsiResponse {
   @JsonKey(name: '1d')
   RsiData? get day1 => throw _privateConstructorUsedError;
 
-  /// Serializes this RsiResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of RsiResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $RsiResponseCopyWith<RsiResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -228,8 +211,6 @@ class _$RsiResponseCopyWithImpl<$Res, $Val extends RsiResponse>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of RsiResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -258,8 +239,6 @@ class _$RsiResponseCopyWithImpl<$Res, $Val extends RsiResponse>
     ) as $Val);
   }
 
-  /// Create a copy of RsiResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RsiDataCopyWith<$Res>? get min15 {
@@ -272,8 +251,6 @@ class _$RsiResponseCopyWithImpl<$Res, $Val extends RsiResponse>
     });
   }
 
-  /// Create a copy of RsiResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RsiDataCopyWith<$Res>? get hour1 {
@@ -286,8 +263,6 @@ class _$RsiResponseCopyWithImpl<$Res, $Val extends RsiResponse>
     });
   }
 
-  /// Create a copy of RsiResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RsiDataCopyWith<$Res>? get hour4 {
@@ -300,8 +275,6 @@ class _$RsiResponseCopyWithImpl<$Res, $Val extends RsiResponse>
     });
   }
 
-  /// Create a copy of RsiResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RsiDataCopyWith<$Res>? get day1 {
@@ -347,8 +320,6 @@ class __$$RsiResponseImplCopyWithImpl<$Res>
       _$RsiResponseImpl _value, $Res Function(_$RsiResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of RsiResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -419,13 +390,11 @@ class _$RsiResponseImpl implements _RsiResponse {
             (identical(other.day1, day1) || other.day1 == day1));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, min15, hour1, hour4, day1);
 
-  /// Create a copy of RsiResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$RsiResponseImplCopyWith<_$RsiResponseImpl> get copyWith =>
@@ -461,11 +430,8 @@ abstract class _RsiResponse implements RsiResponse {
   @override
   @JsonKey(name: '1d')
   RsiData? get day1;
-
-  /// Create a copy of RsiResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$RsiResponseImplCopyWith<_$RsiResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -479,12 +445,8 @@ mixin _$DominanceResponse {
   double? get dominance => throw _privateConstructorUsedError;
   String? get timestamp => throw _privateConstructorUsedError;
 
-  /// Serializes this DominanceResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of DominanceResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $DominanceResponseCopyWith<DominanceResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -508,8 +470,6 @@ class _$DominanceResponseCopyWithImpl<$Res, $Val extends DominanceResponse>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of DominanceResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -548,8 +508,6 @@ class __$$DominanceResponseImplCopyWithImpl<$Res>
       $Res Function(_$DominanceResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of DominanceResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -598,13 +556,11 @@ class _$DominanceResponseImpl implements _DominanceResponse {
                 other.timestamp == timestamp));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, dominance, timestamp);
 
-  /// Create a copy of DominanceResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DominanceResponseImplCopyWith<_$DominanceResponseImpl> get copyWith =>
@@ -631,11 +587,8 @@ abstract class _DominanceResponse implements DominanceResponse {
   double? get dominance;
   @override
   String? get timestamp;
-
-  /// Create a copy of DominanceResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DominanceResponseImplCopyWith<_$DominanceResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -649,12 +602,8 @@ mixin _$MvrvResponse {
   double? get mvrv => throw _privateConstructorUsedError;
   String? get timestamp => throw _privateConstructorUsedError;
 
-  /// Serializes this MvrvResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of MvrvResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $MvrvResponseCopyWith<MvrvResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -678,8 +627,6 @@ class _$MvrvResponseCopyWithImpl<$Res, $Val extends MvrvResponse>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of MvrvResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -718,8 +665,6 @@ class __$$MvrvResponseImplCopyWithImpl<$Res>
       _$MvrvResponseImpl _value, $Res Function(_$MvrvResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MvrvResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -767,13 +712,11 @@ class _$MvrvResponseImpl implements _MvrvResponse {
                 other.timestamp == timestamp));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, mvrv, timestamp);
 
-  /// Create a copy of MvrvResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MvrvResponseImplCopyWith<_$MvrvResponseImpl> get copyWith =>
@@ -798,11 +741,8 @@ abstract class _MvrvResponse implements MvrvResponse {
   double? get mvrv;
   @override
   String? get timestamp;
-
-  /// Create a copy of MvrvResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$MvrvResponseImplCopyWith<_$MvrvResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -824,12 +764,8 @@ mixin _$MAValue {
   @JsonKey(name: 'confirmed_down')
   bool? get confirmedDown => throw _privateConstructorUsedError;
 
-  /// Serializes this MAValue to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of MAValue
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $MAValueCopyWith<MAValue> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -856,8 +792,6 @@ class _$MAValueCopyWithImpl<$Res, $Val extends MAValue>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of MAValue
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -915,8 +849,6 @@ class __$$MAValueImplCopyWithImpl<$Res>
       _$MAValueImpl _value, $Res Function(_$MAValueImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MAValue
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1001,14 +933,12 @@ class _$MAValueImpl implements _MAValue {
                 other.confirmedDown == confirmedDown));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, maValue, thresholdUp,
       thresholdDown, confirmedUp, confirmedDown);
 
-  /// Create a copy of MAValue
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MAValueImplCopyWith<_$MAValueImpl> get copyWith =>
@@ -1048,11 +978,8 @@ abstract class _MAValue implements MAValue {
   @override
   @JsonKey(name: 'confirmed_down')
   bool? get confirmedDown;
-
-  /// Create a copy of MAValue
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$MAValueImplCopyWith<_$MAValueImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1066,12 +993,8 @@ mixin _$MarketDiagnosis {
   String? get trend => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
-  /// Serializes this MarketDiagnosis to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of MarketDiagnosis
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $MarketDiagnosisCopyWith<MarketDiagnosis> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1095,8 +1018,6 @@ class _$MarketDiagnosisCopyWithImpl<$Res, $Val extends MarketDiagnosis>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of MarketDiagnosis
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1135,8 +1056,6 @@ class __$$MarketDiagnosisImplCopyWithImpl<$Res>
       _$MarketDiagnosisImpl _value, $Res Function(_$MarketDiagnosisImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MarketDiagnosis
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1184,13 +1103,11 @@ class _$MarketDiagnosisImpl implements _MarketDiagnosis {
                 other.description == description));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, trend, description);
 
-  /// Create a copy of MarketDiagnosis
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MarketDiagnosisImplCopyWith<_$MarketDiagnosisImpl> get copyWith =>
@@ -1216,11 +1133,8 @@ abstract class _MarketDiagnosis implements MarketDiagnosis {
   String? get trend;
   @override
   String? get description;
-
-  /// Create a copy of MarketDiagnosis
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$MarketDiagnosisImplCopyWith<_$MarketDiagnosisImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1238,12 +1152,8 @@ mixin _$MACrossResponse {
   @JsonKey(name: 'market_diagnosis')
   MarketDiagnosis? get marketDiagnosis => throw _privateConstructorUsedError;
 
-  /// Serializes this MACrossResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of MACrossResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $MACrossResponseCopyWith<MACrossResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1273,8 +1183,6 @@ class _$MACrossResponseCopyWithImpl<$Res, $Val extends MACrossResponse>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of MACrossResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1303,8 +1211,6 @@ class _$MACrossResponseCopyWithImpl<$Res, $Val extends MACrossResponse>
     ) as $Val);
   }
 
-  /// Create a copy of MACrossResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $MarketDiagnosisCopyWith<$Res>? get marketDiagnosis {
@@ -1344,8 +1250,6 @@ class __$$MACrossResponseImplCopyWithImpl<$Res>
       _$MACrossResponseImpl _value, $Res Function(_$MACrossResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MACrossResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1426,14 +1330,12 @@ class _$MACrossResponseImpl implements _MACrossResponse {
                 other.marketDiagnosis == marketDiagnosis));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, price, timestamp,
       const DeepCollectionEquality().hash(_maResults), marketDiagnosis);
 
-  /// Create a copy of MACrossResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MACrossResponseImplCopyWith<_$MACrossResponseImpl> get copyWith =>
@@ -1469,11 +1371,8 @@ abstract class _MACrossResponse implements MACrossResponse {
   @override
   @JsonKey(name: 'market_diagnosis')
   MarketDiagnosis? get marketDiagnosis;
-
-  /// Create a copy of MACrossResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$MACrossResponseImplCopyWith<_$MACrossResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1487,12 +1386,8 @@ mixin _$FearGreedResponse {
   int? get value => throw _privateConstructorUsedError;
   String? get classification => throw _privateConstructorUsedError;
 
-  /// Serializes this FearGreedResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of FearGreedResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $FearGreedResponseCopyWith<FearGreedResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1516,8 +1411,6 @@ class _$FearGreedResponseCopyWithImpl<$Res, $Val extends FearGreedResponse>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of FearGreedResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1556,8 +1449,6 @@ class __$$FearGreedResponseImplCopyWithImpl<$Res>
       $Res Function(_$FearGreedResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of FearGreedResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1605,13 +1496,11 @@ class _$FearGreedResponseImpl implements _FearGreedResponse {
                 other.classification == classification));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, value, classification);
 
-  /// Create a copy of FearGreedResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$FearGreedResponseImplCopyWith<_$FearGreedResponseImpl> get copyWith =>
@@ -1637,11 +1526,8 @@ abstract class _FearGreedResponse implements FearGreedResponse {
   int? get value;
   @override
   String? get classification;
-
-  /// Create a copy of FearGreedResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$FearGreedResponseImplCopyWith<_$FearGreedResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -40,6 +40,7 @@ class WebSocketResponse with _$WebSocketResponse {
     double? dominance,
     @JsonKey(name: 'high_3w') High3w? high3w,
     Volume? volume,
+    @JsonKey(name: 'eth_btc_ratio') double? ethBtcRatio,
   }) = _WebSocketResponse;
 
   static WebSocketResponse _fromJson(Map<String, dynamic> json) {

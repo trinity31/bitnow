@@ -30,12 +30,8 @@ mixin _$PriceResponse {
   double? get kimchiPremium => throw _privateConstructorUsedError;
   int? get timestamp => throw _privateConstructorUsedError;
 
-  /// Serializes this PriceResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of PriceResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $PriceResponseCopyWith<PriceResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -64,8 +60,6 @@ class _$PriceResponseCopyWithImpl<$Res, $Val extends PriceResponse>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of PriceResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -124,8 +118,6 @@ class __$$PriceResponseImplCopyWithImpl<$Res>
       _$PriceResponseImpl _value, $Res Function(_$PriceResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PriceResponse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -208,14 +200,12 @@ class _$PriceResponseImpl implements _PriceResponse {
                 other.timestamp == timestamp));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, btcKrw, btcUsd, percentChange24h, kimchiPremium, timestamp);
 
-  /// Create a copy of PriceResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PriceResponseImplCopyWith<_$PriceResponseImpl> get copyWith =>
@@ -254,11 +244,8 @@ abstract class _PriceResponse implements PriceResponse {
   double? get kimchiPremium;
   @override
   int? get timestamp;
-
-  /// Create a copy of PriceResponse
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PriceResponseImplCopyWith<_$PriceResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

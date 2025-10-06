@@ -9,6 +9,7 @@
     "three_week_high_krw": "3주 최고가 (₩)",
     "dominance": "도미넌스",
     "mvrv": "MVRV",
+    "eth_btc_ratio": "ETH/BTC 비율",
     "mvrv_loading_error": "MVRV 로딩 오류",
     "connection_failed": "연결에 실패했습니다.\n다시 시도해 주세요.",
     "notification_settings": "알림 설정",
