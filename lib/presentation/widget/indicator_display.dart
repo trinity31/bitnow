@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:btc_price_app/core/theme.dart';
 
 class IndicatorDisplay extends StatelessWidget {
   final String label;
@@ -12,6 +13,7 @@ class IndicatorDisplay extends StatelessWidget {
   final String? dateText;
   final bool isCompact;
   final String? tooltipMessage;
+  final Color? valueColor;
 
   const IndicatorDisplay({
     super.key,
@@ -25,6 +27,7 @@ class IndicatorDisplay extends StatelessWidget {
     this.dateText,
     this.isCompact = false,
     this.tooltipMessage,
+    this.valueColor,
   });
 
   @override
@@ -55,12 +58,25 @@ class IndicatorDisplay extends StatelessWidget {
                     final overlay = Overlay.of(context);
                     final renderBox = context.findRenderObject() as RenderBox;
                     final offset = renderBox.localToGlobal(Offset.zero);
+                    final screenWidth = MediaQuery.of(context).size.width;
+
+                    const tooltipWidth = 250.0;
+                    double leftPosition = offset.dx - 100;
+
+                    // 화면 왼쪽 밖으로 나가지 않도록 조정
+                    if (leftPosition < 16) {
+                      leftPosition = 16;
+                    }
+                    // 화면 오른쪽 밖으로 나가지 않도록 조정
+                    if (leftPosition + tooltipWidth > screenWidth - 16) {
+                      leftPosition = screenWidth - tooltipWidth - 16;
+                    }
 
                     late OverlayEntry overlayEntry;
                     overlayEntry = OverlayEntry(
                       builder: (context) => Positioned(
                         top: offset.dy + 20,
-                        left: offset.dx - 100,
+                        left: leftPosition,
                         child: Material(
                           color: Colors.transparent,
                           child: GestureDetector(
@@ -69,13 +85,13 @@ class IndicatorDisplay extends StatelessWidget {
                               width: 250,
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                color: Colors.black87,
+                                color: AppTheme.cardColor,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Stack(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 24),
+                                    padding: const EdgeInsets.only(top: 4, right: 32),
                                     child: Text(
                                       tooltipMessage!,
                                       style: const TextStyle(
@@ -85,19 +101,17 @@ class IndicatorDisplay extends StatelessWidget {
                                     ),
                                   ),
                                   Positioned(
-                                    right: 0,
-                                    top: -4,
-                                    child: IconButton(
-                                      icon: const Icon(
-                                        Icons.close,
-                                        size: 16,
-                                        color: Colors.white,
-                                      ),
-                                      onPressed: () {
+                                    right: 4,
+                                    top: 4,
+                                    child: GestureDetector(
+                                      onTap: () {
                                         overlayEntry.remove();
                                       },
-                                      padding: EdgeInsets.zero,
-                                      constraints: const BoxConstraints(),
+                                      child: const Icon(
+                                        Icons.close,
+                                        size: 18,
+                                        color: Colors.white70,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -135,6 +149,7 @@ class IndicatorDisplay extends StatelessWidget {
             style: TextStyle(
               fontSize: isCompact ? 16 : 18,
               fontWeight: FontWeight.bold,
+              color: valueColor,
             ),
           ),
           if (dateText != null) ...[

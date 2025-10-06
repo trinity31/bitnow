@@ -60,6 +60,27 @@ class _HomePageState extends ConsumerState<HomePage> {
     _bannerAd?.load();
   }
 
+  Color _getNuplColor(double? nupl) {
+    if (nupl == null) return Colors.grey;
+
+    if (nupl < 0) {
+      // 마이너스 = 공포 = 바닥 (파랑, 배경과 대비되도록 밝은 파랑)
+      return Colors.blue.shade300;
+    } else if (nupl < 0.25) {
+      // 0~0.25 = 낙관 = 초반 반등 (연파랑)
+      return Colors.lightBlue.shade200;
+    } else if (nupl < 0.5) {
+      // 0.25~0.5 = 희망 = 상승장 (노랑)
+      return Colors.yellow;
+    } else if (nupl < 0.75) {
+      // 0.5~0.75 = 탐욕 = 과열 (주황)
+      return Colors.orange;
+    } else {
+      // 0.75 이상 = 환희 = 상승장 끝 (빨강)
+      return Colors.red.shade400;
+    }
+  }
+
   Widget _buildPriceSection(
       BuildContext context,
       dynamic data,
@@ -155,6 +176,35 @@ class _HomePageState extends ConsumerState<HomePage> {
                 decimalPlaces: 5,
                 isCompact: true,
                 tooltipMessage: localizations.translate('stablecoin_inflow_ratio_description'),
+              ),
+            ]),
+          ),
+          const SizedBox(height: 8),
+          GridView.custom(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 3.2,
+            ),
+            childrenDelegate: SliverChildListDelegate([
+              IndicatorDisplay(
+                label: localizations.translate('nupl'),
+                value: data.nupl,
+                decimalPlaces: 2,
+                isCompact: true,
+                tooltipMessage: localizations.translate('nupl_description'),
+                valueColor: _getNuplColor(data.nupl),
+              ),
+              IndicatorDisplay(
+                label: localizations.translate('sopr'),
+                value: data.sopr,
+                decimalPlaces: 2,
+                isCompact: true,
+                tooltipMessage: localizations.translate('sopr_description'),
               ),
             ]),
           ),
@@ -274,6 +324,35 @@ class _HomePageState extends ConsumerState<HomePage> {
                 decimalPlaces: 5,
                 isCompact: true,
                 tooltipMessage: localizations.translate('stablecoin_inflow_ratio_description'),
+              ),
+            ]),
+          ),
+          const SizedBox(height: 8),
+          GridView.custom(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 3.2,
+            ),
+            childrenDelegate: SliverChildListDelegate([
+              IndicatorDisplay(
+                label: localizations.translate('nupl'),
+                value: data.nupl,
+                decimalPlaces: 2,
+                isCompact: true,
+                tooltipMessage: localizations.translate('nupl_description'),
+                valueColor: _getNuplColor(data.nupl),
+              ),
+              IndicatorDisplay(
+                label: localizations.translate('sopr'),
+                value: data.sopr,
+                decimalPlaces: 2,
+                isCompact: true,
+                tooltipMessage: localizations.translate('sopr_description'),
               ),
             ]),
           ),
