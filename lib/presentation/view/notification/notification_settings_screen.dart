@@ -28,6 +28,8 @@ class _NotificationSettingsScreenState
   late Currency _currency;
   bool _initialized = false;
   MaInterval? _maInterval;
+  bool _isCreatingAlert = false;
+  final Set<int> _processingAlerts = {};
 
   @override
   void didChangeDependencies() {
@@ -190,7 +192,7 @@ class _NotificationSettingsScreenState
                       child: Column(
                         children: [
                           DropdownButtonFormField<AlertType>(
-                            value: _selectedType,
+                            initialValue: _selectedType,
                             decoration: InputDecoration(
                               labelText: localizations.translate('alert_type'),
                               border: const OutlineInputBorder(),
@@ -222,7 +224,7 @@ class _NotificationSettingsScreenState
                           const SizedBox(height: 16),
                           if (_selectedType == AlertType.rsi)
                             DropdownButtonFormField<RsiInterval>(
-                              value: _interval ?? RsiInterval.min15,
+                              initialValue: _interval ?? RsiInterval.min15,
                               decoration: InputDecoration(
                                 labelText:
                                     localizations.translate('rsi_interval'),
@@ -243,7 +245,7 @@ class _NotificationSettingsScreenState
                             ),
                           if (_selectedType == AlertType.price) ...[
                             DropdownButtonFormField<Currency>(
-                              value: _currency,
+                              initialValue: _currency,
                               decoration: InputDecoration(
                                 labelText: localizations.translate('currency'),
                                 border: const OutlineInputBorder(),
@@ -273,7 +275,7 @@ class _NotificationSettingsScreenState
                           ],
                           if (_selectedType == AlertType.ma) ...[
                             DropdownButtonFormField<MaInterval>(
-                              value: _maInterval ?? MaInterval.ma20,
+                              initialValue: _maInterval ?? MaInterval.ma20,
                               decoration: InputDecoration(
                                 labelText:
                                     localizations.translate('ma_interval'),
@@ -342,8 +344,12 @@ class _NotificationSettingsScreenState
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16),
                               ),
-                              onPressed: () async {
+                              onPressed: _isCreatingAlert ? null : () async {
                                 FocusScope.of(context).unfocus();
+
+                                setState(() {
+                                  _isCreatingAlert = true;
+                                });
 
                                 try {
                                   final threshold =
@@ -391,12 +397,6 @@ class _NotificationSettingsScreenState
                                   ref.invalidate(creditViewModelProvider);
 
                                   if (mounted) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(localizations
-                                            .translate('alert_set')),
-                                      ),
-                                    );
                                     _thresholdController.clear();
                                   }
                                 } catch (e) {
@@ -445,15 +445,30 @@ class _NotificationSettingsScreenState
                                       );
                                     }
                                   }
+                                } finally {
+                                  if (mounted) {
+                                    setState(() {
+                                      _isCreatingAlert = false;
+                                    });
+                                  }
                                 }
                               },
-                              child: Text(
-                                localizations.translate('set_alert'),
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              child: _isCreatingAlert
+                                  ? const SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                      ),
+                                    )
+                                  : Text(
+                                      localizations.translate('set_alert'),
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                             ),
                           ),
                         ],
@@ -575,22 +590,19 @@ class _NotificationSettingsScreenState
                                       vertical: 4,
                                     ),
                                   ),
-                                  onPressed: () async {
+                                  onPressed: _processingAlerts.contains(alert.id)
+                                      ? null
+                                      : () async {
+                                    setState(() {
+                                      _processingAlerts.add(alert.id);
+                                    });
+
                                     try {
                                       await ref
                                           .read(alertViewModelProvider.notifier)
                                           .reactivateAlert(alert.id);
-                                      if (mounted) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                                localizations.translate(
-                                                    'alert_reactivated')),
-                                          ),
-                                        );
-                                      }
                                     } catch (e) {
+                                      // 에러 발생 시에만 토스트 표시
                                       if (mounted) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -601,32 +613,53 @@ class _NotificationSettingsScreenState
                                           ),
                                         );
                                       }
+                                    } finally {
+                                      if (mounted) {
+                                        setState(() {
+                                          _processingAlerts.remove(alert.id);
+                                        });
+                                      }
                                     }
                                   },
-                                  child: Text(
-                                    localizations.translate('reactivate'),
-                                  ),
+                                  child: _processingAlerts.contains(alert.id)
+                                      ? const SizedBox(
+                                          height: 16,
+                                          width: 16,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+                                          ),
+                                        )
+                                      : Text(
+                                          localizations.translate('reactivate'),
+                                        ),
                                 ),
                               ],
                               const SizedBox(width: 8),
                               IconButton(
-                                icon: const Icon(Icons.delete,
-                                    color: Colors.grey),
-                                onPressed: () async {
+                                icon: _processingAlerts.contains(alert.id)
+                                    ? const SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                          valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+                                        ),
+                                      )
+                                    : const Icon(Icons.delete, color: Colors.grey),
+                                onPressed: _processingAlerts.contains(alert.id)
+                                    ? null
+                                    : () async {
+                                  setState(() {
+                                    _processingAlerts.add(alert.id);
+                                  });
+
                                   try {
                                     await ref
                                         .read(alertViewModelProvider.notifier)
                                         .deleteAlert(alert.id);
-                                    if (mounted) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(localizations
-                                              .translate('alert_deleted')),
-                                        ),
-                                      );
-                                    }
                                   } catch (e) {
+                                    // 에러 발생 시에만 토스트 표시
                                     if (mounted) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -636,6 +669,12 @@ class _NotificationSettingsScreenState
                                               .replaceAll('Exception: ', '')),
                                         ),
                                       );
+                                    }
+                                  } finally {
+                                    if (mounted) {
+                                      setState(() {
+                                        _processingAlerts.remove(alert.id);
+                                      });
                                     }
                                   }
                                 },
