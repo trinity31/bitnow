@@ -7,7 +7,7 @@
     "binance": "Binance",
     "three_week_high_usd": "3-Week High ($)",
     "three_week_high_krw": "3-Week High (₩)",
-    "dominance": "Dominance",
+    "dominance": "BTC Dominance",
     "mvrv": "MVRV Z-Score",
     "eth_btc_ratio": "ETH/BTC Ratio",
     "stablecoin_inflow_ratio": "Stablecoin Inflow Ratio",

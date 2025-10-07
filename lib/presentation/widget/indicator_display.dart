@@ -91,7 +91,8 @@ class IndicatorDisplay extends StatelessWidget {
                               child: Stack(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 4, right: 32),
+                                    padding: const EdgeInsets.only(
+                                        top: 4, right: 32),
                                     child: Text(
                                       tooltipMessage!,
                                       style: const TextStyle(
@@ -132,7 +133,7 @@ class IndicatorDisplay extends StatelessWidget {
                   },
                   child: Icon(
                     Icons.info_outline,
-                    size: isCompact ? 14 : 16,
+                    size: isCompact ? 16 : 18,
                     color: Colors.grey,
                   ),
                 ),
