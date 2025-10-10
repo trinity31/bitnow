@@ -397,8 +397,7 @@ mixin _$WebSocketResponse {
   Volume? get volume => throw _privateConstructorUsedError;
   @JsonKey(name: 'eth_btc_ratio')
   double? get ethBtcRatio => throw _privateConstructorUsedError;
-  @JsonKey(name: 'stablecoin_inflow_ratio')
-  double? get stablecoinInflowRatio => throw _privateConstructorUsedError;
+  double? get asol => throw _privateConstructorUsedError;
   double? get nupl => throw _privateConstructorUsedError;
   @JsonKey(name: 'spor')
   double? get sopr => throw _privateConstructorUsedError;
@@ -426,7 +425,7 @@ abstract class $WebSocketResponseCopyWith<$Res> {
       @JsonKey(name: 'high_3w') High3w? high3w,
       Volume? volume,
       @JsonKey(name: 'eth_btc_ratio') double? ethBtcRatio,
-      @JsonKey(name: 'stablecoin_inflow_ratio') double? stablecoinInflowRatio,
+      double? asol,
       double? nupl,
       @JsonKey(name: 'spor') double? sopr});
 
@@ -459,7 +458,7 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
     Object? high3w = freezed,
     Object? volume = freezed,
     Object? ethBtcRatio = freezed,
-    Object? stablecoinInflowRatio = freezed,
+    Object? asol = freezed,
     Object? nupl = freezed,
     Object? sopr = freezed,
   }) {
@@ -504,9 +503,9 @@ class _$WebSocketResponseCopyWithImpl<$Res, $Val extends WebSocketResponse>
           ? _value.ethBtcRatio
           : ethBtcRatio // ignore: cast_nullable_to_non_nullable
               as double?,
-      stablecoinInflowRatio: freezed == stablecoinInflowRatio
-          ? _value.stablecoinInflowRatio
-          : stablecoinInflowRatio // ignore: cast_nullable_to_non_nullable
+      asol: freezed == asol
+          ? _value.asol
+          : asol // ignore: cast_nullable_to_non_nullable
               as double?,
       nupl: freezed == nupl
           ? _value.nupl
@@ -587,7 +586,7 @@ abstract class _$$WebSocketResponseImplCopyWith<$Res>
       @JsonKey(name: 'high_3w') High3w? high3w,
       Volume? volume,
       @JsonKey(name: 'eth_btc_ratio') double? ethBtcRatio,
-      @JsonKey(name: 'stablecoin_inflow_ratio') double? stablecoinInflowRatio,
+      double? asol,
       double? nupl,
       @JsonKey(name: 'spor') double? sopr});
 
@@ -622,7 +621,7 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
     Object? high3w = freezed,
     Object? volume = freezed,
     Object? ethBtcRatio = freezed,
-    Object? stablecoinInflowRatio = freezed,
+    Object? asol = freezed,
     Object? nupl = freezed,
     Object? sopr = freezed,
   }) {
@@ -667,9 +666,9 @@ class __$$WebSocketResponseImplCopyWithImpl<$Res>
           ? _value.ethBtcRatio
           : ethBtcRatio // ignore: cast_nullable_to_non_nullable
               as double?,
-      stablecoinInflowRatio: freezed == stablecoinInflowRatio
-          ? _value.stablecoinInflowRatio
-          : stablecoinInflowRatio // ignore: cast_nullable_to_non_nullable
+      asol: freezed == asol
+          ? _value.asol
+          : asol // ignore: cast_nullable_to_non_nullable
               as double?,
       nupl: freezed == nupl
           ? _value.nupl
@@ -697,7 +696,7 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
       @JsonKey(name: 'high_3w') this.high3w,
       this.volume,
       @JsonKey(name: 'eth_btc_ratio') this.ethBtcRatio,
-      @JsonKey(name: 'stablecoin_inflow_ratio') this.stablecoinInflowRatio,
+      this.asol,
       this.nupl,
       @JsonKey(name: 'spor') this.sopr});
 
@@ -729,8 +728,7 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
   @JsonKey(name: 'eth_btc_ratio')
   final double? ethBtcRatio;
   @override
-  @JsonKey(name: 'stablecoin_inflow_ratio')
-  final double? stablecoinInflowRatio;
+  final double? asol;
   @override
   final double? nupl;
   @override
@@ -739,7 +737,7 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
 
   @override
   String toString() {
-    return 'WebSocketResponse(krw: $krw, usd: $usd, timestamp: $timestamp, kimchiPremium: $kimchiPremium, change24h: $change24h, rsi: $rsi, dominance: $dominance, high3w: $high3w, volume: $volume, ethBtcRatio: $ethBtcRatio, stablecoinInflowRatio: $stablecoinInflowRatio, nupl: $nupl, sopr: $sopr)';
+    return 'WebSocketResponse(krw: $krw, usd: $usd, timestamp: $timestamp, kimchiPremium: $kimchiPremium, change24h: $change24h, rsi: $rsi, dominance: $dominance, high3w: $high3w, volume: $volume, ethBtcRatio: $ethBtcRatio, asol: $asol, nupl: $nupl, sopr: $sopr)';
   }
 
   @override
@@ -762,8 +760,7 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
             (identical(other.volume, volume) || other.volume == volume) &&
             (identical(other.ethBtcRatio, ethBtcRatio) ||
                 other.ethBtcRatio == ethBtcRatio) &&
-            (identical(other.stablecoinInflowRatio, stablecoinInflowRatio) ||
-                other.stablecoinInflowRatio == stablecoinInflowRatio) &&
+            (identical(other.asol, asol) || other.asol == asol) &&
             (identical(other.nupl, nupl) || other.nupl == nupl) &&
             (identical(other.sopr, sopr) || other.sopr == sopr));
   }
@@ -782,7 +779,7 @@ class _$WebSocketResponseImpl implements _WebSocketResponse {
       high3w,
       volume,
       ethBtcRatio,
-      stablecoinInflowRatio,
+      asol,
       nupl,
       sopr);
 
@@ -813,8 +810,7 @@ abstract class _WebSocketResponse implements WebSocketResponse {
       @JsonKey(name: 'high_3w') final High3w? high3w,
       final Volume? volume,
       @JsonKey(name: 'eth_btc_ratio') final double? ethBtcRatio,
-      @JsonKey(name: 'stablecoin_inflow_ratio')
-      final double? stablecoinInflowRatio,
+      final double? asol,
       final double? nupl,
       @JsonKey(name: 'spor') final double? sopr}) = _$WebSocketResponseImpl;
 
@@ -846,8 +842,7 @@ abstract class _WebSocketResponse implements WebSocketResponse {
   @JsonKey(name: 'eth_btc_ratio')
   double? get ethBtcRatio;
   @override
-  @JsonKey(name: 'stablecoin_inflow_ratio')
-  double? get stablecoinInflowRatio;
+  double? get asol;
   @override
   double? get nupl;
   @override

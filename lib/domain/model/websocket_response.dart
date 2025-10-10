@@ -41,7 +41,7 @@ class WebSocketResponse with _$WebSocketResponse {
     @JsonKey(name: 'high_3w') High3w? high3w,
     Volume? volume,
     @JsonKey(name: 'eth_btc_ratio') double? ethBtcRatio,
-    @JsonKey(name: 'stablecoin_inflow_ratio') double? stablecoinInflowRatio,
+    double? asol,
     double? nupl,
     @JsonKey(name: 'spor') double? sopr,
   }) = _WebSocketResponse;
